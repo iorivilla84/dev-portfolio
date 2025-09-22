@@ -1,0 +1,67 @@
+{
+    "portfolio": [
+        {
+            "id_number": 1,
+            "type": "Web Development",
+            "imgPath": "./assets/images/portfolio/web-development/project1.jpg",
+            "name": "Movie Finder APP",
+            "languages": ["HTML5", "CSS nesting", "Bootstrap 5", "Font Awesome", "JavaScript (ES6)", "Fetch API", "Node.js + Vite",  "GitHub", "Netlify"],
+            "code_link": "https://github.com/iorivilla84/movie-finder-app",
+            "application_link": "https://movie-finder-app-dv.netlify.app/"
+        },
+        {
+            "id_number": 2,
+            "type": "Web Development",
+            "imgPath": "./assets/images/portfolio/web-development/project1.jpg",
+            "name": "Browser Extension Manager",
+            "languages": ["HTML5", "CSS nesting", "Bootstrap 5", "JavaScript (ES6)", "GitHub", "Netlify"],
+            "code_link": "https://github.com/iorivilla84/browser-extensions-manager",
+            "application_link": "https://browsers-extensions-manager.netlify.app"
+        },
+        {
+            "id_number": 3,
+            "type": "Web Development",
+            "imgPath": "./assets/images/portfolio/web-development/project1.jpg",
+            "name": "Article Preview Component",
+            "languages": ["HTML5", "CSS nesting", "Bootstrap 5", "JavaScript (ES6)", "GitHub", "Netlify"],
+            "code_link": "https://github.com/iorivilla84/article-preview-component",
+            "application_link": "https://articles-preview-component.netlify.app/"
+        },
+        {
+            "id_number": 4,
+            "type": "Web Development",
+            "imgPath": "./assets/images/portfolio/web-development/project1.jpg",
+            "name": "ShopiWife",
+            "languages": ["HTML5", "CSS", "Bootstrap 5", "Font Awesome", "JavaScript (ES6)", "GitHub", "Netlify"],
+            "code_link": "https://github.com/iorivilla84/article-preview-component",
+            "application_link": "https://articles-preview-component.netlify.app/"
+        },
+        {
+            "id_number": 5,
+            "type": ["Web Development", "Web & Graphic Design"],
+            "imgPath": "./assets/images/portfolio/web-development/project1.jpg",
+            "name": "Eonia / Farcom Australia",
+            "languages": ["WordPress", "CSS nesting", "JavaScript"],
+            "code_link": "",
+            "application_link": "",
+            "site_link": "https://eonia.com.au/",
+            "prototype_link": "https://eonia.com.au/"
+        },
+        {
+            "id_number": 6,
+            "type": "Web Development",
+            "imgPath": "./assets/images/portfolio/web-development/project1.jpg",
+            "name": "Acai Brazil",
+            "languages": ["WordPress", "CSS", "JavaScript"],
+            "code_link": "",
+            "application_link": "",
+            "site_link": "",
+            "prototype_link": ""
+        }
+    ],
+    "project_filters": [
+        "All",
+        "Web Development",
+        "Web & Graphic Design"
+    ]
+}

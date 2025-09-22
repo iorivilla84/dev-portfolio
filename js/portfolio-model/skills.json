@@ -1,0 +1,112 @@
+[
+    {
+      "name": "Frontend Development",
+      "items": [
+        "HTML5",
+        "CSS3",
+        "SCSS",
+        "BEM methodology",
+        "Bootstrap 4, 5",
+        "Materialize",
+        "JavaScript (ES6+)",
+        "jQuery",
+        "Responsive Web Design (RWD)",
+        "Semantic Markup",
+        "Clean Code Principles"
+      ]
+    },
+    {
+      "name": "Frameworks and Libraries",
+      "items": [
+        "Salesforce Commerce Cloud (SFCC / B2C Commerce)",
+        "Salesforce Reference Architecture (SFRA)",
+        "Page Designer",
+        "Demandware Script",
+        "Node.js",
+        "npm",
+        "swb",
+        "Webpack",
+        "Babel"
+      ]
+    },
+    {
+      "name": "CMS and eCommerce",
+      "items": [
+        "WordPress",
+        "eCommerce platforms",
+        "WooCommerce",
+        "Stripe payment gateway integration"
+      ]
+    },
+    {
+      "name": "APIs and Data Formats",
+      "items": [
+        "RESTful APIs",
+        "JSON"
+      ]
+    },
+    {
+      "name": "Version Control and Collaboration",
+      "items": [
+        "Git",
+        "SourceTree",
+        "Jira",
+        "Confluence"
+      ]
+    },
+    {
+      "name": "SEO and Marketing",
+      "items": [
+        "Advertising Assets Development",
+        "Branding & Product Packaging",
+        "Animation 2D",
+        "Digital Campaign ",
+        "SEO Content Strategy",
+        "SEO Campaign Development",
+        "Google Analytics",
+        "Google Tag Manager"
+      ]
+    },
+    {
+      "name": "Testing and Optimization",
+      "items": [
+        "Performance tuning",
+        "Cross-browser compatibility",
+        "Accessibility (WCAG 2.0) compliance",
+        "Automated linting and build workflows"
+      ]
+    },
+    {
+      "name": "Design and UX Tools",
+      "items": [
+        "Adobe Creative Suite",
+        "UX Design Principles",
+        "Figma",
+        "Wireframing",
+        "Prototyping",
+        "Cross-functional Collaboration"
+      ]
+    },
+    {
+      "name": "Design and Production",
+      "items": [
+        "Pre-press & Print-ready Artwork Preparation",
+        "Corporate Imagery Development",
+        "Image Retouching & Optimization",
+        "Multimedia & Animation Design"
+      ]
+    },
+    {
+      "name": "Soft Skills",
+      "items": [
+        "Agile Collaboration",
+        "Fast Learner",
+        "Problem-Solving",
+        "Clear Verbal Communication",
+        "Interpersonal Skills",
+        "Cross-Functional Teamwork",
+        "Attention to Detail",
+        "Adaptability"
+      ]
+    }
+]

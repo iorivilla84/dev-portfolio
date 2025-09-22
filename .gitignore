@@ -1,0 +1,12 @@
+# Sass build artifacts
+*.css
+*.css.map
+
+# Node modules
+node_modules/
+
+# Mac system files
+.DS_Store
+
+.vscode/
+npm-debug.log*

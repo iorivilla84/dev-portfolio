@@ -1,0 +1,374 @@
+::before, ::after {
+    font-family: 'FontAwesome';
+}
+
+.dark-theme {
+    background-color: $dark-background;
+    color: white;
+}
+
+img{
+    width: 100%;
+}
+
+.title-with-line {
+    &::after {
+        border-bottom: 3px solid $dark-cyan;
+        content: '';
+        display: block;
+        margin: 10px auto 0;
+        width: 60px;
+    }
+}
+
+.responsive-content {
+    text-align: center;
+}
+
+.skills-list {
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+    padding-left: 0;
+}
+
+.skill-item {
+    margin-bottom: 12px;
+    margin-right: 10px;
+    padding: 5px 8px;
+}
+
+.code-style {
+    background-color: $code-grey;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+/* Hero Banner */
+.hero-banner {
+    background: url(../assets/images/diego-velasquez-hero-banner.jpg) center center;
+    background-color: #b3b3b3;
+    background-position: 50%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 44vw;
+    min-height: 800px;
+    position: relative;
+
+    &::after {
+        background: rgba(0, 0, 0, .8);
+        content: '';
+        height: 100%;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        z-index: 0;
+    }
+
+    .hero-image {
+        display: flex;
+        justify-content: center;
+    }
+
+    .hero-image-container {
+        width: 80%;
+    }
+
+    .hero-text-wrapper {
+        align-content: end;
+        z-index: 999;
+    }
+
+    .hero-banner .hero-title {
+        font-size: 8vw;
+        font-weight: 700;
+    }
+
+    .hero-banner .hero-subtitle {
+        font-weight: 500;
+    }
+}
+
+/* Scroll to each section */
+main section {
+    scroll-margin-top: 100px;
+}
+
+/* About Me -- Skills */
+.about-me-list-wrapper,
+.get-to-know-me-wrapper {
+    margin-bottom: 30px;
+}
+
+.about-me-item {
+    margin-bottom: 10px;
+    text-align: left;
+}
+
+.my-skills-wrapper {
+    .skill-accordion {
+        border-bottom: 1px solid $border-dark-color;
+
+        &:last-child {
+            border-bottom: 0;
+        }
+
+        &__heading {
+            margin-bottom: 0;
+        }
+
+        &__link {
+            padding-left: 0;
+            padding-right: 0;
+        }
+    }
+}
+
+/* Projects section */
+.projects-wrapper {
+    background-color: $projects-bg-color;
+}
+
+.project-filter-wrapper {
+    align-items: center;
+}
+
+// Filtering btns
+.project-list-filter {
+    list-style: none;
+    margin-bottom: 0;
+    overflow: scroll;
+    padding: 10px 0;
+}
+
+.btn-filter {
+    position: relative;
+    text-align: left;
+    width: max-content;
+
+    .cards-count {
+        background-color: $orange;
+        border-radius: 50%;
+        color: white;
+        font-size: 9px;
+        height: 15px;
+        position: absolute;
+        text-align: center;
+        top: -5px;
+        right: -5px;
+        width: 15px;
+    }
+}
+// End Filtering btns
+
+.project-skills-wrapper {
+    .skill-item {
+        font-size: 12px;
+        margin-right: 4px;
+        padding: 5px 8px;
+    }
+
+    + .buttons-wrapper {
+        border-top: 1px solid $border-dark-color;
+    }
+}
+
+.projects-list-container {
+    .col {
+        margin-top: 0;
+    }
+
+    .card {
+        margin-top: var(--bs-gutter-y);
+
+        .card-body {
+            display: flex;
+            flex-flow: column;
+        }
+
+        &:has(.buttons-wrapper) {
+            .card-body {
+                justify-content: space-between;
+            }
+        }
+
+        opacity: 1;
+        transform: scale(1);
+        pointer-events: auto;
+        transition: opacity 0.3s ease, transform 0.3s ease;
+
+        /* Hidden when filtered out */
+        &.hide {
+            opacity: 0;
+            transform: scale(0.9);
+            pointer-events: none;
+        }
+    }
+}
+
+.card-image-wrapper {
+    overflow: hidden;
+}
+
+.card-project-image {
+    transition: transform .3s ease-in-out;
+
+    &:hover {
+        transform: scale(1.03);
+    }
+}
+
+/* Experience section */
+.experience-info-accordion {
+    border-bottom: 1px solid $dark-cyan-hover;
+
+    &__heading {
+        align-items: center;
+        background-color: $dark-cyan;
+        display: flex;
+        margin-bottom: 0;
+    }
+
+    &__position {
+        margin-bottom: 10px;
+        width: 95%;
+    }
+
+    &__link {
+        display: flex;
+        font-weight: 400;
+        justify-content: space-between;
+        margin-bottom: 0;
+    }
+
+    &__period {
+        font-size: 14px;
+        margin-right: 25px;
+    }
+
+    &__body {
+        background-color: $accordion-body-bg;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height .3s ease-out;
+    }
+
+    &__company-logo  {
+        width: 180px;
+    }
+
+    &__location {
+        margin-bottom: 10px;
+
+        .location-item {
+            margin-right: 15px;
+            margin-bottom: 12px;
+        }
+
+        .city,
+        .compnay-link {
+            display: flex;
+        }
+
+        .city {
+            &::before {
+                content: "\f3c5";
+                color: $dark-cyan;
+                margin-right: 8px;
+            }
+        }
+
+        .company-link {
+            &::before {
+                content: "\f35d";
+                color: $dark-cyan;
+                margin-right: 8px;
+            }
+        }
+    }
+
+    &__content {
+        padding: 20px;
+    }
+
+    &__text-wrapper {
+        .stack-list {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+
+            &__item {
+                background: $dark-cyan;
+                padding: 5px;
+                font-size: 12px;
+                margin-bottom: 8px;
+                margin-right: 8px;
+                padding: 5px 8px;
+            }
+        }
+    }
+}
+
+/* Media queries */
+@media screen and (min-width: 576px) {
+    .hero-banner {
+        .hero-text-wrapper {
+            align-content: center;
+        }
+
+        .hero-banner {
+            min-height: 580px;
+        }
+
+        .hero-image-container {
+            width: 100%;
+        }
+    }
+
+    .get-to-know-me-wrapper,
+    .my-skills-wrapper {
+        padding-left: 3rem;
+        padding-right: 3rem;
+    }
+
+    .responsive-content {
+        text-align: left;
+    }
+
+    .project-list-filter {
+        overflow: unset;
+        padding: 0;
+    }
+
+    .experience-info-accordion {
+        &__company-logo {
+            align-self: center;
+            width: 40%;
+        }
+    }
+}
+
+@media screen and (min-width: 992px) {
+    .experience-info-accordion {
+        &__position {
+            margin-bottom: 0;
+            width: fit-content;
+        }
+
+        &__company-logo {
+            margin: 0 auto;
+            width: 80%;
+        }
+    }
+}
+
+@media screen and (min-width: 1400px) {
+    .experience-info-accordion {
+        &__company-logo {
+            width: 60%;
+        }
+    }
+}

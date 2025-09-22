@@ -1,0 +1,25 @@
+footer {
+    background-color: $dark-cyan;
+
+    .footer-logo {
+        margin-bottom: 20px;
+        width: 150px;
+    }
+
+    .footer-socials-wrapper {
+        padding-left: 0;
+        list-style: none;
+    }
+
+    .footer-item {
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+        font-size: 24px;
+    }
+
+    .footer-link {
+        &:hover {
+            color: $footer-social-bg-hover;
+        }
+    }
+}
