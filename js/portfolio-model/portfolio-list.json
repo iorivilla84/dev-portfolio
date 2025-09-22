@@ -3,65 +3,128 @@
         {
             "id_number": 1,
             "type": "Web Development",
-            "imgPath": "./assets/images/portfolio/web-development/project1.jpg",
-            "name": "Movie Finder APP",
-            "languages": ["HTML5", "CSS nesting", "Bootstrap 5", "Font Awesome", "JavaScript (ES6)", "Fetch API", "Node.js + Vite",  "GitHub", "Netlify"],
+            "imgPath": "./assets/images/portfolio/web-development/movie-finder-app.jpg",
+            "name": "Movie Finder App (RESTful API integration)",
+            "stack": ["HTML5", "CSS nesting", "Bootstrap 5", "Font Awesome", "JavaScript (ES6)", "RESTful API", "Fetch API", "Node.js + Vite", "Git", "GitHub", "Netlify"],
             "code_link": "https://github.com/iorivilla84/movie-finder-app",
-            "application_link": "https://movie-finder-app-dv.netlify.app/"
+            "application_link": "https://movie-finder-app-dv.netlify.app/",
+            "site_link": "",
+            "prototype_link": ""
         },
         {
             "id_number": 2,
             "type": "Web Development",
-            "imgPath": "./assets/images/portfolio/web-development/project1.jpg",
+            "imgPath": "./assets/images/portfolio/web-development/browser-extension-manager.jpg",
             "name": "Browser Extension Manager",
-            "languages": ["HTML5", "CSS nesting", "Bootstrap 5", "JavaScript (ES6)", "GitHub", "Netlify"],
+            "stack": ["HTML5", "CSS nesting", "Bootstrap 5", "JavaScript (ES6)", "JSON", "Git", "GitHub", "Netlify"],
             "code_link": "https://github.com/iorivilla84/browser-extensions-manager",
-            "application_link": "https://browsers-extensions-manager.netlify.app"
+            "application_link": "https://browsers-extensions-manager.netlify.app",
+            "site_link": "",
+            "prototype_link": ""
         },
         {
             "id_number": 3,
             "type": "Web Development",
-            "imgPath": "./assets/images/portfolio/web-development/project1.jpg",
+            "imgPath": "./assets/images/portfolio/web-development/article-preview-component.jpg",
             "name": "Article Preview Component",
-            "languages": ["HTML5", "CSS nesting", "Bootstrap 5", "JavaScript (ES6)", "GitHub", "Netlify"],
+            "stack": ["HTML5", "CSS nesting", "Bootstrap 5", "JavaScript (ES6)", "Git", "GitHub", "Netlify"],
             "code_link": "https://github.com/iorivilla84/article-preview-component",
-            "application_link": "https://articles-preview-component.netlify.app/"
+            "application_link": "https://articles-preview-component.netlify.app/",
+            "site_link": "",
+            "prototype_link": ""
         },
         {
             "id_number": 4,
             "type": "Web Development",
-            "imgPath": "./assets/images/portfolio/web-development/project1.jpg",
+            "imgPath": "./assets/images/portfolio/web-development/shopiwife.jpg",
             "name": "ShopiWife",
-            "languages": ["HTML5", "CSS", "Bootstrap 5", "Font Awesome", "JavaScript (ES6)", "GitHub", "Netlify"],
-            "code_link": "https://github.com/iorivilla84/article-preview-component",
-            "application_link": "https://articles-preview-component.netlify.app/"
+            "stack": ["HTML5", "CSS", "Bootstrap 5", "Font Awesome", "JavaScript (ES6)", "Git", "GitHub", "Netlify"],
+            "code_link": "https://github.com/iorivilla84/shopiwife",
+            "application_link": "https://shopiwife.netlify.app/",
+            "site_link": "",
+            "prototype_link": ""
         },
         {
             "id_number": 5,
-            "type": ["Web Development", "Web & Graphic Design"],
-            "imgPath": "./assets/images/portfolio/web-development/project1.jpg",
-            "name": "Eonia / Farcom Australia",
-            "languages": ["WordPress", "CSS nesting", "JavaScript"],
-            "code_link": "",
-            "application_link": "",
-            "site_link": "https://eonia.com.au/",
-            "prototype_link": "https://eonia.com.au/"
+            "type": "Web Development",
+            "imgPath": "./assets/images/portfolio/web-development/dv-dev-portfolio.jpg",
+            "name": "One-Page Dev Portfolio",
+            "stack": ["HTML5", "SCSS", "Bootstrap 5", "Font Awesome", "JavaScript (ES6)", "JSON", "Git", "GitHub", "Netlify"],
+            "code_link": "https://github.com/iorivilla84/dev-portfolio",
+            "application_link": "https://diegovelasquez-dev-portfolio.netlify.app/",
+            "site_link": "",
+            "prototype_link": ""
         },
         {
             "id_number": 6,
+            "type": ["Web Development", "Digital & Graphic Design"],
+            "imgPath": "./assets/images/portfolio/web-development/farcom-by-eonia.jpg",
+            "name": "Eonia / Farcom Australia",
+            "stack": ["WordPress", "WooCommerce", "SEO", "Google Analytics", "Stripe/PayPal", "CSS nesting", "JavaScript", "Avada Builder", "cPanel", "Installatron", "Email Setup", "Adobe XD", "Prototyping", "Adobe Illustrator", "Adobe Photoshop"],
+            "code_link": "",
+            "application_link": "",
+            "site_link": "https://eonia.com.au/",
+            "prototype_link": "https://xd.adobe.com/view/ea8dcbb6-e536-481f-a4ea-a0faf41271d4-bfde/"
+        },
+        {
+            "id_number": 7,
+            "type": ["Web Development", "Digital & Graphic Design"],
+            "imgPath": "./assets/images/portfolio/web-development/empanadas-factory.jpg",
+            "name": "Empanadas Factory",
+            "stack": ["WordPress", "WooCommerce", "CSS nesting", "JavaScript", "Elementor", "cPanel", "Email Setup", "Adobe XD", "Prototyping", "Adobe Illustrator", "Adobe Photoshop"],
+            "code_link": "",
+            "application_link": "",
+            "site_link": "https://empanadasf.com/",
+            "prototype_link": "https://xd.adobe.com/view/b4f7b729-e86e-423d-962f-31510422ac97-e1a4/"
+        },
+        {
+            "id_number": 8,
+            "type": ["Web Development", "Digital & Graphic Design"],
+            "imgPath": "./assets/images/portfolio/web-development/jerrys-honey.jpg",
+            "name": "Jerry's Honey",
+            "stack": ["WordPress", "WooCommerce", "CSS nesting", "Elementor", "Stripe/PayPal", "cPanel", "Email Setup", "Adobe XD", "Prototyping", "Adobe Illustrator", "Adobe Photoshop"],
+            "code_link": "",
+            "application_link": "",
+            "site_link": "https://jerryshoney.com.au/",
+            "prototype_link": "https://xd.adobe.com/view/dab71ac7-4db2-4595-b2c9-47041ae99e60-8fe4/"
+        },
+        {
+            "id_number": 9,
             "type": "Web Development",
-            "imgPath": "./assets/images/portfolio/web-development/project1.jpg",
-            "name": "Acai Brazil",
-            "languages": ["WordPress", "CSS", "JavaScript"],
+            "imgPath": "./assets/images/portfolio/web-development/ready-plumbing.jpg",
+            "name": "Ready Plumbing",
+            "stack": ["WordPress", "CSS nesting", "Elementor", "SEO", "Google Analytics", "Google Tag Manager"],
+            "code_link": "",
+            "application_link": "",
+            "site_link": "https://readyplumbing.com.au/",
+            "prototype_link": ""
+        },
+        {
+            "id_number": 10,
+            "type": "Digital & Graphic Design",
+            "imgPath": "./assets/images/portfolio/web-graphic-design/auto-alchemist-prototyping.jpg",
+            "name": "Auto Alchemist Prototype",
+            "stack": ["Adobe XD", "Prototyping", "Adobe Illustrator", "Adobe Photoshop"],
             "code_link": "",
             "application_link": "",
             "site_link": "",
-            "prototype_link": ""
+            "prototype_link": "https://xd.adobe.com/view/aa48338a-b73a-462f-b2e0-2485ca74932f-ff1b/"
+        },
+        {
+            "id_number": 11,
+            "type": "Digital & Graphic Design",
+            "imgPath": "./assets/images/portfolio/web-graphic-design/nano-stones-prototyping.jpg",
+            "name": "Nano Stones Prototype",
+            "stack": ["Adobe XD", "Prototyping", "Adobe Illustrator", "Adobe Photoshop"],
+            "code_link": "",
+            "application_link": "",
+            "site_link": "",
+            "prototype_link": "https://xd.adobe.com/view/775e7765-6ef0-4dac-b2d4-66560508f523-220d/"
         }
     ],
     "project_filters": [
         "All",
         "Web Development",
-        "Web & Graphic Design"
+        "Digital & Graphic Design"
     ]
 }

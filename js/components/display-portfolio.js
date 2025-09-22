@@ -1,5 +1,6 @@
 import { getElement } from "../helpers/dom-helper.js";
 import { getPortfolioListModel } from "../controllers/portfolio-list-model.js";
+import { filteredProjectsEventHandler } from "../controllers/filtering-projects-event-handler.js";
 
 const displayPortfolioGrid = {
     /**
@@ -18,7 +19,7 @@ const displayPortfolioGrid = {
      * @returns {void}
      */
     portfolioCardTemplate: (project, gridContainer) => {
-        const projectLanguagesList = project.languages
+        const projectLanguagesList = project.stack
             .map(language => `
                 <span class="code-style skill-item d-inline-block">${language}</span>
             `).join(' ');
@@ -33,7 +34,7 @@ const displayPortfolioGrid = {
                         <h5 class="card-title fw-bold fs-3">${project.name}</h5>
                         <div class="card-text project-skills-wrapper mb-1">${projectLanguagesList}</div>
 
-                        ${project.code_link || project.application_link || project.site_link 
+                        ${project.code_link || project.application_link || project.site_link || project.prototype_link
                             ? `
                                 <div class="buttons-wrapper pt-3">
                                     ${project.code_link ? `<a href="${project.code_link}" class="btn btn-primary" target="_blank">View Code</a>` : ''}
@@ -93,38 +94,12 @@ const displayPortfolioGrid = {
      * Filtering portfolio projects based on type of project
      * @param {HTMLElement} filterBtn - The button element that triggers filtering.
      * @param {string} card - The CSS selector for the card elements to filter.
-     * @param {string} cardWrapper - The CSS selector for the container that wraps the cards.
      */
-    filteredProjects: (filterBtn, card, cardWrapper) => {
+    filteredProjects: (filterBtn, card) => {
         const currentProjectListArray = getElement.multiple(card);
-        const projectContainer = getElement.single(cardWrapper);
         if (!currentProjectListArray.length && !projectContainer && !filterBtn) return;
 
-        filterBtn.addEventListener('click', () => {
-            const filteredBtnValue = filterBtn.getAttribute('aria-controls').toLowerCase();
-        
-            currentProjectListArray.forEach(project => {
-                const projectType = project.getAttribute('data-project-type').toLowerCase();
-        
-                if (filteredBtnValue === 'all' || projectType.includes(filteredBtnValue)) {
-                    // Add card into the view
-                    project.style.display = 'block';
-                    requestAnimationFrame(() => {
-                        project.classList.remove('hide');
-                        project.classList.add('show');
-                    });
-                } else {
-                    // Remove card from the view with animation
-                    project.classList.add('hide');
-                    project.classList.remove('show');
-                    project.addEventListener('transitionend', () => {
-                        if (project.classList.contains('hide')) {
-                            project.style.display = 'none';
-                        }
-                    }, { once: true });
-                }
-            });
-        });
+        filteredProjectsEventHandler.toggleFilterClasses(filterBtn, currentProjectListArray);
     },
     /**
      * Renders and displays portfolio projects based on the button selector
@@ -133,7 +108,7 @@ const displayPortfolioGrid = {
      */
     renderFilterProjects: filterBtns => {
         const projectsFilerBtns = getElement.multiple(filterBtns);
-        if (!projectsFilerBtns.length) return; 
+        if (!projectsFilerBtns.length) return;
 
         projectsFilerBtns.forEach(btn => {
             displayPortfolioGrid.filteredProjects(btn, '.projects-list-container .card', '.projects-list-container')
@@ -148,7 +123,7 @@ const displayPortfolioGrid = {
     addFilterCounts: (btn) => {
         const filterBtnValue = btn.getAttribute('aria-controls');
         const allCardsCount = getElement.multiple('[data-project-type]');
-               
+
         let cardsCount = 0;
         if (filterBtnValue === 'All') {
             cardsCount = allCardsCount.length;

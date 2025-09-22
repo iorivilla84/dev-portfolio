@@ -1,0 +1,21 @@
+body {
+  font-family: "poppins", sans-serif;
+}
+
+h1, h2, h3, h4 {
+  font-family: "poppins", sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  letter-spacing: 2.2px;
+}
+
+.nav-item .nav-link {
+  font-family: "Roboto Mono", monospace;
+  font-optical-sizing: auto;
+  font-weight: normal;
+  font-style: normal;
+}
+
+.skill-item, .filter-item, .project-filter-wrapper {
+  font-family: "Roboto Mono", monospace;
+}

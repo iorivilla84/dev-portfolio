@@ -1,15 +1,17 @@
 {
   "name": "dev-portfolio",
   "version": "1.0.0",
-  "description": "",
+  "description": "DV Dev Portfolio site",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "watch:sass": "sass --watch scss:css --embed-sources",
+    "build:sass": "sass scss:css --no-source-map",
+    "build": "npm run build:sass"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "sass": "^1.91.0"
+    "sass": "^1.93.0"
   }
 }

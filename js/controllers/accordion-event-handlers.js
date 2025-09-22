@@ -2,10 +2,12 @@ import { getElement } from "../helpers/dom-helper.js";
 
 const accordionEventHandlers = {
     /**
-     * Init DV experience list
+     * Initialises the accordion event handlers
+     * @param {String} wrapper - The class selector of the accordion wrapper
+     * @param {String} linkSelector - The class selector of the accordion button link
      * @returns {void}
      */
-    init: async (wrapper, linkSelector) => {
+    init: (wrapper, linkSelector) => {
         accordionEventHandlers.initAccordionEventHandler(wrapper, linkSelector);
     },
     /**
@@ -68,17 +70,33 @@ const accordionEventHandlers = {
             };
         });
     },
+    /**
+     * Set the aria-label or aria-labelledby attribute based on the element, attribute, id and index
+     * @param {HTMLElement} el - The element to set the attribute
+     * @param {String} attribute - The attribute to set
+     * @param {String} id - The id to set
+     * @param {Number} index - The index of the element
+     * @returns {void}
+     */
     setAriaLabelId: (el, attribute, id, index) => {
         const idNum = index + 1;
         el.setAttribute(`${attribute}`, `${id}-${idNum}`);
     },
+    /**
+     * Sets the aria-label or aria-labelledby attribute based on the element, attribute, id and index.
+     * @param {HTMLElement} element - The element to set the attribute
+     * @param {String} attribute - The attribute to set
+     * @param {String} id - The id to set
+     * @returns {void}
+     */
     setAccordionAttributes: (element, attribute, id) => {
         element?.forEach((panel, index) => {
             accordionEventHandlers.setAriaLabelId(panel, attribute, id, index);
         });
     },
     /**
-     * Initialise the class selectors for each accordion
+     * Initialises the accordion event handlers
+     * @param {String} wrapper - The class selector of the accordion wrapper
      * @param {String} linkSelector - The class selector of the accordion button link
      * @returns {void}
      */

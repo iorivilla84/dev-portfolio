@@ -1,5 +1,6 @@
 # Sass build artifacts
-*.css
+.sass-cache/
+*.scssc
 *.css.map
 
 # Node modules
@@ -8,5 +9,6 @@ node_modules/
 # Mac system files
 .DS_Store
 
+# Temporary log files
 .vscode/
 npm-debug.log*
