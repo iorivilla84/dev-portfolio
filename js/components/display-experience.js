@@ -7,7 +7,7 @@ const displayDevExperience = {
      * Init DV experience list
      * @returns {void}
      */
-    initAccordion: async () => {
+    init: async () => {
         displayDevExperience.renderWorkExperience();
     },
     getExperienceData: async () => {

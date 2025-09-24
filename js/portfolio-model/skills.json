@@ -35,7 +35,10 @@
         "WordPress",
         "eCommerce platforms",
         "WooCommerce",
-        "Stripe payment gateway integration"
+        "Stripe/PayPal payment gateway integration",
+        "Avada Builder",
+        "WPbakery",
+        "Elementor"
       ]
     },
     {

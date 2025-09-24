@@ -4,7 +4,7 @@
 
 .dark-theme {
     background-color: $dark-background;
-    color: white;
+    color: $white;
 }
 
 img{
@@ -72,6 +72,8 @@ img{
     }
 
     .hero-image-container {
+        border-radius: 20%;
+        overflow: hidden;
         width: 80%;
     }
 
@@ -96,9 +98,8 @@ main section {
 }
 
 /* About Me -- Skills */
-.about-me-list-wrapper,
 .get-to-know-me-wrapper {
-    margin-bottom: 30px;
+    background: $dark-cyan;
 }
 
 .about-me-item {
@@ -107,8 +108,10 @@ main section {
 }
 
 .my-skills-wrapper {
+    background: $dark-cyan-hover;
+
     .skill-accordion {
-        border-bottom: 1px solid $border-dark-color;
+        border-bottom: 1px solid $border-light-color;
 
         &:last-child {
             border-bottom: 0;
@@ -121,6 +124,10 @@ main section {
         &__link {
             padding-left: 0;
             padding-right: 0;
+        }
+
+        .code-style {
+            mix-blend-mode: hard-light;
         }
     }
 }
@@ -150,7 +157,7 @@ main section {
     .cards-count {
         background-color: $orange;
         border-radius: 50%;
-        color: white;
+        color: $white;
         font-size: 9px;
         height: 15px;
         position: absolute;
@@ -312,8 +319,119 @@ main section {
     }
 }
 
+/* Background Section */
+// Education Styles
+.education-wrapper {
+    background-color: $dark-cyan-hover;
+}
+
+.education-list {
+    list-style: none;
+    margin: 0;
+    position: relative;
+    padding: 0;
+
+    &::before {
+        background: $border-light-color;
+        content: "";
+        height: 100%;
+        left: 10px;
+        position: absolute;
+        top: 0;
+        width: 2px;
+    }
+
+    .education-list-item {
+        margin-bottom: 1rem;
+        padding-left: 2rem;
+        position: relative;
+
+        &__period {
+            color: $filter-txt-color;
+            font-size: 0.85rem;
+            margin-bottom: 0.3rem;
+        }
+
+        &__title {
+            color: $white;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin: 0 0 0.3rem;
+        }
+
+        &__institute {
+            color: $filter-txt-color;
+            font-size: 0.95rem;
+            margin: 0;
+        }
+    }
+
+    .timeline-dot {
+        background: $dark-cyan;
+        border-radius: 50%;
+        border: 2px solid $dark-cyan;
+        box-shadow: 0 0 0 6px $dark-cyan-hover;
+        height: 12px;
+        left: 5px;
+        position: absolute;
+        top: 0;
+        width: 12px;
+    }
+
+    .education-content {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+// Recommendation styles
+.recommendations-wrapper {
+    display: flex;
+    flex-direction: column;
+    padding-left: 0;
+    padding-right: 0;
+
+    .recommendation-content {
+        &::before {
+            content: "\f10e";
+            color: $off-white;
+            font-size: 50px;
+        }
+    }
+
+    .recommendation-item {
+        align-content: center;
+        background-color: $dark-cyan;
+        padding-left: 15px;
+        padding-right: 15px;
+
+        &:nth-child(2) {
+            background-color: lighten($dark-cyan, 5%);
+        }
+
+        &:nth-child(3) {
+            background-color: lighten($dark-cyan, 10%);
+        }
+
+        &__title {
+            font-size: 17px;
+            letter-spacing: normal;
+            margin: 20px 0 0;
+        }
+
+        &__text {
+            margin-bottom: 0;
+        }
+
+        &__position,
+        &__company-link {
+            color: $filter-txt-color;
+        }
+    }
+}
+
 /* Media queries */
-@media screen and (min-width: 576px) {
+@media screen and (min-width: $breakpoint-sm) {
     .hero-banner {
         .hero-text-wrapper {
             align-content: center;
@@ -324,18 +442,8 @@ main section {
         }
 
         .hero-image-container {
-            width: 100%;
+            width: 50%;
         }
-    }
-
-    .get-to-know-me-wrapper,
-    .my-skills-wrapper {
-        padding-left: 3rem;
-        padding-right: 3rem;
-    }
-
-    .responsive-content {
-        text-align: left;
     }
 
     .project-list-filter {
@@ -351,7 +459,33 @@ main section {
     }
 }
 
-@media screen and (min-width: 992px) {
+@media screen and (min-width: $breakpoint-md) {
+    .responsive-content {
+        text-align: left;
+    }
+
+    .hero-banner {
+        .hero-image-container {
+            width: 100%;
+        }
+    }
+}
+
+@media screen and (min-width: $breakpoint-lg) {
+    .get-to-know-me-wrapper,
+    .my-skills-wrapper,
+    .education-wrapper {
+        padding-left: 5%;
+        padding-right: 5%;
+    }
+
+    .recommendations-wrapper {
+        .recommendation-item {
+            padding-left: 5%;
+            padding-right: 5%;
+        }
+    }
+
     .experience-info-accordion {
         &__position {
             margin-bottom: 0;
@@ -365,7 +499,13 @@ main section {
     }
 }
 
-@media screen and (min-width: 1400px) {
+@media screen and (min-width: $breakpoint-xxl) {
+    .hero-banner {
+        .hero-image-container {
+            width: 80%;
+        }
+    }
+
     .experience-info-accordion {
         &__company-logo {
             width: 60%;

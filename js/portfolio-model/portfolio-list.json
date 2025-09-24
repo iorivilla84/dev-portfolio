@@ -120,6 +120,29 @@
             "application_link": "",
             "site_link": "",
             "prototype_link": "https://xd.adobe.com/view/775e7765-6ef0-4dac-b2d4-66560508f523-220d/"
+        },
+        {
+            "id_number": 12,
+            "type": "Digital & Graphic Design",
+            "imgPath": "./assets/images/portfolio/web-graphic-design/graphic-design.jpg",
+            "name": "Graphic Design Projects (Print & Digital)",
+            "stack": ["Adobe Creative Suite", "Print & Digital Design", "Pre-press & Print-ready Artwork"],
+            "code_link": "",
+            "application_link": "https://diegovelasquez.myportfolio.com/printed-work",
+            "site_link": "",
+            "prototype_link": ""
+        },
+        {
+            "id_number": 13,
+            "type": "Digital & Graphic Design",
+            "imgPath": "./assets/images/portfolio/web-graphic-design/branding.jpg",
+            "name": "Branding Projects (Logos & Visual Identity)",
+            "stack": ["Adobe Illustrator", "Adobe Photoshop", "Adobe XD (Prototyping & Wireframing)", "Logo Design & Brand Guidelines"
+            ],
+            "code_link": "",
+            "application_link": "https://diegovelasquez.myportfolio.com/brand-3d-artwork",
+            "site_link": "",
+            "prototype_link": ""
         }
     ],
     "project_filters": [

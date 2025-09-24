@@ -11,7 +11,7 @@ const siteMainNav = {
     },
     /**
      * Create and append the main menu list and socials icons
-     * @param {String} ulContainer - The class selector of the targeted element  
+     * @param {String} ulContainer - The class selector of the targeted element
      * @returns {void}
      */
     appendLiContent: (ulContainer) => {
@@ -20,6 +20,7 @@ const siteMainNav = {
             'about',
             'projects',
             'experience',
+            'background',
             'contact'
         ];
         const mainNavContainer = getElement.multiple(ulContainer);

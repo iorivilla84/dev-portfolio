@@ -1,0 +1,62 @@
+{
+    "education": [
+        {
+            "title":"Full Stack Engineer",
+            "institute": "Codecademy (Currently Enrolled – Online)",
+            "period": "since June 2024"
+        },
+        {
+            "title":"Node.js ",
+            "institute": "Codecademy",
+            "period": "2024"
+        },
+        {
+            "title":"UX Design",
+            "institute": "General Assembly",
+            "period": "2023"
+        },
+        {
+            "title":"Diploma in Modern JavaScript",
+            "institute": "Udemy",
+            "period": "2020"
+        },
+        {
+            "title":"Diploma 1 and 2 in Marketing and Communication",
+            "institute": "George Brown College",
+            "period": "2017 to 2020"
+        },
+        {
+            "title":"Advance Diploma in Front-End and Audio-Visual",
+            "institute": "Professional Technical Drawing Academy",
+            "period": "2007"
+        },
+        {
+            "title":"Bachelor in Graphic Designer",
+            "institute": "Professional Technical Drawing Academy",
+            "period": "2003 to 2007"
+        }
+    ],
+    "recommendations": [
+        {
+            "name": "Victor Emmanuel Jr Estilo",
+            "position": "Software Development Manager at",
+            "company": "True Alliance",
+            "company_link": "https://www.truealliance.com.au/",
+            "recommendation": "Diego has shown immense potential when given the opportunity during his tenure. He has proven that he is a quick learner as he transitioned smoothly from a designer into a front end developer. His positive attitude and thirst for knowledge is what contributed greatly to his growth. He is always quick to jump on tasks and assist others."
+        },
+        {
+            "name": "Gertjan (Ben) Hondebrink",
+            "position": "Lead Developer at",
+            "company": "True Alliance",
+            "company_link": "https://www.truealliance.com.au/",
+            "recommendation": "I worked with Diego at True Alliance and his optimism was amazing. He was consistently eager to tackle new challenges, always delivered and was a great team player. I’m certain he’ll bring that same energy and commitment to his next role!."
+        },
+        {
+            "name": "Frontend Web Developer | Web Producer | CMS & eCommerce Specialist | Salesforce Commerce Cloud, React",
+            "position": "Software Development Manager at",
+            "company": "True Alliance",
+            "company_link": "https://www.truealliance.com.au/",
+            "recommendation": "Working with Diego has been a real pleasure. He’s a front end developer with a great sense for design and a sharp attention to detail. Diego approaches each project with a positive attitude and handles challenges with confidence. He's someone you can always count on."
+        }
+    ]
+}

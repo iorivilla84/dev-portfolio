@@ -1,5 +1,5 @@
 /**
- * Fetches the list of skills to append in the front end
+ * Fetches the list of Projects to append as portfolio in the front end
  * @async
  * @returns {Promise} An Object containing the request status, data and code
  */

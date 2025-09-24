@@ -8,13 +8,13 @@
         "company_logo": "./assets/images/company-logos/true-alliance-logo-white.png",
         "period_time": "Jun 2021 – Jul 2025",
         "responsibilities": [
+          "I developed and enhanced storefronts for brands such as: <em><u>Banana Republic, Ben Sherman, Brooks Brothers, Coach, Coach Outlet, Ellesse, GAP, Kate Spade, Lacoste, Lee Jeans, Nautica, Speedo, Teva, The North Face, Rides and Wrangler.</u></em>",
           "Assisted in the redesign and overhaul of PDP, PLP, and checkout flows to improve usability, components, and consistency across multiple brands.",
           "Built, enhanced, and maintained custom templates, including homepages and blog modules to support scalable and reusable front-end solutions.",
           "Developed and enhanced reusable Page Designer components to support scalable and flexible content layouts.",
           "Ensured maintainability of the SASS/SCSS architecture, adhering to brand standards and cartridge inheritance structures.",
           "Managed Salesforce Business Manager operations, including custom attribute creation, slot/content management, and deployment packages.",
-          "Supported cross-functional teams with prototypes, design consistency, and ongoing UI maintenance across web and mobile.",
-          "I developed and enhanced storefronts for brands such as: Banana Republic, Ben Sherman, Brooks Brothers, Coach, Coach Outlet, Ellesse, GAP, Kate Spade, Lacoste, Lee Jeans, Nautica, Speedo, Teva, The North Face, Rides and Wrangler."
+          "Supported cross-functional teams with prototypes, design consistency, and ongoing UI maintenance across web and mobile."
         ],
         "stack": ["SFCC (SFRA)", "Page Designer", "SCSS", "ISML", "VS Code", "JavaScript", "jQuery", "Demandware Script", "npm", "swb", "Git", "Webpack", "Jira", "Figma"]
     },

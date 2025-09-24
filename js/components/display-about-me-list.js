@@ -6,7 +6,7 @@ const displayAboutMeList = {
      * Init about me section list
      * @returns {void}
      */
-    initAboutMe: () => {
+    init: () => {
         displayAboutMeList.renderAboutMe('.about-me-list-wrapper')
     },
     /**

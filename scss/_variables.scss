@@ -1,4 +1,6 @@
-$dark-cyan: darkcyan;
+$white: #ffffff;
+$off-white: rgba(255, 255, 255, .55);
+$dark-cyan: #008b8b;
 $dark-cyan-hover: #026e6e;
 $orange: #fa792b;
 $orange-hover: #da6923;
@@ -6,7 +8,13 @@ $dark-background: #1a191d;
 $code-grey: #666666;
 $projects-bg-color: rgba(136,136,136,.05);
 $border-dark-color: #495057;
-$border-light-color: rgba(255, 255, 255, .55);
-$filter-txt-color: rgba(255, 255, 255, .55);
+$border-light-color: $off-white;
+$filter-txt-color: $off-white;
 $footer-social-bg-hover: #c7fdfd;
 $accordion-body-bg: #1f2525;
+
+$breakpoint-sm: 576px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 992px;
+$breakpoint-xl: 1200px;
+$breakpoint-xxl: 1400px;
