@@ -6,20 +6,23 @@ const navEventHandlers = {
      * @returns {void}
      */
     init: () => {
-        navEventHandlers.classNavEventHandlers(
+        navEventHandlers.initActiveLinkHandlers(
             '.navbar-nav .nav-link',
             '.offcanvas .navbar-nav .nav-link');
 
         navEventHandlers.navBackgroundOnScroll('.navbar');
+        navEventHandlers.closeMobileNav('.mobile-nav');
     },
     /**
      * Sync classes between main menus form desktop and offcanvas on mobile
-     * @param {HTMLElement} currentBtn - the button target element 
+     * @param {HTMLElement} currentBtn - the button target element
      * @param {Array} mainNavLiEl - A node list of li elements
      * @param {Array} mainNavLiMobileEl - A node list of li elements
      * @returns {void}
      */
     syncActive: (currentBtn, mainNavLiEl, mainNavLiMobileEl) => {
+        if (!currentBtn || !mainNavLiEl.length || !mainNavLiMobileEl.length) return;
+
         // remove from all links first
         [...mainNavLiEl, ...mainNavLiMobileEl].forEach(link => link.classList.remove('active'));
 
@@ -39,16 +42,16 @@ const navEventHandlers = {
      * @param {Array} navMobile - A node list of li elements
      * @returns {void}
      */
-     classNavEventHandlers: (navDesktop, navMobile) => {
+     initActiveLinkHandlers: (navDesktop, navMobile) => {
         const mainNavLiEl = getElement.multiple(navDesktop);
         const mainNavLiMobileEl = getElement.multiple(navMobile);
-    
+
         if (!mainNavLiEl.length || !mainNavLiMobileEl.length) return;
-    
+
         // Detect current path + hash
         const currentPath = window.location.pathname + window.location.hash;
         let matched = false;
-    
+
         // Set active link on page load
         [...mainNavLiEl, ...mainNavLiMobileEl].forEach(link => {
             const linkHref = new URL(link.href).pathname + new URL(link.href).hash;
@@ -57,28 +60,29 @@ const navEventHandlers = {
                 matched = true;
             }
         });
-    
+
         // Fallback: first link active if no match
         if (!matched) {
             mainNavLiEl[0].classList.add('active');
             mainNavLiMobileEl[0].classList.add('active');
         }
-    
+
         // Add event listeners on click for desktop + mobile
         [...mainNavLiEl, ...mainNavLiMobileEl].forEach(liBtn => {
             liBtn.addEventListener('click', (e) => {
                 navEventHandlers.syncActive(e.currentTarget, mainNavLiEl, mainNavLiMobileEl);
             });
         });
-    },    
+    },
     /**
      * Add/Remove main nav classes based on scroll position
      * @param {String} nav - The class selector of the target element
      * @returns {void}
      */
-    detectWindowScroll: nav => {
+    applyScrollNavStyles: nav => {
         // on page load if page scroll is > 50 add background and border bottom
         const navLogoBrand = getElement.single('.nav-brand-logo');
+        if (!nav || !navLogoBrand) return;
 
         const updateNavClass = scrollY => {
             if (scrollY > 50) {
@@ -93,7 +97,7 @@ const navEventHandlers = {
         }
 
         updateNavClass(window.scrollY)
-        
+
         // Add EventListener to manage main nav classes based on scroll position
         let ticking = false;
         window.addEventListener('scroll', () => {
@@ -104,7 +108,6 @@ const navEventHandlers = {
                 });
                 ticking = true;
             }
-            updateNavClass(window.scrollY)
         });
     },
     /**
@@ -117,8 +120,21 @@ const navEventHandlers = {
         if (!navBarContainer.length) return;
 
         navBarContainer.forEach(nav => {
-            navEventHandlers.detectWindowScroll(nav)
+            navEventHandlers.applyScrollNavStyles(nav)
         })
+    },
+    closeMobileNav: (mobileContainer) => {
+        const mobileNavContainer = getElement.single(mobileContainer);
+        const closeBtn = mobileNavContainer.querySelector('.btn-close');
+        const navItemsLinks = mobileNavContainer.querySelectorAll('.nav-link');
+
+        if (!mobileNavContainer || !closeBtn || !navItemsLinks.length) return;
+
+        navItemsLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                closeBtn.click();
+            });
+        });
     }
 }
 

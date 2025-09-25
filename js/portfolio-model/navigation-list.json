@@ -1,0 +1,22 @@
+{
+    "main_navigation" : [
+        "home",
+        "about",
+        "projects",
+        "experience",
+        "background",
+        "contact"
+    ],
+    "socials" : [
+        {
+            "social_name": "Linkedin",
+            "social_link": "https://www.linkedin.com/in/diego-fernando-villamil-velasquez/",
+            "social_icon": "<i class='fa-brands fa-linkedin'></i>"
+        },
+        {
+            "social_name": "GitHub",
+            "social_link": "https://github.com/iorivilla84",
+            "social_icon": "<i class='fa-brands fa-github'></i>"
+        }
+    ]
+}

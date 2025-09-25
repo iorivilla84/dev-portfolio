@@ -3,73 +3,72 @@ import { getElement } from "../helpers/dom-helper.js";
 
 const displayBackground = {
     /**
-     * Initializes the displayBackground component
-     * It calls the displayBackground method to fetch the
-     * background data and render the education and recommendations
-     * sections
+     * Initializes the displayBackground object to display Education and Recommendations
+     * @async
+     * @returns {void}
      */
-    init: () => {
-        displayBackground.displayBackground();
+    init: async () => {
+        await displayBackground.displayBackground();
     },
     /**
-     * Returns the HTML template for a single recommendations item
+     * Returns the HTML template for recommendations items
      * @param {Object} recommendations - The recommendations object to be rendered
-     * @returns {string} The HTML template for a single recommendations item
+     * @returns {string} The HTML recommendations template
      */
      recommendationListTemplate: (recommendation) => {
-        const recommendationContainer = getElement.single('.recommendations-wrapper');
-        if (!recommendationContainer) return;
-
-        const recommendationTemplate = `
+        return `
             <div class="recommendation-item h-100 py-4">
                 <div class="recommendation-content">
-                <p class="recommendation-item__text">${recommendation?.recommendation}</p>
+                    <p class="recommendation-item__text">${recommendation?.recommendation}</p>
                     <h4 class="recommendation-item__title">- ${recommendation?.name}</h4>
                     <span class="recommendation-item__position">
                         ${recommendation?.position}
                         <a class="recommendation-item__company-link" href="${recommendation?.company_link}" target="_blank">${recommendation?.company}</a>
                     </span>
                 </div>
-            <div>
+            </div>
         `
-    return recommendationContainer.insertAdjacentHTML('beforeend', recommendationTemplate);
     },
     /**
-     * Returns the HTML template for a single education item
+     * Returns the HTML template for education items
      * @param {Object} education - The education object to be rendered
-     * @returns {string} The HTML template for a single education item
+     * @returns {string} The education HTML template
      */
     educationListTemplate: (education) => {
-        const educationContainer = getElement.single('.education-list-wrapper');
-        if (!educationContainer) return;
-
-        const educationTemplate = `
-            <ul class="education-list">
-                <li class="education-list-item">
+        return `
+            <div class="education-list">
+                <div class="education-list-item">
                     <div class="timeline-dot"></div>
                     <div class="education-content">
                         <span class="education-list-item__period">${education?.period}</span>
                         <h4 class="education-list-item__title">${education?.title}</h4>
                         <p class="education-list-item__institute">${education?.institute}</p>
                     </div>
-                </li>
-            <ul>
+                </div>
+            </div>
         `
-    return educationContainer.insertAdjacentHTML('beforeend', educationTemplate);
     },
     /**
      * Fetches the background data (education + recommendations)
      * and renders the education and recommendations sections
+     * @async
      * @returns {Promise<Array<Object>>} An array of education objects
      */
     displayBackground: async () => {
         const { status, education, recommendations } = await getBackgroundData();
-        console.log(status);
+
         if (status === 'ok') {
-            education?.forEach(edu => displayBackground.educationListTemplate(edu));
-            recommendations?.forEach(recommendation => displayBackground.recommendationListTemplate(recommendation));
+            const educationContainer = getElement.single('.education-list-wrapper');
+            education?.forEach(edu => {
+                educationContainer?.insertAdjacentHTML('beforeend', displayBackground.educationListTemplate(edu));
+            });
+
+            const recommendationContainer = getElement.single('.recommendations-wrapper');
+            recommendations?.forEach(recommendation => {
+                recommendationContainer?.insertAdjacentHTML('beforeend', displayBackground.recommendationListTemplate(recommendation));
+            });
         }
-        console.log(recommendations);
+
         return education;
     }
 }

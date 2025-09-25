@@ -8,13 +8,32 @@ const getPortfolioListModel = async () => {
 
     try {
         const response = await fetch(portfolioListEndPath);
+        if (!response.ok) {
+            throw new Error(
+              `Failed to fetch ${portfolioListEndPath}: ${response.status} ${response.statusText}`
+            );
+        }
 
-        if (response.ok) {
-            const jsonResponse = await response.json();
-            return { status: 'ok', data: jsonResponse, code: 200 }
+        const jsonResponse = await response.json();
+        return {
+            status: 'ok',
+            portfolio: jsonResponse.portfolio,
+            project_filters: jsonResponse.project_filters,
+            code: 200
         }
     } catch (error) {
-        return { status: 'error', data: [], code: 500 }
+        if (error.name === "SyntaxError") {
+            console.error(`JSON parse error in ${portfolioListEndPath}:`, error.message);
+        } else {
+            console.error(`Error fetching ${portfolioListEndPath}:`, error.message);
+        }
+
+        return {
+            status: 'error',
+            portfolio: [],
+            project_filters: [],
+            code: 500
+        }
     }
 }
 

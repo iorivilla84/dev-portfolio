@@ -5,6 +5,7 @@ import { filteredProjectsEventHandler } from "../controllers/filtering-projects-
 const displayPortfolioGrid = {
     /**
      * Init portfolio grid list of images
+     * @async
      * @returns {void}
      */
     init: async () => {
@@ -18,17 +19,18 @@ const displayPortfolioGrid = {
      * @param {HTMLDivElement} gridContainer - The grid container element to append template
      * @returns {void}
      */
-    portfolioCardTemplate: (project, gridContainer) => {
-        const projectLanguagesList = project.stack
+    portfolioCardTemplate: (project) => {
+        const projectLanguagesList = (project.stack || [])
             .map(language => `
                 <span class="code-style skill-item d-inline-block">${language}</span>
-            `).join(' ');
+            `).join(' ') || '';
 
-        const projectsListHtmlTemplate = `
-            <div class="col">
+        return `
+            <div class="col card-wrapper">
                 <div class="card border-0 bg-transparent text-white h-100" data-project-type="${project.type}" data-project-id="${project.id_number}">
-                    <div class="card-image-wrapper card-img-top">
-                        <img src="${project.imgPath}" class="card-project-image" alt="${project.name}">
+                    <div class="card-image-wrapper card-img-top"
+                        style="background-image: url('${project.imgPath}');">
+                        <img src="${project.imgPath}" class="card-project-image sr-only" alt="${project.name}" loading="lazy">
                     </div>
                     <div class="card-body px-0 mb-4">
                         <h5 class="card-title fw-bold fs-3">${project.name}</h5>
@@ -49,8 +51,6 @@ const displayPortfolioGrid = {
                 </div>
             </div>
         `;
-
-        gridContainer.innerHTML += projectsListHtmlTemplate;
     },
     /**
      * Render and append the project cards list into the targeted container element
@@ -58,14 +58,17 @@ const displayPortfolioGrid = {
      * @returns {void}
      */
     displayPortfolio: async (container) => {
-        const portfolioDataObj = await getPortfolioListModel();
-        const portfolioListObj = portfolioDataObj.data.portfolio;
-        if (!portfolioDataObj && !portfolioListObj.length) return;
+        const { portfolio } = await getPortfolioListModel();
+        if (!portfolio?.length) return;
 
         const portfolioGridContainer = getElement.single(container);
         if (!portfolioGridContainer) return;
 
-        portfolioListObj.forEach(project => displayPortfolioGrid.portfolioCardTemplate(project, portfolioGridContainer));
+        portfolio.forEach(project => {
+            portfolioGridContainer.insertAdjacentHTML('beforeend',
+                displayPortfolioGrid.portfolioCardTemplate(project)
+            );
+        });
     },
     /**
      * Renders and appends the project filter list into the targeted container element
@@ -73,22 +76,21 @@ const displayPortfolioGrid = {
      * @returns {void}
      */
     renderFilterButtons: async (container) => {
-        const portfolioDataObj = await getPortfolioListModel();
-        const filterListObj = portfolioDataObj.data.project_filters;
-        if (!portfolioDataObj && !filterListObj) return;
+        const { project_filters } = await getPortfolioListModel();
+        if (!project_filters?.length) return;
 
         const filterWrapper = getElement.single(container);
-        if (!filterListObj) return;
+        if (!filterWrapper) return;
 
-        filterListObj.map(filter => {
-            const filterHtmlList = `
+        const filtersListTemplate = project_filters.map(filter => {
+            return `
                 <li class="filter-item">
                     <button class="btn-filter" type="button" aria-controls="${filter}">${filter}</button>
                 </li>
             `;
+        }).join('');
 
-            filterWrapper.innerHTML += filterHtmlList;
-        });
+        filterWrapper.insertAdjacentHTML('beforeend', filtersListTemplate);
     },
     /**
      * Filtering portfolio projects based on type of project
@@ -97,7 +99,7 @@ const displayPortfolioGrid = {
      */
     filteredProjects: (filterBtn, card) => {
         const currentProjectListArray = getElement.multiple(card);
-        if (!currentProjectListArray.length && !projectContainer && !filterBtn) return;
+        if (!currentProjectListArray.length || !filterBtn) return;
 
         filteredProjectsEventHandler.toggleFilterClasses(filterBtn, currentProjectListArray);
     },
@@ -111,7 +113,7 @@ const displayPortfolioGrid = {
         if (!projectsFilerBtns.length) return;
 
         projectsFilerBtns.forEach(btn => {
-            displayPortfolioGrid.filteredProjects(btn, '.projects-list-container .card', '.projects-list-container')
+            displayPortfolioGrid.filteredProjects(btn, '.projects-list-container .card')
             displayPortfolioGrid.addFilterCounts(btn);
         });
     },

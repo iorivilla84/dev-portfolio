@@ -11,6 +11,15 @@ img{
     width: 100%;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
+/* Scroll to each section */
+main section {
+    scroll-margin-top: 100px;
+}
+
 .title-with-line {
     &::after {
         border-bottom: 3px solid $dark-cyan;
@@ -90,11 +99,6 @@ img{
     .hero-banner .hero-subtitle {
         font-weight: 500;
     }
-}
-
-/* Scroll to each section */
-main section {
-    scroll-margin-top: 100px;
 }
 
 /* About Me -- Skills */
@@ -215,10 +219,26 @@ main section {
 }
 
 .card-image-wrapper {
-    overflow: hidden;
+    background-position: 50%;
+    background-repeat: no-repeat;
+    background-size: auto 101%;
+    margin-bottom: .5em;
+    position: relative;
+    width: 100%;
+
+    &::after {
+        content: "";
+        display: block;
+        height: auto;
+        left: auto;
+        padding-bottom: 75%;
+        top: auto;
+        width: 100%;
+    }
 }
 
 .card-project-image {
+    aspect-ratio: 4 / 3;
     transition: transform .3s ease-in-out;
 
     &:hover {

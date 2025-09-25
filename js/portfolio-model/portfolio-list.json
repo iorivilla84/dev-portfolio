@@ -16,7 +16,7 @@
             "type": "Web Development",
             "imgPath": "./assets/images/portfolio/web-development/browser-extension-manager.jpg",
             "name": "Browser Extension Manager",
-            "stack": ["HTML5", "CSS nesting", "Bootstrap 5", "JavaScript (ES6)", "JSON", "Git", "GitHub", "Netlify"],
+            "stack": ["HTML5", "CSS nesting", "Bootstrap 5", "JavaScript (ES6)", "JSON", "Local Storage", "Git", "GitHub", "Netlify"],
             "code_link": "https://github.com/iorivilla84/browser-extensions-manager",
             "application_link": "https://browsers-extensions-manager.netlify.app",
             "site_link": "",

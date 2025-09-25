@@ -153,34 +153,34 @@ footer .footer-link:hover {
   color: #008b8b;
 }
 
-.socials-wrapper {
+.nav-socials-wrapper {
   border-top: var(--bs-border-width) solid rgba(255, 255, 255, 0.25);
   color: #ffffff;
   flex-flow: row;
   margin-top: 1rem;
 }
-.socials-wrapper .nav-link {
+.nav-socials-wrapper .nav-link {
   font-size: 34px;
   padding: 0 10px;
 }
-.socials-wrapper .nav-link:hover, .socials-wrapper .nav-link.active {
+.nav-socials-wrapper .nav-link:hover, .nav-socials-wrapper .nav-link.active {
   box-shadow: none;
 }
-.socials-wrapper .nav-item {
+.nav-socials-wrapper .nav-item {
   margin-top: 1rem;
 }
 
 @media screen and (min-width: 576px) {
-  .socials-wrapper {
+  .nav-socials-wrapper {
     border: 0;
     border-left: var(--bs-border-width) solid rgba(255, 255, 255, 0.25);
     margin-top: 0;
   }
-  .socials-wrapper .nav-link {
-    font-size: inherit;
+  .nav-socials-wrapper .nav-link {
+    font-size: 23px;
     padding: 0 10px;
   }
-  .socials-wrapper .nav-item {
+  .nav-socials-wrapper .nav-item {
     margin-top: 0;
   }
 }
@@ -235,6 +235,15 @@ footer .footer-link:hover {
 
 img {
   width: 100%;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Scroll to each section */
+main section {
+  scroll-margin-top: 100px;
 }
 
 .title-with-line::after {
@@ -308,11 +317,6 @@ img {
 }
 .hero-banner .hero-banner .hero-subtitle {
   font-weight: 500;
-}
-
-/* Scroll to each section */
-main section {
-  scroll-margin-top: 100px;
 }
 
 /* About Me -- Skills */
@@ -415,10 +419,25 @@ main section {
 }
 
 .card-image-wrapper {
-  overflow: hidden;
+  background-position: 50%;
+  background-repeat: no-repeat;
+  background-size: auto 101%;
+  margin-bottom: 0.5em;
+  position: relative;
+  width: 100%;
+}
+.card-image-wrapper::after {
+  content: "";
+  display: block;
+  height: auto;
+  left: auto;
+  padding-bottom: 75%;
+  top: auto;
+  width: 100%;
 }
 
 .card-project-image {
+  aspect-ratio: 4/3;
   transition: transform 0.3s ease-in-out;
 }
 .card-project-image:hover {

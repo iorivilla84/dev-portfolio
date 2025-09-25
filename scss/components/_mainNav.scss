@@ -63,7 +63,7 @@
     }
 }
 
-.socials-wrapper {
+.nav-socials-wrapper {
     border-top: var(--bs-border-width) solid rgba(255, 255, 255, .25);
     color: $white;
     flex-flow: row;
@@ -85,13 +85,13 @@
 }
 
 @media screen and (min-width: 576px) {
-    .socials-wrapper {
+    .nav-socials-wrapper {
         border: 0;
         border-left: var(--bs-border-width) solid rgba(255, 255, 255, .25);
         margin-top: 0;
 
         .nav-link {
-            font-size: inherit;
+            font-size: 23px;
             padding: 0 10px;
         }
 

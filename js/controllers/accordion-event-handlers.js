@@ -101,7 +101,11 @@ const accordionEventHandlers = {
      * @returns {void}
      */
     initAccordionEventHandler: (wrapper, linkSelector) => {
-        const accordionWrapper = getElement.single(wrapper);
+        const accordionWrapper =
+            typeof wrapper === 'string' ? getElement.single(wrapper) : wrapper;
+
+        if (!accordionWrapper) return;
+
         const allAccordions = accordionWrapper.querySelectorAll('.accordion-content');
         const accordionLinks = accordionWrapper.querySelectorAll(linkSelector);
 

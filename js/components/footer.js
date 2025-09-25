@@ -15,11 +15,10 @@ const copyRights = {
      * @returns {Number} A number with the current year
      */
     getCurrentYear: container => {
-        
         const yearContainer = getElement.single(container);
         if (!yearContainer) return;
-    
-        yearContainer.innerHTML = formatYear.getFullYear();
+
+        yearContainer.insertAdjacentHTML('beforeend', formatYear.getFullYear());
     }
 }
 

@@ -8,11 +8,21 @@ const getSkills = async () => {
 
     try {
         const response = await fetch(skillsEndPath);
-        if (response.ok) {
-            const jsonResponse = await response.json();
-            return { status: 'ok', data: jsonResponse, code: 200 }
+        if (!response.ok) {
+            throw new Error(
+              `Failed to fetch ${skillsEndPath}: ${response.status} ${response.statusText}`
+            );
         }
+
+        const jsonResponse = await response.json();
+        return { status: 'ok', data: jsonResponse, code: 200 }
     } catch (error) {
+        if (error.name === "SyntaxError") {
+            console.error(`JSON parse error in ${skillsEndPath}:`, error.message);
+        } else {
+            console.error(`Error fetching ${skillsEndPath}:`, error.message);
+        }
+
         return { status: 'error', data: [], code: 500 }
     }
 }

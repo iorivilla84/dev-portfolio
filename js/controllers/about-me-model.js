@@ -8,12 +8,22 @@ const getAboutMeList = async () => {
 
     try {
         const response = await fetch(aboutMeEndPath);
-        if (response.ok) {
-            const jsonResponse = await response.json();
-            return { status: 'ok', data: jsonResponse, code: 200 }
+        if (!response.ok) {
+            throw new Error(
+              `Failed to fetch ${aboutMeEndPath}: ${response.status} ${response.statusText}`
+            );
         }
+
+        const jsonResponse = await response.json();
+        return { status: 'ok', data: jsonResponse, code: 200 }
     } catch (error) {
-        return { status: 'error', data: [], code: 500 }
+        if (error.name === "SyntaxError") {
+            console.error(`JSON parse error in ${aboutMeEndPath}:`, error.message);
+        } else {
+            console.error(`Error fetching ${aboutMeEndPath}:`, error.message);
+        }
+
+        return { status: "error", data: [], code: 500 };
     }
 }
 

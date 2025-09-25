@@ -10,7 +10,11 @@ const getBackgroundData = async () => {
     try {
         const response = await fetch(backgroundDataEndPath);
 
-        if (!response.ok) throw new Error('network response was not ok fetching background data');
+        if (!response.ok) {
+            throw new Error(
+              `Failed to fetch ${backgroundDataEndPath}: ${response.status} ${response.statusText}`
+            );
+        }
 
         const jsonResponse = await response.json();
         return {
@@ -20,6 +24,12 @@ const getBackgroundData = async () => {
             code: 200
         }
     } catch (error) {
+        if (error.name === "SyntaxError") {
+            console.error(`JSON parse error in ${backgroundDataEndPath}:`, error.message);
+        } else {
+            console.error(`Error fetching ${backgroundDataEndPath}:`, error.message);
+        }
+
         return {
             status: "ok",
             education: [],

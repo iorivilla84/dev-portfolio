@@ -5,18 +5,21 @@ import { accordionEventHandlers } from '../controllers/accordion-event-handlers.
 const displayDevExperience = {
     /**
      * Init DV experience list
+     * @async
      * @returns {void}
      */
     init: async () => {
-        displayDevExperience.renderWorkExperience();
+        await displayDevExperience.renderWorkExperience();
     },
     getExperienceData: async () => {
-        const experienceData = await getExperienceList();
-        if (!experienceData) return;
+        const { data } = await getExperienceList();
+        if (!data) return;
 
-        return experienceData.data;
+        return data;
     },
     getExperienceLanguages: languages => {
+        if (!Array.isArray(languages?.stack)) return '';
+
         const languagesList = Array.isArray(languages?.stack)
             ? languages.stack.map(language => `<li class="stack-list__item code-style">${language}</li>`)
             : [];
@@ -27,24 +30,24 @@ const displayDevExperience = {
         return languagesHtmlTemplate;
     },
     getResponsibilities: (experience) => {
+        if (!Array.isArray(experience?.responsibilities)) return '';
+
         const responsibilities = Array.isArray(experience?.responsibilities)
             ? experience.responsibilities
             : [];
 
         const responsibilitiesList = responsibilities?.map(responsibility => {
-            return `<li class="experience-item-list experience-duties">${responsibility}`
+            return `<li class="experience-item-list experience-duties">${responsibility}</li>`
         }).join('');
 
-        const responsibilitiesHtml = `
+        return `
             <ul class="experience-duties-wrapper experience-duties-list">
                 ${responsibilitiesList}
             </ul>
         `
-
-        return responsibilitiesHtml;
     },
     getExperienceHeader: experience => {
-        const headerHtmlTemplate = `
+        return `
             <h4 class="experience-info-accordion__heading">
                 <button type="button" class="experience-info-accordion__link accordion-link-button" aria-expanded="false" data-toggle="collapse">
                     ${experience?.position
@@ -56,21 +59,18 @@ const displayDevExperience = {
                 </button>
             </h4>
         `
-
-        return headerHtmlTemplate;
     },
     getCompanyLogo: experience => {
-        const companyLogoHtmlTemplate = `
+        return `
             <div class="experience-info-accordion__company-logo">
                 ${experience?.company_logo
-                    ? `<img class="company-logo-img" src="${experience.company_logo}" alt="${experience.company_name}">`
+                    ? `<img class="company-logo-img" src="${experience.company_logo}" alt="${experience.company_name}" loading="lazy">`
                     : ''}
             </div>
         `
-        return companyLogoHtmlTemplate;
     },
     getExperienceLocation: experience => {
-        const locationHtmlTemplate = `
+        return `
             ${experience?.location ? `<div class="city location-item">${experience.location}</div>` : ''}
             ${experience?.company_link
                 ? `
@@ -79,7 +79,6 @@ const displayDevExperience = {
                     </div>`
                 : ''}
         `
-        return locationHtmlTemplate;
     },
     workExperienceTemplate: experience => {
         const renderHeaderTemplate = displayDevExperience.getExperienceHeader(experience);
@@ -87,7 +86,7 @@ const displayDevExperience = {
         const renderCompanyLocationTemplate = displayDevExperience.getExperienceLocation(experience);
         const renderResponsibilitiesTemplate = displayDevExperience.getResponsibilities(experience);
         const renderLanguagesTemplate = displayDevExperience.getExperienceLanguages(experience);
-        const accordionHtmlTemplate = `
+        return `
             <div class="accordion-item experience-info-accordion">
                 <div class="accordion-header">
                     ${renderHeaderTemplate}
@@ -114,7 +113,6 @@ const displayDevExperience = {
                 </div>
             </div>
         `
-        return accordionHtmlTemplate;
     },
     renderWorkExperience: async () => {
         const experienceData = await displayDevExperience.getExperienceData();
