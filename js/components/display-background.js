@@ -3,7 +3,7 @@ import { getElement } from "../helpers/dom-helper.js";
 
 const displayBackground = {
     /**
-     * Initializes the displayBackground object to display Education and Recommendations
+     * Initialises the displayBackground object to display Education and Recommendations
      * @async
      * @returns {void}
      */
@@ -11,7 +11,7 @@ const displayBackground = {
         await displayBackground.displayBackground();
     },
     /**
-     * Returns the HTML template for recommendations items
+     * Creates the HTML template for recommendations items
      * @param {Object} recommendations - The recommendations object to be rendered
      * @returns {string} The HTML recommendations template
      */
@@ -30,7 +30,7 @@ const displayBackground = {
         `
     },
     /**
-     * Returns the HTML template for education items
+     * Creates the HTML template for education items
      * @param {Object} education - The education object to be rendered
      * @returns {string} The education HTML template
      */

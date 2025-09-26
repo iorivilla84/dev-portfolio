@@ -1,9 +1,14 @@
-[
-    "4+ years of experience as a Front-End Developer, working with HTML5, CSS/SASS, JavaScript, Bootstrap, ISML, and Salesforce Commerce Cloud (SFCC), including SFRA and Page Designer.",
-    "Proficient at designing and implementing reusable UI components, delivering responsive and accessible websites across eCommerce and non-eCommerce platforms.",
-    "Able to manage features from start to finish, including documentation and supporting team growth.",
-    "Experienced in working with cross-functional agile teams, bringing a proactive and solution-focused approach.",
-    "15+ years of experience as a Graphic & Digital Designer, with a strong foundation in Adobe Creative Suite, XD, and Figma, and 2D animation/video creation.",
-    "Experienced in bridging the gap between design and development by delivering consistent, user-focused visuals that integrate seamlessly into digital products.",
-    "Passionate about continuous learning, adopting new tools, and refining design systems to support high-quality, user-focused solutions."
-]
+{
+    "main_title": "About Me",
+    "section_title": "Get to know me!",
+    "description": [
+        "4+ years of experience as a Front-End Developer, working with HTML5, CSS/SASS, JavaScript, Bootstrap, ISML, and Salesforce Commerce Cloud (SFCC), including SFRA and Page Designer.",
+        "Proficient at designing and implementing reusable UI components, delivering responsive and accessible websites across eCommerce and non-eCommerce platforms.",
+        "Able to manage features from start to finish, including documentation and supporting team growth.",
+        "Experienced in working with cross-functional agile teams, bringing a proactive and solution-focused approach.",
+        "15+ years of experience as a Graphic & Digital Designer, with a strong foundation in Adobe Creative Suite, XD, and Figma, and 2D animation/video creation.",
+        "Experienced in bridging the gap between design and development by delivering consistent, user-focused visuals that integrate seamlessly into digital products.",
+        "Passionate about continuous learning, adopting new tools, and refining design systems to support high-quality, user-focused solutions."
+    ],
+    "cv_link": "https://acrobat.adobe.com/id/urn:aaid:sc:US:709244fa-2ff9-46f0-985a-021557849c70"
+}

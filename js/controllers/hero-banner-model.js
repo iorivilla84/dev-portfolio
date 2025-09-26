@@ -15,7 +15,7 @@ const getHeroBannerDataModel = async () => {
         }
 
         const jsonResponse = await response.json();
-        return { status: 'ok', data: jsonResponse.hero_banner, code: 200 }
+        return { status: 'ok', hero_banner: jsonResponse.hero_banner, code: 200 }
     } catch (error) {
         if (error.name === "SyntaxError") {
             console.error(`JSON parse error in ${heroBannerEndPath}:`, error.message);
@@ -23,7 +23,7 @@ const getHeroBannerDataModel = async () => {
             console.error(`Error fetching ${heroBannerEndPath}:`, error.message);
         }
 
-        return { status: 'error', data: [], code: 500 }
+        return { status: 'error', hero_banner: [], code: 500 }
     }
 }
 

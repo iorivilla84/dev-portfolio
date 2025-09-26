@@ -1,5 +1,5 @@
 import { getElement } from "../helpers/dom-helper.js";
-import { formatYear } from "../helpers/formatter.js"
+import { formatterHelper } from "../helpers/formatter.js"
 
 const copyRights = {
     /**
@@ -18,7 +18,7 @@ const copyRights = {
         const yearContainer = getElement.single(container);
         if (!yearContainer) return;
 
-        yearContainer.insertAdjacentHTML('beforeend', formatYear.getFullYear());
+        yearContainer.insertAdjacentHTML('beforeend', formatterHelper.getFullYear());
     }
 }
 

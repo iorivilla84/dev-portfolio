@@ -15,7 +15,14 @@ const getAboutMeList = async () => {
         }
 
         const jsonResponse = await response.json();
-        return { status: 'ok', data: jsonResponse, code: 200 }
+        return {
+            status: 'ok',
+            main_title: jsonResponse.main_title,
+            section_title: jsonResponse.section_title,
+            description: jsonResponse.description,
+            cv_link: jsonResponse.cv_link,
+            code: 200
+        }
     } catch (error) {
         if (error.name === "SyntaxError") {
             console.error(`JSON parse error in ${aboutMeEndPath}:`, error.message);
@@ -23,7 +30,14 @@ const getAboutMeList = async () => {
             console.error(`Error fetching ${aboutMeEndPath}:`, error.message);
         }
 
-        return { status: "error", data: [], code: 500 };
+        return {
+            status: 'error',
+            main_title: [],
+            section_title: [],
+            description: [],
+            cv_link: [],
+            code: 500
+        }
     }
 }
 
