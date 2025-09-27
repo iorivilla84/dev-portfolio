@@ -17,6 +17,8 @@ const getPortfolioListModel = async () => {
         const jsonResponse = await response.json();
         return {
             status: 'ok',
+            section_title: jsonResponse.section_title,
+            section_description: jsonResponse.section_description,
             portfolio: jsonResponse.portfolio,
             project_filters: jsonResponse.project_filters,
             code: 200
@@ -30,6 +32,8 @@ const getPortfolioListModel = async () => {
 
         return {
             status: 'error',
+            section_title: [],
+            section_description: [],
             portfolio: [],
             project_filters: [],
             code: 500

@@ -1,6 +1,7 @@
 import { getElement } from '../helpers/dom-helper.js';
 import { getSkills } from '../controllers/dev-skills-list-model.js';
 import { accordionEventHandlers } from '../controllers/accordion-event-handlers.js'
+import { formatterHelper } from "../helpers/formatter.js";
 
 const displaySkills = {
     /**
@@ -9,21 +10,8 @@ const displaySkills = {
      * @returns {void}
      */
     init: async () => {
-        const mySkillsContainer = getElement.single('.my-skills-list-wrapper');
-
-        await displaySkills.devSkills(mySkillsContainer);
-        accordionEventHandlers.init(mySkillsContainer, '.skill-accordion__link');
-    },
-    /**
-     * Fetches the list of skills to append in the front end
-     * @async
-     * @returns {Promise<Array<Object>>} An array of skills objects
-     */
-    fetchSkillsData: async () => {
-        const devSkillListResponse = await getSkills();
-        if (!devSkillListResponse) return;
-
-        return devSkillListResponse.data;
+        await displaySkills.renderDevSkills('.my-skills-wrapper');
+        accordionEventHandlers.init('.my-skills-list-content', '.skill-accordion__link');
     },
     /**
      * Converts the skills data object into an HTML string
@@ -32,48 +20,62 @@ const displaySkills = {
      */
     getSkillsItemsList: (skillsData) => {
         if (!skillsData) return;
-        const normaliseSkillsData = Array.isArray(skillsData) ? skillsData : [skillsData];
 
-        const skillsHtmlContainer = normaliseSkillsData.map(category => {
-            if (category.items && category.items.length > 0) {
-                const skillsItems = category.items.map(item => `
-                    <li class="code-style skill-item">${item}</li>
-                `).join('');
+        return formatterHelper.arrayFormatter(skillsData, (skill) => {
+            if (!skill.items?.length) return '';
 
-                return `
-                    <div class="accordion-item skill-accordion">
-                        <div class="accordion-header">
-                            <h4 class="skill-accordion__heading">
-                                <button type="button" class="skill-accordion__link accordion-link-button" aria-expanded="false" data-toggle="collapse">
-                                    ${category.name}
-                                </button>
-                            </h4>
-                        </div>
-                        <div class="skill-accordion__body accordion-content" role="region">
-                            <ul class="skill-accordion__list my-skills-list skills-list">
-                                ${skillsItems}
-                            </ul>
-                        </div>
+            const skillsItems = skill.items.map(item => `
+                <li class="code-style skill-item">${item}</li>
+            `).join('');
+
+            return `
+                <div class="accordion-item skill-accordion">
+                    <div class="accordion-header">
+                        <h4 class="skill-accordion__heading">
+                            <button type="button" class="skill-accordion__link accordion-link-button" aria-expanded="false" data-toggle="collapse">
+                                ${skill.name}
+                            </button>
+                        </h4>
                     </div>
-                `
-            }
-            return '';
-        }).join('');
-
-        return skillsHtmlContainer;
+                    <div class="skill-accordion__body accordion-content" role="region">
+                        <ul class="skill-accordion__list my-skills-list skills-list">
+                            ${skillsItems}
+                        </ul>
+                    </div>
+                </div>
+            `;
+        });
+    },
+    /**
+     * Creates an HTML string for displaying a section title
+     * @param {string|string[]} sectionTitle - The section title to be displayed
+     * @returns {string} An HTML string of the section title
+     */
+    getSectionTitle: (sectionTitle) => {
+        const sectionTitleInfo = formatterHelper.arrayFormatter(sectionTitle, (sectionTitle) => sectionTitle || 'Section Title');
+        return sectionTitleInfo;
     },
     /**
      * initialise and append the dev skills into the DOM
-     * @param {HTMLElement} listContainer - The container element to append the dev skills
-     * @returns {void}
+     * @param {HTMLElement} listContainer - The list container element
+     * @returns {Promise<void>}
      */
-    devSkills: async (listContainer) => {
-        const devSkillListData = await displaySkills.fetchSkillsData();
-        const devSkillItems = displaySkills.getSkillsItemsList(devSkillListData);
+    renderDevSkills: async (listContainer) => {
+        const { status, categories, section_title } = await getSkills();
+        const devSkillItems = displaySkills.getSkillsItemsList(categories);
+        const skillsContainer = getElement.single(listContainer);
+        const skillsListContent = skillsContainer.querySelector('.my-skills-list-content');
+        const skillsSectionTitle = skillsContainer.querySelector('.my-skills-title');
 
-        if (!devSkillListData || !devSkillItems) return;
+        if (status !== 'ok'
+            || !devSkillItems
+            || !skillsContainer
+            || !skillsListContent
+            || !skillsSectionTitle
+        ) return;
 
-        listContainer.insertAdjacentHTML('beforeend', devSkillItems);
+        skillsSectionTitle.insertAdjacentHTML('beforeend', displaySkills.getSectionTitle(section_title));
+        skillsListContent.insertAdjacentHTML('beforeend', displaySkills.getSkillsItemsList(categories));
     }
 }
 

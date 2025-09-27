@@ -48,7 +48,7 @@ const displayHeroBanner = {
         const heroBannerImgWrapper = getElement.single('.hero-image-container');
         const heroBannerTextWrapper = getElement.single('.hero-text-content');
 
-        if (status !== 'ok' || !hero_banner.length || !heroBannerImgWrapper || !heroBannerTextWrapper) return;
+        if (status !== 'ok' || !heroBannerImgWrapper || !heroBannerTextWrapper) return;
 
         heroBannerImgWrapper.insertAdjacentHTML('beforeend', displayHeroBanner.getImgElements(hero_banner))
         heroBannerTextWrapper.insertAdjacentHTML('beforeend', displayHeroBanner.getBannerTextContent(hero_banner));

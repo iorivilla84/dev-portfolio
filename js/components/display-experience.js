@@ -1,85 +1,120 @@
 import { getElement } from "../helpers/dom-helper.js";
 import { getExperienceList } from '../controllers/experience-list-model.js'
 import { accordionEventHandlers } from '../controllers/accordion-event-handlers.js'
+import { formatterHelper } from "../helpers/formatter.js";
 
 const displayDevExperience = {
     /**
-     * Init DV experience list
+     * Initializes the component by fetching the experience list and rendering it
      * @async
-     * @returns {void}
+     * @returns {Promise<void>}
      */
     init: async () => {
-        await displayDevExperience.renderWorkExperience();
-    },
-    getExperienceData: async () => {
-        const { data } = await getExperienceList();
-        if (!data) return;
+        const experienceWrapper = getElement.single('.experience-wrapper');
+        const model = await getExperienceList();
+        if (!experienceWrapper || !model) return;
 
-        return data;
+        await displayDevExperience.displayWorkExperience(experienceWrapper, model);
     },
-    getExperienceLanguages: languages => {
-        if (!Array.isArray(languages?.stack)) return '';
-
-        const languagesList = Array.isArray(languages?.stack)
-            ? languages.stack.map(language => `<li class="stack-list__item code-style">${language}</li>`)
-            : [];
-        const languagesHtmlTemplate = languagesList.length > 0
-            ? `<ul class="stack-list">${languagesList.join('')}</ul>`
-            : '';
-
-        return languagesHtmlTemplate;
+    /**
+     * Creates an HTML string for displaying a section title
+     * @param {string|string[]} sectionTitle - The section title to be displayed
+     * @returns {string} An HTML string of the section title
+     */
+    getSectionTitle: (sectionTitle) => {
+        const sectionTitleInfo = formatterHelper.arrayFormatter(sectionTitle, (sectionTitle) => sectionTitle || 'Section Title');
+        return sectionTitleInfo;
     },
+    /**
+     * Returns an HTML string representing the stack list for the given experience.
+     * @param {object} experience - The experience object
+     * @returns {string} The HTML string of the stack list
+     */
+    getExperienceLanguages: experience => {
+        if (!experience || !experience?.stack.length) return '';
+
+        const languagesList = formatterHelper.arrayFormatter(experience?.stack, language => {
+            return `<li class="stack-list__item code-style">${language}</li>`
+        });
+        return `<ul class="stack-list">${languagesList}</ul>`;
+    },
+    /**
+     * Returns an HTML string representing the responsibilities list for the given experience.
+     * @param {object} experience - The experience object
+     * @returns {string} The HTML string of the responsibilities list
+     */
     getResponsibilities: (experience) => {
-        if (!Array.isArray(experience?.responsibilities)) return '';
+        if (!experience) return '';
 
-        const responsibilities = Array.isArray(experience?.responsibilities)
-            ? experience.responsibilities
-            : [];
-
-        const responsibilitiesList = responsibilities?.map(responsibility => {
-            return `<li class="experience-item-list experience-duties">${responsibility}</li>`
-        }).join('');
+        const responsibilitiesList = formatterHelper.arrayFormatter(experience?.responsibilities, duty => {
+            return `<li class="experience-item-list experience-duties">${duty}</li>`
+        })
 
         return `
             <ul class="experience-duties-wrapper experience-duties-list">
                 ${responsibilitiesList}
             </ul>
-        `
+        `;
     },
+    /**
+     * Returns an HTML string representing the position and period for the given experience.
+     * @param {object} experience - The experience object
+     * @returns {string} The HTML string of the position and period
+     */
     getExperienceHeader: experience => {
         return `
             <h4 class="experience-info-accordion__heading">
                 <button type="button" class="experience-info-accordion__link accordion-link-button" aria-expanded="false" data-toggle="collapse">
                     ${experience?.position
                         ? `<div class="experience-info-accordion__position">${experience.position}</div>`
-                        : ''}
+                        : `<div class="experience-info-accordion__position">Position</div>`}
                     ${experience?.period_time
                         ? `<div class="experience-info-accordion__period">${experience.period_time}</div>`
-                        : ''}
+                        : `<div class="experience-info-accordion__period">Period</div>`}
                 </button>
             </h4>
         `
     },
+    /**
+     * Returns an HTML string representing the company logo for the given experience.
+     * @param {object} experience - The experience object
+     * @returns {string} The HTML string of the company logo
+     */
     getCompanyLogo: experience => {
         return `
             <div class="experience-info-accordion__company-logo">
                 ${experience?.company_logo
                     ? `<img class="company-logo-img" src="${experience.company_logo}" alt="${experience.company_name}" loading="lazy">`
-                    : ''}
+                    : `<img class="company-logo-img"
+                        src="https://static.vecteezy.com/system/resources/previews/004/141/669/non_2x/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg"
+                        alt="Company Logo" loading="lazy">`
+                    }
             </div>
         `
     },
+    /**
+     * Returns an HTML string representing the location and company link for the given experience.
+     * @param {object} experience - The experience object
+     * @returns {string} The HTML string of the location and company link
+     */
     getExperienceLocation: experience => {
         return `
-            ${experience?.location ? `<div class="city location-item">${experience.location}</div>` : ''}
+            ${experience?.location 
+                ? `<div class="city location-item">${experience.location}</div>`
+                : `<div class="city location-item">Location</div>`}
             ${experience?.company_link
                 ? `
                     <div class="company-link location-item">
-                        <a href="${experience.company_link}" target="_blank" rel="noopener noreferrer">${experience.company_link}</a>
+                        <a href="${experience.company_link || '#'}" target="_blank" rel="noopener noreferrer" aria-label="Learn more">${experience.company_link || 'Company Link'}</a>
                     </div>`
                 : ''}
         `
     },
+    /**
+     * Returns an HTML string representing the complete experience template.
+     * @param {object} experience - The experience object
+     * @returns {string} The HTML string of the complete experience template.
+     */
     workExperienceTemplate: experience => {
         const renderHeaderTemplate = displayDevExperience.getExperienceHeader(experience);
         const renderCompanyLogoTemplate = displayDevExperience.getCompanyLogo(experience);
@@ -114,15 +149,20 @@ const displayDevExperience = {
             </div>
         `
     },
-    renderWorkExperience: async () => {
-        const experienceData = await displayDevExperience.getExperienceData();
-        const experienceWrapper = getElement.single('.experience-content-wrapper');
+    /**
+     * Renders the work experience section based on the given data model
+     * @param {object} model - The model containing the experience data
+     * @returns {void}
+     */
+    displayWorkExperience: (wrapper, model) => {
+        const { status, section_title, experience } = model;
+        const experienceWrapper = wrapper.querySelector('.experience-content-wrapper');
+        const experienceSectionTitle = wrapper.querySelector('.experience-title');
+        if (!experienceWrapper || !experienceSectionTitle || status !== 'ok') return;
 
-        if (!experienceWrapper || !experienceData) return;
-
-        experienceData.forEach(experience => {
-            experienceWrapper.insertAdjacentHTML('beforeend', displayDevExperience.workExperienceTemplate(experience))
-        });
+        experienceSectionTitle.textContent = section_title;
+        const html = formatterHelper.arrayFormatter(experience, displayDevExperience.workExperienceTemplate);
+        experienceWrapper.insertAdjacentHTML('beforeend', html);
 
         accordionEventHandlers.init('.experience-content-wrapper', '.experience-info-accordion__link');
     }

@@ -7,7 +7,10 @@ const copyRights = {
      * @returns {void}
      */
     init: () => {
-        copyRights.getCurrentYear('.footer-year');
+        const yearContainer = getElement.single('.footer-year');
+        if (!yearContainer) return;
+
+        copyRights.getCurrentYear(yearContainer);
     },
     /**
      * Fetch Current Year to append in copyrights
@@ -15,10 +18,7 @@ const copyRights = {
      * @returns {Number} A number with the current year
      */
     getCurrentYear: container => {
-        const yearContainer = getElement.single(container);
-        if (!yearContainer) return;
-
-        yearContainer.insertAdjacentHTML('beforeend', formatterHelper.getFullYear());
+        container.textContent = formatterHelper.getFullYear();
     }
 }
 

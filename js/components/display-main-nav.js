@@ -9,7 +9,8 @@ const siteMainNav = {
      * @returns {void}
      */
     init: async () => {
-        await siteMainNav.renderMainNavigation();
+        const model = await getNavigationDataModel();
+        await siteMainNav.renderMainNavigation(model);
         navEventHandlers.init();
     },
     /**
@@ -76,11 +77,10 @@ const siteMainNav = {
      * @async
      * @returns {void}
      */
-    renderMainNavigation: async () => {
-        const response = await getNavigationDataModel();
-        if (!response) return;
+    renderMainNavigation: (model) => {
+        if (!model) return;
 
-        const { main_navigation = [], socials = [] } = response;
+        const { main_navigation, socials } = model;
 
         const mainNavContainer = getElement.multiple('.navbar-nav.main-nav-list');
         const socialsNavContainer = getElement.multiple('.socials-nav-list .nav-socials-wrapper');

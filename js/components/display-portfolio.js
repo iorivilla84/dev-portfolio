@@ -1,6 +1,7 @@
 import { getElement } from "../helpers/dom-helper.js";
 import { getPortfolioListModel } from "../controllers/portfolio-list-model.js";
 import { filteredProjectsEventHandler } from "../controllers/filtering-projects-event-handler.js";
+import { formatterHelper } from "../helpers/formatter.js";
 
 const displayPortfolioGrid = {
     /**
@@ -9,8 +10,12 @@ const displayPortfolioGrid = {
      * @returns {void}
      */
     init: async () => {
-        await displayPortfolioGrid.displayPortfolio('.projects-list-container');
-        await displayPortfolioGrid.renderFilterButtons('.project-list-filter');
+        const projectsWrapper = getElement.single('.projects-wrapper');
+        if (!projectsWrapper) return;
+
+        const model = await getPortfolioListModel();
+        await displayPortfolioGrid.displayPortfolio(projectsWrapper, model);
+        await displayPortfolioGrid.renderFilterButtons(projectsWrapper, model);
         displayPortfolioGrid.renderFilterProjects('.btn-filter');
     },
     /**
@@ -20,10 +25,12 @@ const displayPortfolioGrid = {
      * @returns {void}
      */
     portfolioCardTemplate: (project) => {
-        const projectLanguagesList = (project.stack || [])
-            .map(language => `
-                <span class="code-style skill-item d-inline-block">${language}</span>
-            `).join(' ') || '';
+        if (!project) return;
+
+        const projectLanguagesList = formatterHelper.arrayFormatter(project?.stack, language => {
+            if (!project?.stack?.length) return;
+            return `<span class="code-style skill-item d-inline-block">${language}</span>`
+        });
 
         return `
             <div class="col card-wrapper">
@@ -53,44 +60,58 @@ const displayPortfolioGrid = {
         `;
     },
     /**
+     * Renders the section title and description for the portfolio page
+     * @param {HTMLElement} wrapper - The parent element of the projects section
+     * @returns {void}
+     */
+    displaySectionDescription : (wrapper, model) => {
+        const { status, section_title, section_description } = model;
+        const sectionTitle = wrapper.querySelector('.projects-title');
+        const sectionDescription = wrapper.querySelector('.projects-text');
+        if (status !== 'ok' || !sectionTitle || !sectionDescription) return;
+
+        sectionTitle.textContent = section_title;
+        sectionDescription.textContent = section_description;
+    },
+    /**
      * Render and append the project cards list into the targeted container element
      * @param {String} container - The CSS selector of the target container element.
      * @returns {void}
      */
-    displayPortfolio: async (container) => {
-        const { portfolio } = await getPortfolioListModel();
-        if (!portfolio?.length) return;
+    displayPortfolio: (wrapper, model) => {
+        const { status, portfolio } = model;
+        const portfolioGridContainer = wrapper.querySelector('.projects-list-container');
+        if (status !== 'ok' || !portfolioGridContainer) return;
 
-        const portfolioGridContainer = getElement.single(container);
-        if (!portfolioGridContainer) return;
+        const portfolioHTML = formatterHelper.arrayFormatter(portfolio, displayPortfolioGrid.portfolioCardTemplate);
+        portfolioGridContainer.insertAdjacentHTML('beforeend', portfolioHTML);
 
-        portfolio.forEach(project => {
-            portfolioGridContainer.insertAdjacentHTML('beforeend',
-                displayPortfolioGrid.portfolioCardTemplate(project)
-            );
-        });
+        displayPortfolioGrid.displaySectionDescription(wrapper, model);
     },
     /**
      * Renders and appends the project filter list into the targeted container element
      * @param {String} container - The CSS selector of the target container element.
      * @returns {void}
      */
-    renderFilterButtons: async (container) => {
-        const { project_filters } = await getPortfolioListModel();
-        if (!project_filters?.length) return;
+    renderFilterButtons: (wrapper, model) => {
+        const { status, project_filters } = model;
+        const filterWrapper = wrapper.querySelector('.project-list-filter');
+        if (status !== 'ok' || !filterWrapper) return;
 
-        const filterWrapper = getElement.single(container);
-        if (!filterWrapper) return;
-
-        const filtersListTemplate = project_filters.map(filter => {
+        const filtersListTemplate = formatterHelper.arrayFormatter(project_filters, filter => {
             return `
                 <li class="filter-item">
                     <button class="btn-filter" type="button" aria-controls="${filter}">${filter}</button>
                 </li>
             `;
-        }).join('');
+        })
 
-        filterWrapper.insertAdjacentHTML('beforeend', filtersListTemplate);
+        filterWrapper.insertAdjacentHTML('beforeend',
+            `
+                <span class="filter-subtitle d-block d-md-flex">Filter By:</span>
+                ${filtersListTemplate}
+            `
+        );
     },
     /**
      * Filtering portfolio projects based on type of project
@@ -137,6 +158,7 @@ const displayPortfolioGrid = {
             }).length;
         }
 
+        btn.querySelector('.cards-count')?.remove();
         btn.insertAdjacentHTML('beforeend', `<span class="cards-count">${cardsCount}</span>`);
     }
 }

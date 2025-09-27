@@ -1,5 +1,7 @@
 import { getBackgroundData } from "../controllers/background-model.js"
 import { getElement } from "../helpers/dom-helper.js";
+import { formatterHelper } from "../helpers/formatter.js";
+import { displayAboutMeList } from "./display-about-me-list.js";
 
 const displayBackground = {
     /**
@@ -8,7 +10,15 @@ const displayBackground = {
      * @returns {void}
      */
     init: async () => {
-        await displayBackground.displayBackground();
+        const educationWrapper = getElement.single('.background-wrapper');
+        const model = await getBackgroundData();
+        if (!educationWrapper || !model) return;
+
+        await displayBackground.displayBackground(educationWrapper, model);
+    },
+    getSectionTitle: (sectionTitle) => {
+        const sectionTitleInfo = formatterHelper.arrayFormatter(sectionTitle, (sectionTitle) => sectionTitle || 'Section Title');
+        return sectionTitleInfo;
     },
     /**
      * Creates the HTML template for recommendations items
@@ -54,22 +64,24 @@ const displayBackground = {
      * @async
      * @returns {Promise<Array<Object>>} An array of education objects
      */
-    displayBackground: async () => {
-        const { status, education, recommendations } = await getBackgroundData();
+    displayBackground: (wrapper, model) => {
+        const { status, section_title, education, recommendations, cv_link } = model;
 
-        if (status === 'ok') {
-            const educationContainer = getElement.single('.education-list-wrapper');
-            education?.forEach(edu => {
-                educationContainer?.insertAdjacentHTML('beforeend', displayBackground.educationListTemplate(edu));
-            });
+        if (status !== 'ok') return;
 
-            const recommendationContainer = getElement.single('.recommendations-wrapper');
-            recommendations?.forEach(recommendation => {
-                recommendationContainer?.insertAdjacentHTML('beforeend', displayBackground.recommendationListTemplate(recommendation));
-            });
-        }
+        const educationContainer = wrapper.querySelector('.education-list-wrapper');
+        const educationSectionTitle = wrapper.querySelector('.education-title');
+        const recommendationContainer = wrapper.querySelector('.recommendations-wrapper');
+        if (!educationContainer || !educationSectionTitle || !recommendationContainer) return;
 
-        return education;
+        educationSectionTitle.innerHTML = displayBackground.getSectionTitle(section_title);
+
+        const educationHTML = formatterHelper.arrayFormatter(education, displayBackground.educationListTemplate);
+        educationContainer.insertAdjacentHTML('beforeend', educationHTML);
+        educationContainer.insertAdjacentHTML('afterend', displayAboutMeList.cvLinkTemplate(cv_link));
+
+        const recommendationHTML = formatterHelper.arrayFormatter(recommendations, displayBackground.recommendationListTemplate);
+        recommendationContainer?.insertAdjacentHTML('beforeend', recommendationHTML);
     }
 }
 

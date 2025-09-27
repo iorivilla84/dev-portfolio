@@ -19,8 +19,10 @@ const getBackgroundData = async () => {
         const jsonResponse = await response.json();
         return {
             status: "ok",
+            section_title: jsonResponse.section_title,
             education: jsonResponse.education,
             recommendations: jsonResponse.recommendations,
+            cv_link: jsonResponse.cv_link,
             code: 200
         }
     } catch (error) {
@@ -32,8 +34,10 @@ const getBackgroundData = async () => {
 
         return {
             status: "ok",
+            section_title: [],
             education: [],
             recommendations: [],
+            cv_link: [],
             code: 500
         }
     }

@@ -15,8 +15,12 @@ const getExperienceList = async () => {
         }
 
         const jsonResponse = await response.json();
-        const experienceData = jsonResponse.experience;
-        return { status: 'ok', data: experienceData, code: '200'}
+        return {
+            status: 'ok',
+            section_title: jsonResponse.section_title,
+            experience: jsonResponse.experience,
+            code: 200
+        }
     } catch (error) {
         if (error.name === "SyntaxError") {
             console.error(`JSON parse error in ${experienceListEndPath}:`, error.message);
@@ -24,7 +28,12 @@ const getExperienceList = async () => {
             console.error(`Error fetching ${experienceListEndPath}:`, error.message);
         }
 
-        return { status: 'error', data: [], code: '500'}
+        return {
+            status: 'ok',
+            section_title: [],
+            experience: [],
+            code: 500
+        }
     }
 }
 

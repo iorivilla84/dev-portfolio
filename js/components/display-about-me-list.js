@@ -29,15 +29,14 @@ const displayAboutMeList = {
      * @param {string} cv_link - The link to the CV.
      * @returns {string} - An HTML string of a link to download the CV.
      */
-    cvLinkTemplate: (cv_link) => {
-        const linkInfo = formatterHelper.arrayFormatter(cv_link, (cv_link) => cv_link || 'http://example.com');
-        return linkInfo
-            ? `
-                <a href="${linkInfo}" class="download-btn btn btn-primary" target="_blank">
-                    Download CV
-                </a>
-            `
-            : '';
+     cvLinkTemplate: (cv_link) => {
+        const linkInfo = formatterHelper.arrayFormatter([cv_link], link => link || "http://example.com");
+
+        return `
+            <a href="${linkInfo}" class="download-btn btn btn-primary" target="_blank">
+                Download CV
+            </a>
+        `;
     },
     /**
      * Creates an HTML string for displaying a link to download a CV otherwise empty.
@@ -83,19 +82,16 @@ const displayAboutMeList = {
             || !aboutMeSectionTitle
             || !aboutMeSubtitle
             || !descriptionContainer
-            || !main_title.length
-            || !section_title.length
-            || !description.length
-            || !cv_link.length
         ) return;
 
         if (status === 'ok') {
             aboutMeSectionTitle.insertAdjacentHTML('beforeend', displayAboutMeList.titleSectionTemplate(main_title));
-            aboutMeSubtitle.insertAdjacentHTML('afterbegin', displayAboutMeList.subTitleResumeTemplate(section_title));
-            description?.forEach(desc => {
-                descriptionContainer.insertAdjacentHTML('beforeend', displayAboutMeList.descriptionTemplate(desc));
-            });
-            descriptionContainer.insertAdjacentHTML('afterend', displayAboutMeList.cvLinkTemplate(cv_link));
+            aboutMeSubtitle.innerText = displayAboutMeList.subTitleResumeTemplate(section_title);
+
+            const descriptionHTML = formatterHelper.arrayFormatter(description, displayAboutMeList.descriptionTemplate);
+            descriptionContainer.insertAdjacentHTML('beforeend', descriptionHTML);
+
+            descriptionContainer.insertAdjacentHTML('afterend', displayAboutMeList.cvLinkTemplate(cv_link) || '');
         }
     }
 }
