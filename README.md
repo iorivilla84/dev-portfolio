@@ -26,15 +26,21 @@ The portfolio is built with semantic HTML5, Bootstrap 5 for responsive layout, S
 
 ## Project Structure
 <pre lang="markdown"> dev-portfolio/
-├── index.html
+├── Assets/
+│   └── images/
+│   │   ├── company-logos/
+│   │   ├── favicons/
+│   │   ├── portfolio/
+│   │   │   ├── web-development/
+│   │   │   ├── web-graphic-design/
+│   └── avatar-hero-banner.jpg/
+│   └── logo-white.svg/
+│   └── hero-banner-background.jpg/
 ├── css/
-│   ├── main.css
 │   └── components/
-│       ├── _accordion.scss
-│       ├── _buttons.scss
-│       ├── _footer.scss
-│       ├── _mainNav.scss
-│       └── _portfolio.scss
+│   ├── fonts/
+│       └── _portfolioFont.scss
+│   ├── main.css
 ├── js/
 │   ├── components/
 │   │   ├── display-about-me-list.js
@@ -65,23 +71,35 @@ The portfolio is built with semantic HTML5, Bootstrap 5 for responsive layout, S
 │   ├── helpers/
 │   │   ├── dom-helper.js
 │   │   └── formatter.js
+│   ├── portfolio-model/
+│   │   ├── about-me.json
+│   │   ├── background-list.json
+│   │   ├── contact.json
+│   │   ├── experience-list.json
+│   │   ├── footer-content.json
+│   │   ├── hero-banner.json
+│   │   ├── navigation-list.json
+│   │   ├── portfolio-list.json
+│   │   ├── site.json
+│   │   └── skills.json
 │   └── main.js
-├── portfolio-model/
-│   ├── about-me.json
-│   ├── background-list.json
-│   ├── contact.json
-│   ├── experience-list.json
-│   ├── footer-content.json
-│   ├── hero-banner.json
-│   ├── navigation-list.json
-│   ├── portfolio-list.json
-│   ├── site.json
-│   └── skills.json
 ├── node_modules/
-├── package.json
-├── package-lock.json
-├── README.md
+├── scss/
+│   └── components/
+│       ├── _accordion.scss
+│       ├── _buttons.scss
+│       ├── _footer.scss
+│       ├── _mainNav.scss
+│   └── fonts/
+│       ├── portfolioFont.scss
+│   ├── _portfolio.scss
+│   ├── _variables_.scss
+│   ├── main.scss
 └── .gitignore
+└── index.html
+├── package-lock.json
+├── package.json
+├── README.md
  </pre>
 
 ## Deployment

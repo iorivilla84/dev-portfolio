@@ -1,9 +1,9 @@
 body {
-  font-family: "poppins", sans-serif;
+  font-family: "Poppins", sans-serif;
 }
 
 h1, h2, h3, h4 {
-  font-family: "poppins", sans-serif;
+  font-family: "Poppins", sans-serif;
   font-weight: 600;
   font-style: normal;
   letter-spacing: 2.2px;
@@ -281,7 +281,7 @@ main section {
 
 /* Hero Banner */
 .hero-banner {
-  background: url(../assets/images/diego-velasquez-hero-banner.jpg) center center;
+  background: url(../assets/images/hero-banner-background.jpg) center center;
   background-color: #b3b3b3;
   background-position: 50%;
   background-repeat: no-repeat;

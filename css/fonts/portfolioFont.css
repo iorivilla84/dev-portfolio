@@ -1,21 +1,17 @@
-body {
-  font-family: "poppins", sans-serif;
-}
+/* Error: Undefined variable.
+ *   ,
+ * 2 |     font-family: $font-primary;
+ *   |                  ^^^^^^^^^^^^^
+ *   '
+ *   scss/fonts/portfolioFont.scss 2:18  root stylesheet */
 
-h1, h2, h3, h4 {
-  font-family: "poppins", sans-serif;
-  font-weight: 600;
-  font-style: normal;
-  letter-spacing: 2.2px;
-}
-
-.nav-item .nav-link {
-  font-family: "Roboto Mono", monospace;
-  font-optical-sizing: auto;
-  font-weight: normal;
-  font-style: normal;
-}
-
-.skill-item, .filter-item, .project-filter-wrapper {
-  font-family: "Roboto Mono", monospace;
+body::before {
+  font-family: "Source Code Pro", "SF Mono", Monaco, Inconsolata, "Fira Mono",
+      "Droid Sans Mono", monospace, monospace;
+  white-space: pre;
+  display: block;
+  padding: 1em;
+  margin-bottom: 1em;
+  border-bottom: 2px solid black;
+  content: "Error: Undefined variable.\a   \2577 \a 2 \2502      font-family: $font-primary;\a   \2502                   ^^^^^^^^^^^^^\a   \2575 \a   scss/fonts/portfolioFont.scss 2:18  root stylesheet";
 }
