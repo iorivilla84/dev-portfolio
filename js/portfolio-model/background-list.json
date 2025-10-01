@@ -60,5 +60,8 @@
             "recommendation": "Working with Diego has been a real pleasure. He’s a front end developer with a great sense for design and a sharp attention to detail. Diego approaches each project with a positive attitude and handles challenges with confidence. He's someone you can always count on."
         }
     ],
-    "cv_link": "https://acrobat.adobe.com/id/urn:aaid:sc:US:709244fa-2ff9-46f0-985a-021557849c70"
+    "cv_info": {
+        "cv_url": "https://acrobat.adobe.com/id/urn:aaid:sc:US:709244fa-2ff9-46f0-985a-021557849c70",
+        "cv_button_text": "View Resume"
+    }
 }

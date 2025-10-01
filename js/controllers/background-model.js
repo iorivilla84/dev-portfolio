@@ -2,7 +2,7 @@
 /**
  * Fetches the background data (education + recommendations)
  * @async
- * @returns {Promise} An Object containing the request status, data and code
+ * @returns {Promise} An Object containing the request status, data objects and code
  */
 const getBackgroundData = async () => {
     const backgroundDataEndPath = "./js/portfolio-model/background-list.json";
@@ -22,7 +22,7 @@ const getBackgroundData = async () => {
             section_title: jsonResponse.section_title,
             education: jsonResponse.education,
             recommendations: jsonResponse.recommendations,
-            cv_link: jsonResponse.cv_link,
+            cv_info: jsonResponse.cv_info,
             code: 200
         }
     } catch (error) {
@@ -37,7 +37,7 @@ const getBackgroundData = async () => {
             section_title: [],
             education: [],
             recommendations: [],
-            cv_link: [],
+            cv_url: [],
             code: 500
         }
     }

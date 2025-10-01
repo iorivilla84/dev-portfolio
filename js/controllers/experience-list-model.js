@@ -1,7 +1,7 @@
 /**
  * Fetches the list of Experience to append in the front end
  * @async
- * @returns {Promise} An Object containing the request status, data and code
+ * @returns {Promise} An Object containing the request status, data objects and code
  */
 const getExperienceList = async () => {
     const experienceListEndPath = './js/portfolio-model/experience-list.json';
@@ -29,7 +29,7 @@ const getExperienceList = async () => {
         }
 
         return {
-            status: 'ok',
+            status: 'error',
             section_title: [],
             experience: [],
             code: 500

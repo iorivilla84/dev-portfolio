@@ -17,26 +17,18 @@ const displayDevExperience = {
         await displayDevExperience.displayWorkExperience(experienceWrapper, model);
     },
     /**
-     * Creates an HTML string for displaying a section title
-     * @param {string|string[]} sectionTitle - The section title to be displayed
-     * @returns {string} An HTML string of the section title
-     */
-    getSectionTitle: (sectionTitle) => {
-        const sectionTitleInfo = formatterHelper.arrayFormatter(sectionTitle, (sectionTitle) => sectionTitle || 'Section Title');
-        return sectionTitleInfo;
-    },
-    /**
      * Returns an HTML string representing the stack list for the given experience.
      * @param {object} experience - The experience object
      * @returns {string} The HTML string of the stack list
      */
     getExperienceLanguages: experience => {
-        if (!experience || !experience?.stack.length) return '';
+        if (!experience) return '';
 
         const languagesList = formatterHelper.arrayFormatter(experience?.stack, language => {
-            return `<li class="stack-list__item code-style">${language}</li>`
+            return `<li class="stack-list__item code-style">${language.trim() || 'Item Not Available'}</li>`
         });
-        return `<ul class="stack-list">${languagesList}</ul>`;
+
+        return `<ul class="stack-list">${languagesList.length ? languagesList : '<li>No Stack List Available</li>'}</ul>`;
     },
     /**
      * Returns an HTML string representing the responsibilities list for the given experience.
@@ -47,12 +39,12 @@ const displayDevExperience = {
         if (!experience) return '';
 
         const responsibilitiesList = formatterHelper.arrayFormatter(experience?.responsibilities, duty => {
-            return `<li class="experience-item-list experience-duties">${duty}</li>`
+            return `<li class="experience-item-list experience-duties">${duty || 'Item Not Available'}</li>`
         })
 
         return `
             <ul class="experience-duties-wrapper experience-duties-list">
-                ${responsibilitiesList}
+                ${responsibilitiesList.length ? responsibilitiesList : '<li>No Responsibilities Available</li>'}
             </ul>
         `;
     },
@@ -67,10 +59,10 @@ const displayDevExperience = {
                 <button type="button" class="experience-info-accordion__link accordion-link-button" aria-expanded="false" data-toggle="collapse">
                     ${experience?.position
                         ? `<div class="experience-info-accordion__position">${experience.position}</div>`
-                        : `<div class="experience-info-accordion__position">Position</div>`}
+                        : `<div class="experience-info-accordion__position">No Position Item Available</div>`}
                     ${experience?.period_time
                         ? `<div class="experience-info-accordion__period">${experience.period_time}</div>`
-                        : `<div class="experience-info-accordion__period">Period</div>`}
+                        : `<div class="experience-info-accordion__period">No Period Item Available</div>`}
                 </button>
             </h4>
         `
@@ -83,12 +75,9 @@ const displayDevExperience = {
     getCompanyLogo: experience => {
         return `
             <div class="experience-info-accordion__company-logo">
-                ${experience?.company_logo
-                    ? `<img class="company-logo-img" src="${experience.company_logo}" alt="${experience.company_name}" loading="lazy">`
-                    : `<img class="company-logo-img"
-                        src="https://static.vecteezy.com/system/resources/previews/004/141/669/non_2x/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg"
-                        alt="Company Logo" loading="lazy">`
-                    }
+                <img class="company-logo-img"
+                    src="${experience.company_logo || 'https://static.vecteezy.com/system/resources/previews/004/141/669/non_2x/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg'}"
+                    alt="${experience.company_logo && experience.company_name ? experience.company_name : 'No Company Name Available'}" loading="lazy">
             </div>
         `
     },
@@ -99,15 +88,15 @@ const displayDevExperience = {
      */
     getExperienceLocation: experience => {
         return `
-            ${experience?.location 
+            ${experience?.location
                 ? `<div class="city location-item">${experience.location}</div>`
-                : `<div class="city location-item">Location</div>`}
+                : `<div class="city location-item">No Location Available</div>`}
             ${experience?.company_link
                 ? `
                     <div class="company-link location-item">
                         <a href="${experience.company_link || '#'}" target="_blank" rel="noopener noreferrer" aria-label="Learn more">${experience.company_link || 'Company Link'}</a>
                     </div>`
-                : ''}
+                : '<div class="company-link location-item">No Company Link Available</div>'}
         `
     },
     /**
@@ -151,6 +140,7 @@ const displayDevExperience = {
     },
     /**
      * Renders the work experience section based on the given data model
+     * @param {HTMLElement} wrapper - The container of the target element.
      * @param {object} model - The model containing the experience data
      * @returns {void}
      */
@@ -160,7 +150,7 @@ const displayDevExperience = {
         const experienceSectionTitle = wrapper.querySelector('.experience-title');
         if (!experienceWrapper || !experienceSectionTitle || status !== 'ok') return;
 
-        experienceSectionTitle.textContent = section_title;
+        experienceSectionTitle.textContent = section_title || "Section Title";
         const html = formatterHelper.arrayFormatter(experience, displayDevExperience.workExperienceTemplate);
         experienceWrapper.insertAdjacentHTML('beforeend', html);
 

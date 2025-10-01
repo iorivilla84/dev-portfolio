@@ -1,7 +1,7 @@
 /**
  * Fetches the Main Navigation list data to append in the front end
  * @async
- * @returns {Promise} An Object containing the request status, data and code
+ * @returns {Promise} An Object containing the request status, data objects and code
  */
 const getNavigationDataModel = async () => {
     const navigationEndPath = './js/portfolio-model/navigation-list.json';
@@ -30,7 +30,7 @@ const getNavigationDataModel = async () => {
         }
 
         return {
-            status: 'ok',
+            status: 'error',
             main_navigation: [],
             socials: [],
             code: 500

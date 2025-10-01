@@ -1,7 +1,7 @@
 /**
  * Fetches the list of About Me to append in the front end
  * @async
- * @returns {Promise} An Object containing the request status, data and code
+ * @returns {Promise} An Object containing the request status, data objects and code
  */
 const getAboutMeList = async () => {
     const aboutMeEndPath = "./js/portfolio-model/about-me.json";
@@ -17,10 +17,7 @@ const getAboutMeList = async () => {
         const jsonResponse = await response.json();
         return {
             status: 'ok',
-            main_title: jsonResponse.main_title,
-            section_title: jsonResponse.section_title,
-            description: jsonResponse.description,
-            cv_link: jsonResponse.cv_link,
+            about_me: jsonResponse.about_me,
             code: 200
         }
     } catch (error) {
@@ -32,10 +29,7 @@ const getAboutMeList = async () => {
 
         return {
             status: 'error',
-            main_title: [],
-            section_title: [],
-            description: [],
-            cv_link: [],
+            about_me: [],
             code: 500
         }
     }

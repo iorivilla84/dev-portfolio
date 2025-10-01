@@ -1,8 +1,9 @@
 .accordion-item {
     .accordion-content {
         max-height: 0;
-        overflow: scroll;
-        transition: max-height .3s ease-out;
+        overflow: auto;
+        scrollbar-color: transparent transparent;
+        transition: max-height 0.3s ease-out;
     }
 
     .accordion-link-button {

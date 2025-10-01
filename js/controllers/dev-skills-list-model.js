@@ -1,7 +1,7 @@
 /**
  * Fetches the list of skills to append in the front end
  * @async
- * @returns {Promise} An Object containing the request status, data and code
+ * @returns {Promise} An Object containing the request status, data objects and code
  */
 const getSkills = async () => {
     const skillsEndPath = './js/portfolio-model/skills.json'
@@ -29,7 +29,7 @@ const getSkills = async () => {
         }
 
         return {
-            status: 'ok',
+            status: 'error',
             section_title: [],
             categories: [],
             code: 500

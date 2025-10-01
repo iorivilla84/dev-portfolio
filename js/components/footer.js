@@ -1,25 +1,106 @@
 import { getElement } from "../helpers/dom-helper.js";
 import { formatterHelper } from "../helpers/formatter.js"
+import { getFooterDataModel } from "../controllers/footer-model.js";
 
-const copyRights = {
+const displayFooterContent = {
     /**
-     * init fetch copyRights full year
+     * Initialises the footer component by fetching the footer data model and rendering the content
+     * @async
      * @returns {void}
      */
-    init: () => {
+    init: async () => {
+        const model = await getFooterDataModel();
+        const footerWrapper = getElement.single('.footer-container');
+        if (!footerWrapper || !model) return;
+
+        displayFooterContent.renderFooterContent(footerWrapper, model);
+
         const yearContainer = getElement.single('.footer-year');
         if (!yearContainer) return;
 
-        copyRights.getCurrentYear(yearContainer);
+        displayFooterContent.renderCopyRightsYear(yearContainer);
     },
     /**
-     * Fetch Current Year to append in copyrights
+     * Creates the HTML string to display the social icons items
+     * @param {Object} social - The social info data object
+     * @returns {string} An HTML string of the social navigation items
+     */
+    getFooterSocials: (social) => {
+        return `
+            <li class="socials footer-item">
+                <a href="${social.link || '#'}" aria-label="${social.name || 'Icon Name'}" target="_blank" rel="noopener noreferrer" class="footer-link">
+                    ${social.icon || 'Icon Missing'}
+                </a>
+            </li>
+        `;
+    },
+    /**
+     * Creates the html string to display the footer logo
+     * @param {Object} footer - The footer data object
+     * @returns {String} An HTML string of the footer logo
+     */
+    getFooterLogo: (footer) => {
+        return `
+            <img class="footler-logo" src="${footer?.logo || 'https://static.vecteezy.com/system/resources/previews/004/141/669/non_2x/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg'}">
+        `;
+    },
+    /**
+     * Creates the html string to display the copyright content
+     * @param {Object} copyright - The copyright data object
+     * @returns {String} An HTML string of the footer logo
+     */
+    getCopyRights: (copyright) => {
+        return `
+            <a href="${copyright?.made_by_link || '#'}" target="_blank" rel="noopener noreferrer">
+                ${copyright?.made_by || 'Your Name'}
+            </a>
+        `
+    },
+    /**
+     * Renders the footer content in the footer container
+     * @param {HTMLElement} footerWrapper - the footer container wrapper
+     * @param {Object} model - copyright - The footer data object
+     * @returns {void}
+     */
+    renderFooterContent: (footerWrapper, model) => {
+        const { status, footer, copyright } = model;
+        const footerLogoContainer = footerWrapper.querySelector('.footer-logo');
+        const socialIconsContainer = footerWrapper.querySelector('.footer-socials-wrapper');
+        const footerSocialTitle = footerWrapper.querySelector('.footer-social-title');
+        const footerSubtitle = footerWrapper.querySelector('.footer-subtitle');
+        const footerTextDescription = footerWrapper.querySelector('.footer-text');
+        const footerCopyRight = footerWrapper.querySelector('.footer-copyrights');
+        if (
+            status !== 'ok'
+            || !footerLogoContainer
+            || !socialIconsContainer
+            || !footerSocialTitle
+            || !footerSubtitle
+            || !footerTextDescription
+            || !footerCopyRight
+            ) return;
+
+        footerLogoContainer.insertAdjacentHTML('beforeend', displayFooterContent.getFooterLogo(footer));
+        footerSubtitle.textContent = footer?.subtitle || 'Footer Subtitle';
+        footerTextDescription.textContent = footer?.text || 'Footer Text';
+        footerSocialTitle.textContent = footer?.social_title || 'Footer Social Title';
+
+        const socialIconsHtml = formatterHelper.arrayFormatter(footer?.social_links, social => displayFooterContent.getFooterSocials(social))
+        socialIconsContainer.insertAdjacentHTML('beforeend', socialIconsHtml);
+        footerCopyRight.insertAdjacentHTML('afterbegin',
+            `${copyright.text || 'No copyright text available'} ${copyright.year || 'No year available'}`
+        );
+        footerCopyRight.insertAdjacentHTML('beforeend', displayFooterContent.getCopyRights(copyright) || 'No copyright text available');
+
+    },
+    /**
+     * Fetch Current Year to append in copyrights section
      * @param {String} container - The class of the element target
      * @returns {Number} A number with the current year
      */
-    getCurrentYear: container => {
+     renderCopyRightsYear: container => {
         container.textContent = formatterHelper.getFullYear();
     }
 }
 
-export { copyRights };
+export { displayFooterContent };

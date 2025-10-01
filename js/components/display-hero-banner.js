@@ -9,29 +9,32 @@ const displayHeroBanner = {
      * @returns {void}
      */
     init: async () => {
-        await displayHeroBanner.renderBannerContent();
+        const model = await getHeroBannerDataModel();
+        if (!model) return;
+
+        displayHeroBanner.renderBannerContent(model);
     },
     /**
      * Creates an HTML template for the hero banner images
-     * @param {Array} data - An array of objects containing the image data
+     * @param {Array} model - An array of objects containing the image model
      * @returns {string} An HTML template containing the hero banner images
      */
-     getImgElements: (data) => {
-        return formatterHelper.arrayFormatter(data, (imageObj) => `
+     getImgElements: (model) => {
+        return `
             <img
                 class="hero-banner-img"
-                src="${imageObj?.avatar || 'No Image Available'}"
-                alt="${imageObj?.name || 'Hero Banner'}"
+                src="${model?.avatar || 'https://static.vecteezy.com/system/resources/previews/004/141/669/non_2x/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg'}"
+                alt="${model.avatar ? model?.name : 'Hero Banner Image'}"
                 loading="lazy">
-        ` || '');
+        `;
     },
     /**
      * Creates an HTML template for the hero banner text content
-     * @param {Array} data - An array of objects containing the text data
+     * @param {Array} model - An array of objects containing the text model
      * @returns {string} An HTML template containing the hero banner text content
      */
-    getBannerTextContent: (data) => {
-        return formatterHelper.arrayFormatter(data, (content) => `
+    getBannerTextContent: (model) => {
+        return formatterHelper.arrayFormatter(model, (content) => `
             <h1 class="hero-title">${content?.title || 'Hero Banner Title'}</h1>
             <h2 class="hero-subtitle">${content?.subtitle || 'Hero Banner Subtitle'}</h2>
             <p class="hero-text">${content?.text || 'Hero Banner Text'}</p>
@@ -39,12 +42,11 @@ const displayHeroBanner = {
     },
     /**
      * Renders the hero banner content
-     * Fetches the hero banner data and renders it in the hero banner section
-     * @async
+     * Fetches the hero banner model and renders it in the hero banner section
      * @returns {Promise<void>} A promise that resolves when the hero banner content is rendered
      */
-    renderBannerContent: async () => {
-        const { status, hero_banner } = await getHeroBannerDataModel();
+    renderBannerContent: (model) => {
+        const { status, hero_banner } = model;
         const heroBannerImgWrapper = getElement.single('.hero-image-container');
         const heroBannerTextWrapper = getElement.single('.hero-text-content');
 

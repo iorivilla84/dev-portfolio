@@ -1,0 +1,26 @@
+{
+    "footer" : {
+        "logo": "./assets/images/diego_logo_white.svg",
+        "subtitle": "Frontend Developer",
+        "text": "A Web Developer focused on creating and maintaining high performing websites and applications using modern JavaScript frameworks, driving the success of every product.",
+        "social_title": "Connect with me",
+        "social_links": [
+            {
+                "name": "Linkedin",
+                "link": "https://www.linkedin.com/in/diego-fernando-villamil-velasquez/",
+                "icon": "<i class='fa-brands fa-linkedin' aria-hidden='true'></i>"
+            },
+            {
+                "name": "Github",
+                "link": "https://github.com/diegovelasquez",
+                "icon": "<i class='fa-brands fa-github' aria-hidden='true'></i>"
+            }
+        ]
+    },
+    "copyright": {
+        "text": "<span class='copyright'>© Copyright</span>",
+        "year": "<span class='footer-year'></span>",
+        "made_by": "| Made by Diego Velasquez",
+        "made_by_link": "https://github.com/diegovelasquez"
+    }
+}

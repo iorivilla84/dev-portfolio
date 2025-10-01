@@ -16,10 +16,6 @@ const displayBackground = {
 
         await displayBackground.displayBackground(educationWrapper, model);
     },
-    getSectionTitle: (sectionTitle) => {
-        const sectionTitleInfo = formatterHelper.arrayFormatter(sectionTitle, (sectionTitle) => sectionTitle || 'Section Title');
-        return sectionTitleInfo;
-    },
     /**
      * Creates the HTML template for recommendations items
      * @param {Object} recommendations - The recommendations object to be rendered
@@ -29,11 +25,11 @@ const displayBackground = {
         return `
             <div class="recommendation-item h-100 py-4">
                 <div class="recommendation-content">
-                    <p class="recommendation-item__text">${recommendation?.recommendation}</p>
-                    <h4 class="recommendation-item__title">- ${recommendation?.name}</h4>
+                    <p class="recommendation-item__text">${recommendation?.recommendation || 'No Recommendation Available'}</p>
+                    <h4 class="recommendation-item__name">- ${recommendation?.name || 'No Name Available'}</h4>
                     <span class="recommendation-item__position">
-                        ${recommendation?.position}
-                        <a class="recommendation-item__company-link" href="${recommendation?.company_link}" target="_blank">${recommendation?.company}</a>
+                        ${recommendation?.position || 'No Position Available'}
+                        <a class="recommendation-item__company-link" href="${recommendation?.company_link || '#'}" target="_blank">${recommendation?.company || 'No Company Name Available'}</a>
                     </span>
                 </div>
             </div>
@@ -50,22 +46,22 @@ const displayBackground = {
                 <div class="education-list-item">
                     <div class="timeline-dot"></div>
                     <div class="education-content">
-                        <span class="education-list-item__period">${education?.period}</span>
-                        <h4 class="education-list-item__title">${education?.title}</h4>
-                        <p class="education-list-item__institute">${education?.institute}</p>
+                        <span class="education-list-item__period">${education?.period || 'No Period Available'}</span>
+                        <h4 class="education-list-item__title">${education?.title || 'No Title Available'}</h4>
+                        <p class="education-list-item__institute">${education?.institute || 'No Institute Available'}</p>
                     </div>
                 </div>
             </div>
         `
     },
     /**
-     * Fetches the background data (education + recommendations)
-     * and renders the education and recommendations sections
-     * @async
-     * @returns {Promise<Array<Object>>} An array of education objects
+     * Displays the education and recommendations sections in the background section
+     * @param {HTMLElement} wrapper - The container of the target element.
+     * @param {Object} model - The background data object containing education and recommendations data
+     * @returns {void}
      */
     displayBackground: (wrapper, model) => {
-        const { status, section_title, education, recommendations, cv_link } = model;
+        const { status, section_title, education, recommendations, cv_info } = model;
 
         if (status !== 'ok') return;
 
@@ -74,11 +70,11 @@ const displayBackground = {
         const recommendationContainer = wrapper.querySelector('.recommendations-wrapper');
         if (!educationContainer || !educationSectionTitle || !recommendationContainer) return;
 
-        educationSectionTitle.innerHTML = displayBackground.getSectionTitle(section_title);
+        educationSectionTitle.textContent = section_title || 'Section Title'
 
         const educationHTML = formatterHelper.arrayFormatter(education, displayBackground.educationListTemplate);
         educationContainer.insertAdjacentHTML('beforeend', educationHTML);
-        educationContainer.insertAdjacentHTML('afterend', displayAboutMeList.cvLinkTemplate(cv_link));
+        educationContainer.insertAdjacentHTML('afterend', displayAboutMeList.cvLinkTemplate(cv_info));
 
         const recommendationHTML = formatterHelper.arrayFormatter(recommendations, displayBackground.recommendationListTemplate);
         recommendationContainer?.insertAdjacentHTML('beforeend', recommendationHTML);

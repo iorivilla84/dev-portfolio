@@ -5,43 +5,45 @@ import { formatterHelper } from "../helpers/formatter.js";
 
 const displayPortfolioGrid = {
     /**
-     * Init portfolio grid list of images
+     * Init portfolio grid list of portfolio images with its own information
      * @async
      * @returns {void}
      */
     init: async () => {
         const projectsWrapper = getElement.single('.projects-wrapper');
-        if (!projectsWrapper) return;
-
         const model = await getPortfolioListModel();
-        await displayPortfolioGrid.displayPortfolio(projectsWrapper, model);
-        await displayPortfolioGrid.renderFilterButtons(projectsWrapper, model);
+        if (!projectsWrapper || !model) return;
+
+        displayPortfolioGrid.displayPortfolio(projectsWrapper, model);
+        displayPortfolioGrid.renderFilterButtons(projectsWrapper, model);
         displayPortfolioGrid.renderFilterProjects('.btn-filter');
     },
     /**
      * Creates the card html template to append into the gridContainer
      * @param {Object} project - The object with all the portfolio projects details
-     * @param {HTMLDivElement} gridContainer - The grid container element to append template
      * @returns {void}
      */
     portfolioCardTemplate: (project) => {
         if (!project) return;
 
         const projectLanguagesList = formatterHelper.arrayFormatter(project?.stack, language => {
-            if (!project?.stack?.length) return;
-            return `<span class="code-style skill-item d-inline-block">${language}</span>`
+            return `<span class="code-style skill-item d-inline-block">${language.trim() || 'Item Not Available'}</span>`;
         });
 
         return `
             <div class="col card-wrapper">
                 <div class="card border-0 bg-transparent text-white h-100" data-project-type="${project.type}" data-project-id="${project.id_number}">
                     <div class="card-image-wrapper card-img-top"
-                        style="background-image: url('${project.imgPath}');">
-                        <img src="${project.imgPath}" class="card-project-image sr-only" alt="${project.name}" loading="lazy">
+                        style="background-image:
+                            url('${project.imgPath || 'https://static.vecteezy.com/system/resources/previews/004/141/669/non_2x/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg'}');">
+                        <img
+                            src="${project.imgPath || 'https://static.vecteezy.com/system/resources/previews/004/141/669/non_2x/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg'}"
+                            class="card-project-image sr-only" alt="${project.name || 'Project Name'}"
+                            loading="lazy">
                     </div>
                     <div class="card-body px-0 mb-4">
-                        <h5 class="card-title fw-bold fs-3">${project.name}</h5>
-                        <div class="card-text project-skills-wrapper mb-1">${projectLanguagesList}</div>
+                        <h5 class="card-title fw-bold fs-3">${project.name || 'Project Title'}</h5>
+                        <div class="card-text project-skills-wrapper mb-1">${projectLanguagesList.length ? projectLanguagesList : '<span>No Skills Available</span>'}</div>
 
                         ${project.code_link || project.application_link || project.site_link || project.prototype_link
                             ? `
@@ -62,6 +64,7 @@ const displayPortfolioGrid = {
     /**
      * Renders the section title and description for the portfolio page
      * @param {HTMLElement} wrapper - The parent element of the projects section
+     * @param {Object} model - The project object model
      * @returns {void}
      */
     displaySectionDescription : (wrapper, model) => {
@@ -75,7 +78,8 @@ const displayPortfolioGrid = {
     },
     /**
      * Render and append the project cards list into the targeted container element
-     * @param {String} container - The CSS selector of the target container element.
+     * @param {HTMLElement} wrapper - The container of the target element.
+     * @param {Object} model - The project object model
      * @returns {void}
      */
     displayPortfolio: (wrapper, model) => {
@@ -90,7 +94,8 @@ const displayPortfolioGrid = {
     },
     /**
      * Renders and appends the project filter list into the targeted container element
-     * @param {String} container - The CSS selector of the target container element.
+     * @param {HTMLElement} wrapper - The container of the target element.
+     * @param {Object} model - The project object model
      * @returns {void}
      */
     renderFilterButtons: (wrapper, model) => {
@@ -101,15 +106,15 @@ const displayPortfolioGrid = {
         const filtersListTemplate = formatterHelper.arrayFormatter(project_filters, filter => {
             return `
                 <li class="filter-item">
-                    <button class="btn-filter" type="button" aria-controls="${filter}">${filter}</button>
+                    <button class="btn-filter" type="button" aria-controls="${filter || 'Filter Button'}">${filter || "Filter Button"}</button>
                 </li>
             `;
-        })
+        });
 
         filterWrapper.insertAdjacentHTML('beforeend',
             `
                 <span class="filter-subtitle d-block d-md-flex">Filter By:</span>
-                ${filtersListTemplate}
+                ${project_filters.length ? filtersListTemplate : '<span>No Filters Available</span>'}
             `
         );
     },
@@ -117,6 +122,7 @@ const displayPortfolioGrid = {
      * Filtering portfolio projects based on type of project
      * @param {HTMLElement} filterBtn - The button element that triggers filtering.
      * @param {string} card - The CSS selector for the card elements to filter.
+     * @returns {void}
      */
     filteredProjects: (filterBtn, card) => {
         const currentProjectListArray = getElement.multiple(card);

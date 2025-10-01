@@ -10,7 +10,11 @@ const displaySkills = {
      * @returns {void}
      */
     init: async () => {
-        await displaySkills.renderDevSkills('.my-skills-wrapper');
+        const model = await getSkills();
+        const skillsContainer = getElement.single('.my-skills-wrapper');
+        if (!model || !skillsContainer) return;
+
+        await displaySkills.renderDevSkills(skillsContainer, model);
         accordionEventHandlers.init('.my-skills-list-content', '.skill-accordion__link');
     },
     /**
@@ -20,26 +24,25 @@ const displaySkills = {
      */
     getSkillsItemsList: (skillsData) => {
         if (!skillsData) return;
-
         return formatterHelper.arrayFormatter(skillsData, (skill) => {
-            if (!skill.items?.length) return '';
-
-            const skillsItems = skill.items.map(item => `
-                <li class="code-style skill-item">${item}</li>
-            `).join('');
+            const skillsItems = skill.items.map(item => {
+                return`
+                    <li class="code-style skill-item">${item || 'Item Not Available'}</li>
+                `
+            }).join('');
 
             return `
                 <div class="accordion-item skill-accordion">
                     <div class="accordion-header">
                         <h4 class="skill-accordion__heading">
                             <button type="button" class="skill-accordion__link accordion-link-button" aria-expanded="false" data-toggle="collapse">
-                                ${skill.name}
+                                ${skill.name || "Item Accordion Name"}
                             </button>
                         </h4>
                     </div>
                     <div class="skill-accordion__body accordion-content" role="region">
                         <ul class="skill-accordion__list my-skills-list skills-list">
-                            ${skillsItems}
+                            ${skillsItems || "<li>No Items Available</li>"}
                         </ul>
                     </div>
                 </div>
@@ -47,34 +50,24 @@ const displaySkills = {
         });
     },
     /**
-     * Creates an HTML string for displaying a section title
-     * @param {string|string[]} sectionTitle - The section title to be displayed
-     * @returns {string} An HTML string of the section title
-     */
-    getSectionTitle: (sectionTitle) => {
-        const sectionTitleInfo = formatterHelper.arrayFormatter(sectionTitle, (sectionTitle) => sectionTitle || 'Section Title');
-        return sectionTitleInfo;
-    },
-    /**
      * initialise and append the dev skills into the DOM
-     * @param {HTMLElement} listContainer - The list container element
+     * @param {HTMLElement} wrapper - The list container element
+     * @param {HTMLElement} model - The skills model object
      * @returns {Promise<void>}
      */
-    renderDevSkills: async (listContainer) => {
-        const { status, categories, section_title } = await getSkills();
+    renderDevSkills: async (wrapper, model) => {
+        const { status, categories, section_title } = await model;
         const devSkillItems = displaySkills.getSkillsItemsList(categories);
-        const skillsContainer = getElement.single(listContainer);
-        const skillsListContent = skillsContainer.querySelector('.my-skills-list-content');
-        const skillsSectionTitle = skillsContainer.querySelector('.my-skills-title');
+        const skillsListContent = wrapper.querySelector('.my-skills-list-content');
+        const skillsSectionTitle = wrapper.querySelector('.my-skills-title');
 
         if (status !== 'ok'
             || !devSkillItems
-            || !skillsContainer
             || !skillsListContent
             || !skillsSectionTitle
         ) return;
 
-        skillsSectionTitle.insertAdjacentHTML('beforeend', displaySkills.getSectionTitle(section_title));
+        skillsSectionTitle.textContent = section_title || 'Section Title';
         skillsListContent.insertAdjacentHTML('beforeend', displaySkills.getSkillsItemsList(categories));
     }
 }

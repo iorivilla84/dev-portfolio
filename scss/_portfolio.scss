@@ -38,6 +38,7 @@ main section {
     display: flex;
     flex-wrap: wrap;
     list-style: none;
+    margin-bottom: 0;
     padding-left: 0;
 }
 
@@ -433,7 +434,7 @@ main section {
             background-color: lighten($dark-cyan, 10%);
         }
 
-        &__title {
+        &__name {
             font-size: 17px;
             letter-spacing: normal;
             margin: 20px 0 0;

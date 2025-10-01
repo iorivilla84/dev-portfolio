@@ -1,6 +1,7 @@
 import { getElement } from "../helpers/dom-helper.js";
 import { navEventHandlers } from "../controllers/nav-event-handlers.js";
 import { getNavigationDataModel } from "../controllers/navigation-model.js";
+import { formatterHelper } from "../helpers/formatter.js";
 
 const siteMainNav = {
     /**
@@ -10,20 +11,24 @@ const siteMainNav = {
      */
     init: async () => {
         const model = await getNavigationDataModel();
-        await siteMainNav.renderMainNavigation(model);
+        if (!model) return;
+
+        siteMainNav.renderMainNavigation(model);
         navEventHandlers.init();
     },
     /**
      * Injects items into containers using a template function
-     * @param {HTMLElement[]} containers - The target containers
+     * @param {HTMLElement} containers - The target containers
      * @param {Array} items - The array of items to render
      * @param {Function} renderItem - The function that returns the HTML string template
      * @returns {void}
      */
     appendItems: (containers, items, renderItem) => {
-        if (!containers?.length || !items?.length) return;
-        const template = items.map(renderItem).join('');
-        containers.forEach(container => container.insertAdjacentHTML('beforeend', template));
+        if (!containers?.length) return;
+
+        const itemArray = Array.isArray(items) ? items : [items];
+        const template = formatterHelper.arrayFormatter(itemArray, renderItem);
+        containers.forEach(container => container.insertAdjacentHTML('beforeend', template))
     },
     /**
      * Template function for main navigation items
@@ -34,7 +39,7 @@ const siteMainNav = {
         const slug = itemId.toLowerCase().replace(/\s+/g, '-');
         return `
             <li class="nav-item">
-                <a class="nav-link" aria-current="page" href="#${slug}">${slug}</a>
+                <a class="nav-link" aria-current="page" href="#${slug || 'slug'}">${slug || 'No Nav Item Available'}</a>
             </li>
         `;
     },
@@ -46,20 +51,21 @@ const siteMainNav = {
     socialNavTemplate: (social) => {
         return `
         <li class="socials-item nav-item">
-            <a class="nav-link" href="${social.social_link}" target="_blank" rel="noopener noreferrer" aria-label="${social.social_name}">
-                ${social.social_icon}
+            <a class="nav-link" href="${social.social_link || '#'}" target="_blank" rel="noopener noreferrer" aria-label="${social.social_name || 'Icon Name'}">
+                ${social.social_icon || 'Icon Missing'}
             </a>
         </li>
         `;
     },
     /**
      * Render main navigation items
-     * @param {HTMLElement[]} navContainer - The target container
+     * @param {HTMLElement} navContainer - The target container
      * @param {Array|string} mainNavigation - The array of main navigation items
-     * * @returns {void}
+     * @returns {void}
      */
     getMainNavItems: (navContainer, mainNavigation) => {
-        const navArrayList = Array.isArray(mainNavigation) ? mainNavigation : [mainNavigation];
+        const navItemsArray = Array.isArray(mainNavigation) ? mainNavigation : [mainNavigation];
+        const navArrayList = navItemsArray.length ? navItemsArray : 'No Nav Items Available';
         siteMainNav.appendItems(navContainer, navArrayList, siteMainNav.mainNavTemplate);
     },
     /**
@@ -74,7 +80,7 @@ const siteMainNav = {
     },
     /**
      * Render the main navigation
-     * @async
+     * @param {Object} model - The main navigation model
      * @returns {void}
      */
     renderMainNavigation: (model) => {

@@ -1,7 +1,7 @@
 /**
  * Fetches the list of Projects to append as portfolio in the front end
  * @async
- * @returns {Promise} An Object containing the request status, data and code
+ * @returns {Promise} An Object containing the request status, data objects and code
  */
 const getPortfolioListModel = async () => {
     const portfolioListEndPath = './js/portfolio-model/portfolio-list.json';

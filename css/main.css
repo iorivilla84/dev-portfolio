@@ -192,7 +192,8 @@ footer .footer-link:hover {
 }
 .accordion-item .accordion-content {
   max-height: 0;
-  overflow: scroll;
+  overflow: auto;
+  scrollbar-color: transparent transparent;
   transition: max-height 0.3s ease-out;
 }
 .accordion-item .accordion-link-button {
@@ -262,6 +263,7 @@ main section {
   display: flex;
   flex-wrap: wrap;
   list-style: none;
+  margin-bottom: 0;
   padding-left: 0;
 }
 
@@ -597,7 +599,7 @@ main section {
 .recommendations-wrapper .recommendation-item:nth-child(3) {
   background-color: #00bebe;
 }
-.recommendations-wrapper .recommendation-item__title {
+.recommendations-wrapper .recommendation-item__name {
   font-size: 17px;
   letter-spacing: normal;
   margin: 20px 0 0;

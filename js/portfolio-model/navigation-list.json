@@ -1,4 +1,5 @@
 {
+    "main_nav_logo": "./assets/images/diego_logo_white.svg",
     "main_navigation" : [
         "home",
         "about",

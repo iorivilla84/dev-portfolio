@@ -1,11 +1,9 @@
 {
-    "hero_banner": [
-        {
-            "avatar": "./assets/images/avatar-hero-banner.jpg",
-            "name": "Diego Velasquez",
-            "title": "Nice to meet you! <br> I'm Diego Velasquez",
-            "subtitle": "Front End Developer",
-            "text": "A Web Developer focused on creating and maintaining high performing websites and applications using modern JavaScript frameworks, driving the success of every product."
-        }
-    ]
+    "hero_banner": {
+        "avatar": "./assets/images/avatar-hero-banner.jpg",
+        "name": "Diego Velasquez",
+        "title": "Nice to meet you! <br> I'm Diego Velasquez",
+        "subtitle": "Front End Developer",
+        "text": "A Web Developer focused on creating and maintaining high performing websites and applications using modern JavaScript frameworks, driving the success of every product."
+    }
 }
