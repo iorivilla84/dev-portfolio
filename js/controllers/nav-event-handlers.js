@@ -127,14 +127,18 @@ const navEventHandlers = {
         const mobileNavContainer = getElement.single(mobileContainer);
         const closeBtn = mobileNavContainer.querySelector('.btn-close');
         const navItemsLinks = mobileNavContainer.querySelectorAll('.nav-link');
+        const navLogoBrands = mobileNavContainer.querySelectorAll('.nav-brand-logo');
 
         if (!mobileNavContainer || !closeBtn || !navItemsLinks.length) return;
 
-        navItemsLinks.forEach(link => {
+        const closeEventHandler = link => {
             link.addEventListener('click', () => {
                 closeBtn.click();
             });
-        });
+        }
+
+        navItemsLinks.forEach(link => closeEventHandler(link));
+        navLogoBrands.forEach(link => closeEventHandler(link));
     }
 }
 

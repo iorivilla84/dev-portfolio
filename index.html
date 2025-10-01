@@ -47,10 +47,8 @@
             data-bs-theme="dark">
             <!-- Main Menu Desktop -->
             <div class="container-fluid">
-                <div class="desktop-main-nav d-flex justify-content-between w-100">
-                    <a href="#home" class="nav-brand-logo">
-                        <img class="navbar-brand" src="./assets/images/diego_logo_white.svg">
-                    </a>
+                <div class="main-nav desktop-main-nav d-flex justify-content-between w-100">
+                    <!-- Brand Logo -->
 
                     <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown" role="navigation" aria-label="Main navigation">
                         <ul class="navbar-nav main-nav-list"></ul>
@@ -65,10 +63,8 @@
 
         <!-- Main Menu Mobile -->
         <nav class="navbar navbar-dark mobile-nav bg-transparent fixed-top d-block d-md-none">
-            <div class="container-fluid">
-                <a href="#home" class="nav-brand-logo">
-                    <img class="navbar-brand" src="./assets/images/diego_logo_white.svg">
-                </a>
+            <div class="container-fluid main-nav">
+                <!-- Brand Logo -->
 
                 <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
                     data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar"
@@ -79,8 +75,9 @@
                 <div class="offcanvas offcanvas-end text-bg-dark px-4" tabindex="-1" id="offcanvasDarkNavbar"
                     aria-labelledby="offcanvasDarkNavbarLabel">
                     <div class="offcanvas-header px-0">
-                        <div class="offcanvas-title" id="offcanvasDarkNavbarLabel"><img class="navbar-brand"
-                                src="./assets/images/diego_logo_white.svg"></div>
+                        <div class="offcanvas-title main-nav" id="offcanvasDarkNavbarLabel">
+                            <!-- Brand Logo -->
+                        </div>
                         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"
                             aria-label="Close"></button>
                     </div>

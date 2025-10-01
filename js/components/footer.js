@@ -1,6 +1,7 @@
 import { getElement } from "../helpers/dom-helper.js";
 import { formatterHelper } from "../helpers/formatter.js"
 import { getFooterDataModel } from "../controllers/footer-model.js";
+import { renderComponent } from "./renderers.js";
 
 const displayFooterContent = {
     /**
@@ -35,19 +36,9 @@ const displayFooterContent = {
         `;
     },
     /**
-     * Creates the html string to display the footer logo
-     * @param {Object} footer - The footer data object
-     * @returns {String} An HTML string of the footer logo
-     */
-    getFooterLogo: (footer) => {
-        return `
-            <img class="footler-logo" src="${footer?.logo || 'https://static.vecteezy.com/system/resources/previews/004/141/669/non_2x/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg'}">
-        `;
-    },
-    /**
      * Creates the html string to display the copyright content
      * @param {Object} copyright - The copyright data object
-     * @returns {String} An HTML string of the footer logo
+     * @returns {String} An HTML string of the copyright content
      */
     getCopyRights: (copyright) => {
         return `
@@ -62,7 +53,7 @@ const displayFooterContent = {
      * @param {Object} model - copyright - The footer data object
      * @returns {void}
      */
-    renderFooterContent: (footerWrapper, model) => {
+    renderFooterContent: async (footerWrapper, model) => {
         const { status, footer, copyright } = model;
         const footerLogoContainer = footerWrapper.querySelector('.footer-logo');
         const socialIconsContainer = footerWrapper.querySelector('.footer-socials-wrapper');
@@ -78,9 +69,9 @@ const displayFooterContent = {
             || !footerSubtitle
             || !footerTextDescription
             || !footerCopyRight
-            ) return;
+        ) return;
 
-        footerLogoContainer.insertAdjacentHTML('beforeend', displayFooterContent.getFooterLogo(footer));
+        footerLogoContainer.insertAdjacentHTML('beforeend', await renderComponent.brandLogo(footerLogoContainer));
         footerSubtitle.textContent = footer?.subtitle || 'Footer Subtitle';
         footerTextDescription.textContent = footer?.text || 'Footer Text';
         footerSocialTitle.textContent = footer?.social_title || 'Footer Social Title';

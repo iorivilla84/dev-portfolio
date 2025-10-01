@@ -1,6 +1,5 @@
 {
     "footer" : {
-        "logo": "./assets/images/diego_logo_white.svg",
         "subtitle": "Frontend Developer",
         "text": "A Web Developer focused on creating and maintaining high performing websites and applications using modern JavaScript frameworks, driving the success of every product.",
         "social_title": "Connect with me",
@@ -12,7 +11,7 @@
             },
             {
                 "name": "Github",
-                "link": "https://github.com/diegovelasquez",
+                "link": "https://github.com/iorivilla84",
                 "icon": "<i class='fa-brands fa-github' aria-hidden='true'></i>"
             }
         ]
@@ -21,6 +20,6 @@
         "text": "<span class='copyright'>© Copyright</span>",
         "year": "<span class='footer-year'></span>",
         "made_by": "| Made by Diego Velasquez",
-        "made_by_link": "https://github.com/diegovelasquez"
+        "made_by_link": "https://github.com/iorivilla84"
     }
 }

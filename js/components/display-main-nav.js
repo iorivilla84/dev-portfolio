@@ -2,6 +2,7 @@ import { getElement } from "../helpers/dom-helper.js";
 import { navEventHandlers } from "../controllers/nav-event-handlers.js";
 import { getNavigationDataModel } from "../controllers/navigation-model.js";
 import { formatterHelper } from "../helpers/formatter.js";
+import { renderComponent } from "./renderers.js";
 
 const siteMainNav = {
     /**
@@ -13,7 +14,7 @@ const siteMainNav = {
         const model = await getNavigationDataModel();
         if (!model) return;
 
-        siteMainNav.renderMainNavigation(model);
+        await siteMainNav.renderMainNavigation(model);
         navEventHandlers.init();
     },
     /**
@@ -83,15 +84,17 @@ const siteMainNav = {
      * @param {Object} model - The main navigation model
      * @returns {void}
      */
-    renderMainNavigation: (model) => {
-        if (!model) return;
-
+    renderMainNavigation: async (model) => {
         const { main_navigation, socials } = model;
 
         const mainNavContainer = getElement.multiple('.navbar-nav.main-nav-list');
         const socialsNavContainer = getElement.multiple('.socials-nav-list .nav-socials-wrapper');
-        if (!mainNavContainer.length || !socialsNavContainer.length) return;
+        const logoContainers = getElement.multiple('.main-nav');
+        if (!mainNavContainer.length || !socialsNavContainer.length || !logoContainers.length) return;
 
+        for (const container of logoContainers) {
+            container.insertAdjacentHTML('afterbegin', await renderComponent.brandLogo(container));
+        }
         siteMainNav.getMainNavItems(mainNavContainer, main_navigation);
         siteMainNav.getSocialNavItems(socialsNavContainer, socials);
     }
