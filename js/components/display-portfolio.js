@@ -111,9 +111,9 @@ const displayPortfolioGrid = {
             `;
         });
 
+        filterWrapper.insertAdjacentHTML('beforebegin', '<span class="filter-subtitle d-block d-md-flex">Filter By:</span>');
         filterWrapper.insertAdjacentHTML('beforeend',
             `
-                <span class="filter-subtitle d-block d-md-flex">Filter By:</span>
                 ${project_filters.length ? filtersListTemplate : '<span>No Filters Available</span>'}
             `
         );

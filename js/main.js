@@ -9,6 +9,22 @@ import { displayAboutMeList } from './components/display-about-me-list.js';
 import { displayBackground } from './components/display-background.js';
 import { displayContactInfo } from './components/display-contact-info.js';
 
+/**
+ * Scrolls to the section with the same id as the current hash after the content is loaded.
+ */
+const scrollToHash = () => {
+    if (window.location.hash) {
+        const sectionTarget = document.querySelector(window.location.hash);
+        if (sectionTarget) {
+            requestAnimationFrame(() => {
+                requestAnimationFrame(() => {
+                    sectionTarget.scrollIntoView({ behavior: "auto", block: "start" });
+                });
+            });
+        }
+    }
+};
+
 document.addEventListener('DOMContentLoaded', () => {
     displaySiteInfo.init();
     siteMainNav.init();
@@ -20,4 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
     displayAboutMeList.init();
     displayBackground.init();
     displayContactInfo.init();
+    setTimeout(scrollToHash, 500);
 });
+
+window.addEventListener('load', scrollToHash);

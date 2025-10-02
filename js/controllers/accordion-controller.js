@@ -18,6 +18,15 @@ const accordionController = {
     setAriaExpanded: (el, expanded) => {
         el.setAttribute('aria-expanded', expanded ? 'true' : 'false');
     },
+    getPanelFullHeight: (panel) => {
+        const scrollHeight = panel.scrollHeight || 0;
+        let extra = 0;
+        const firstChild = panel.firstElementChild;
+        const lastChild = panel.lastElementChild;
+        if (firstChild) extra += parseFloat(getComputedStyle(firstChild).marginTop) || 0;
+        if (lastChild) extra += parseFloat(getComputedStyle(lastChild).marginBottom) || 0;
+        return Math.ceil(scrollHeight + extra);
+    },
     /**
      * Reset classes and content height for each accordion
      * @param {NodeListOf<HTMLElement>} accordionLinks - All accordions buttons
@@ -61,10 +70,23 @@ const accordionController = {
                 currentAccordion.classList.add('active');
                 accordionController.setAriaExpanded(currentAccordion, true);
                 accordionController.setAriaExpanded(currentAccordionContent, true);
-
                 currentAccordionContent.classList.add('active');
-                currentAccordionContent.style.maxHeight = currentAccordionContent.scrollHeight + 'px';
+
+                const height = accordionController.getPanelFullHeight(currentAccordionContent) + "px";
+                currentAccordionContent.style.maxHeight = height;
+                currentAccordionContent.addEventListener("transitionend", function handler(e) {
+                    if (e.propertyName === "max-height") {
+                        currentAccordionContent.style.maxHeight = "none";
+                        currentAccordionContent.removeEventListener("transitionend", handler);
+                    }
+                });
             } else {
+                currentAccordionContent.style.maxHeight =
+                    accordionController.getPanelFullHeight(currentAccordionContent) + "px";
+                requestAnimationFrame(() => {
+                    currentAccordionContent.style.maxHeight = "0";
+                });
+
                 accordionController.setAriaExpanded(currentAccordion, false);
                 accordionController.setAriaExpanded(currentAccordionContent, false);
             };
@@ -101,25 +123,34 @@ const accordionController = {
      * @returns {void}
      */
     initAccordion: (wrapper, linkSelector) => {
-        const accordionWrapper =
-            typeof wrapper === 'string' ? getElement.single(wrapper) : wrapper;
+        const accordionWrapper = typeof wrapper === 'string' ? getElement.single(wrapper) : wrapper;
 
         if (!accordionWrapper) return;
 
         const allAccordions = accordionWrapper.querySelectorAll('.accordion-content');
         const accordionLinks = accordionWrapper.querySelectorAll(linkSelector);
-
         if (!accordionLinks.length || !allAccordions.length) return;
+
         accordionController.applyAriaAttributes(allAccordions, 'aria-labelledby', 'accordion-panel');
         accordionController.applyAriaAttributes(accordionLinks, 'aria-controls', 'panel');
         accordionController.applyAriaAttributes(accordionLinks, 'id', 'accordion-header');
+
+        // Open first accordion by default
         accordionLinks[0].classList.add('active');
         accordionController.setAriaExpanded(accordionLinks[0], true);
-
         allAccordions[0].classList.add('active');
+
         requestAnimationFrame(() => {
-            allAccordions[0].style.maxHeight = allAccordions[0].scrollHeight + "px";
+            const height = accordionController.getPanelFullHeight(allAccordions[0]) + "px";
+            allAccordions[0].style.maxHeight = height;
+            allAccordions[0].addEventListener("transitionend", function handler(e) {
+                if (e.propertyName === "max-height") {
+                    allAccordions[0].style.maxHeight = "none";
+                    allAccordions[0].removeEventListener("transitionend", handler);
+                }
+            });
         });
+
         accordionController.setAriaExpanded(allAccordions[0], true);
 
         accordionLinks.forEach(accordion => accordionController.toggleAccordionClasses(accordion, accordionLinks, allAccordions));
@@ -130,9 +161,9 @@ const accordionController = {
             resizeTimeout = setTimeout(() => {
                 allAccordions.forEach(accordion => {
                     if (accordion.classList.contains("active")) {
-                        const newHeight = accordion.scrollHeight + "px";
-                        if (accordion.style.maxHeight !== newHeight) {
-                            accordion.style.maxHeight = newHeight;
+                        if (accordion.style.maxHeight !== "none") {
+                            accordion.style.maxHeight =
+                                accordionController.getPanelFullHeight(accordion) + "px";
                         }
                     }
                 });
