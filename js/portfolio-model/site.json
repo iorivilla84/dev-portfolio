@@ -1,11 +1,31 @@
 {
     "site": {
-        "home_title": "Diego Velasquez | Frontend Developer Portfolio",
-        "logo": "./assets/images/logo-white.svg",
-        "logo_fallback_url": "https://static.vecteezy.com/system/resources/previews/004/141/669/non_2x/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg"
-    },
-    "resume" : {
-        "cv_url": "https://acrobat.adobe.com/id/urn:aaid:sc:US:709244fa-2ff9-46f0-985a-021557849c70",
-        "cv_button_text": "View Resume"
+        "site_title": {
+            "home_title": "Diego Velasquez | Frontend Developer Portfolio"
+        },
+        "navigation": {
+            "logo": "./assets/images/logo-white.svg",
+            "logo_fallback_url": "https://static.vecteezy.com/system/resources/previews/004/141/669/non_2x/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg"
+        },
+        "resume_button" : {
+            "cv_url": "https://acrobat.adobe.com/id/urn:aaid:sc:US:709244fa-2ff9-46f0-985a-021557849c70",
+            "cv_button_text": "View Resume"
+        },
+        "contact_me_button": {
+            "email_button_text": "Let’s Connect",
+            "email_address": "iorivilla@hotmailcom"
+        },
+        "social_icons": [
+            {
+                "name": "Linkedin",
+                "link": "https://www.linkedin.com/in/diego-fernando-villamil-velasquez/",
+                "icon": "<i class='fa-brands fa-linkedin'></i>"
+            },
+            {
+                "name": "GitHub",
+                "link": "https://github.com/iorivilla84",
+                "icon": "<i class='fa-brands fa-github'></i>"
+            }
+        ]
     }
 }

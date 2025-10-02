@@ -1,6 +1,7 @@
 import { getElement } from "../helpers/dom-helper.js";
 import { getAboutMeList } from "../controllers/about-me-model.js";
 import { formatterHelper } from "../helpers/formatter.js";
+import { renderComponent } from "./renderers.js";
 
 const displayAboutMeList = {
     /**
@@ -26,18 +27,6 @@ const displayAboutMeList = {
         `;
     },
     /**
-     * Creates an HTML string for displaying button link to download a CV otherwise fall back to the sample text.
-     * @param {Object} about_me - The about me object
-     * @returns {string} - An HTML string of a button and link to download the CV.
-     */
-     cvLinkTemplate: (about_me) => {
-        return `
-            <a href="${about_me?.cv_url || 'https://example.com'}" class="download-btn btn btn-primary" target="_blank">
-                ${about_me?.cv_button_text ? about_me?.cv_button_text : 'Button Text'}
-            </a>
-        `;
-    },
-    /**
      * Renders the about me section list
      * @param {String} selector - The CSS selector of the target element
      * @param {Object} model - The about me object
@@ -59,8 +48,8 @@ const displayAboutMeList = {
             ? formatterHelper.arrayFormatter(about_me?.description, displayAboutMeList.descriptionTemplate)
             : '<li class="about-me-item">Item Not Available</li>';
         descriptionContainer.insertAdjacentHTML('beforeend', descriptionHTML);
+        descriptionContainer.insertAdjacentHTML('afterend', await renderComponent.resumeButton(descriptionContainer));
 
-        descriptionContainer.insertAdjacentHTML('afterend', displayAboutMeList.cvLinkTemplate(about_me));
     }
 }
 

@@ -1,6 +1,6 @@
 import { getElement } from "../helpers/dom-helper.js";
 import { getExperienceList } from '../controllers/experience-list-model.js'
-import { accordionEventHandlers } from '../controllers/accordion-event-handlers.js'
+import { accordionController } from '../controllers/accordion-controller.js'
 import { formatterHelper } from "../helpers/formatter.js";
 
 const displayDevExperience = {
@@ -154,7 +154,7 @@ const displayDevExperience = {
         const html = formatterHelper.arrayFormatter(experience, displayDevExperience.workExperienceTemplate);
         experienceWrapper.insertAdjacentHTML('beforeend', html);
 
-        accordionEventHandlers.init('.experience-content-wrapper', '.experience-info-accordion__link');
+        accordionController.init('.experience-content-wrapper', '.experience-info-accordion__link');
     }
 }
 

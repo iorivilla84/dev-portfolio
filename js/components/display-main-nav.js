@@ -45,20 +45,6 @@ const siteMainNav = {
         `;
     },
     /**
-     * Template function for social nav items
-     * @param {Object} social - The social object
-     * @returns {string} HTML string of the social navigation item
-     */
-    socialNavTemplate: (social) => {
-        return `
-        <li class="socials-item nav-item">
-            <a class="nav-link" href="${social.social_link || '#'}" target="_blank" rel="noopener noreferrer" aria-label="${social.social_name || 'Icon Name'}">
-                ${social.social_icon || 'Icon Missing'}
-            </a>
-        </li>
-        `;
-    },
-    /**
      * Render main navigation items
      * @param {HTMLElement} navContainer - The target container
      * @param {Array|string} mainNavigation - The array of main navigation items
@@ -70,22 +56,12 @@ const siteMainNav = {
         siteMainNav.appendItems(navContainer, navArrayList, siteMainNav.mainNavTemplate);
     },
     /**
-     * Render social navigation items
-     * @param {HTMLElement} socialsContainer - The target container
-     * @param {Array|Object} socials - The array of social navigation items
-     * @returns {void}
-     */
-    getSocialNavItems: (socialsContainer, socials) => {
-        const socialItems = Array.isArray(socials) ? socials : [socials];
-        siteMainNav.appendItems(socialsContainer, socialItems, siteMainNav.socialNavTemplate);
-    },
-    /**
      * Render the main navigation
      * @param {Object} model - The main navigation model
      * @returns {void}
      */
     renderMainNavigation: async (model) => {
-        const { main_navigation, socials } = model;
+        const { main_navigation } = model;
 
         const mainNavContainer = getElement.multiple('.navbar-nav.main-nav-list');
         const socialsNavContainer = getElement.multiple('.socials-nav-list .nav-socials-wrapper');
@@ -95,8 +71,12 @@ const siteMainNav = {
         for (const container of logoContainers) {
             container.insertAdjacentHTML('afterbegin', await renderComponent.brandLogo(container));
         }
+
+        for (const container of socialsNavContainer) {
+            container.insertAdjacentHTML('afterbegin', await renderComponent.socialIcons(container))
+        }
+
         siteMainNav.getMainNavItems(mainNavContainer, main_navigation);
-        siteMainNav.getSocialNavItems(socialsNavContainer, socials);
     }
 };
 

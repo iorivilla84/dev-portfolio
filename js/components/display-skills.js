@@ -1,6 +1,6 @@
 import { getElement } from '../helpers/dom-helper.js';
 import { getSkills } from '../controllers/dev-skills-list-model.js';
-import { accordionEventHandlers } from '../controllers/accordion-event-handlers.js'
+import { accordionController } from '../controllers/accordion-controller.js'
 import { formatterHelper } from "../helpers/formatter.js";
 
 const displaySkills = {
@@ -15,7 +15,7 @@ const displaySkills = {
         if (!model || !skillsContainer) return;
 
         await displaySkills.renderDevSkills(skillsContainer, model);
-        accordionEventHandlers.init('.my-skills-list-content', '.skill-accordion__link');
+        accordionController.init('.my-skills-list-content', '.skill-accordion__link');
     },
     /**
      * Converts the skills data object into an HTML string

@@ -1,6 +1,6 @@
 import { getElement } from "../helpers/dom-helper.js";
 
-const accordionEventHandlers = {
+const accordionController = {
     /**
      * Initialises the accordion event handlers
      * @param {String} wrapper - The class selector of the accordion wrapper
@@ -8,13 +8,12 @@ const accordionEventHandlers = {
      * @returns {void}
      */
     init: (wrapper, linkSelector) => {
-        accordionEventHandlers.initAccordionEventHandler(wrapper, linkSelector);
+        accordionController.initAccordion(wrapper, linkSelector);
     },
     /**
      * Set the aria-expanded in accordion on click
      * @param {HTMLElement} el - container of the target element
-     * @param {Boolean} expanded - true if expanded otherwise false
-     * @returns {void}
+     * @returns {Boolean} expanded - true if expanded otherwise false
      */
     setAriaExpanded: (el, expanded) => {
         el.setAttribute('aria-expanded', expanded ? 'true' : 'false');
@@ -28,12 +27,12 @@ const accordionEventHandlers = {
     resetAllAccordions: (accordionLinks, allAccordions) => {
         accordionLinks.forEach(header => {
             header.classList.remove('active');
-            accordionEventHandlers.setAriaExpanded(header, false);
+            accordionController.setAriaExpanded(header, false);
         });
         allAccordions.forEach(content => {
             content.classList.remove('active');
-            content.style.maxHeight = null;
-            accordionEventHandlers.setAriaExpanded(content, true)
+            content.style.maxHeight = 0;
+            accordionController.setAriaExpanded(content, true)
         });
     },
     /**
@@ -43,11 +42,11 @@ const accordionEventHandlers = {
      * @param {NodeListOf<HTMLElement>} allAccordions - The accordion contents
      * @returns {void}
      */
-    accordionClassToggle: (accordion, accordionLinks, allAccordions) => {
+    toggleAccordionClasses: (accordion, accordionLinks, allAccordions) => {
         accordion.addEventListener('click', (e) => {
             e.preventDefault();
             const currentAccordion = e.currentTarget;
-            const currentAccordionWrapper = currentAccordion.closest('.accordion-item');
+            const currentAccordionWrapper = currentAccordion?.closest('.accordion-item');
             const currentAccordionContent = currentAccordionWrapper?.querySelector('.accordion-content');
 
             if (!currentAccordionWrapper || !currentAccordionContent) return;
@@ -55,18 +54,19 @@ const accordionEventHandlers = {
             const isActive = currentAccordionContent.classList.contains('active');
 
             // reset all accordions
-            accordionEventHandlers.resetAllAccordions(accordionLinks, allAccordions)
+            accordionController.resetAllAccordions(accordionLinks, allAccordions)
 
             // Toggle class active
             if (!isActive) {
                 currentAccordion.classList.add('active');
-                accordionEventHandlers.setAriaExpanded(currentAccordion, true);
+                accordionController.setAriaExpanded(currentAccordion, true);
+                accordionController.setAriaExpanded(currentAccordionContent, true);
+
                 currentAccordionContent.classList.add('active');
                 currentAccordionContent.style.maxHeight = currentAccordionContent.scrollHeight + 'px';
-                accordionEventHandlers.setAriaExpanded(currentAccordionContent, true);
             } else {
-                accordionEventHandlers.setAriaExpanded(currentAccordion, false);
-                accordionEventHandlers.setAriaExpanded(currentAccordionContent, false);
+                accordionController.setAriaExpanded(currentAccordion, false);
+                accordionController.setAriaExpanded(currentAccordionContent, false);
             };
         });
     },
@@ -78,7 +78,7 @@ const accordionEventHandlers = {
      * @param {Number} index - The index of the element
      * @returns {void}
      */
-    setAriaLabelId: (el, attribute, id, index) => {
+    setAriaAttribute: (el, attribute, id, index) => {
         const idNum = index + 1;
         el.setAttribute(`${attribute}`, `${id}-${idNum}`);
     },
@@ -89,9 +89,9 @@ const accordionEventHandlers = {
      * @param {String} id - The id to set
      * @returns {void}
      */
-    setAccordionAttributes: (element, attribute, id) => {
+    applyAriaAttributes: (element, attribute, id) => {
         element?.forEach((panel, index) => {
-            accordionEventHandlers.setAriaLabelId(panel, attribute, id, index);
+            accordionController.setAriaAttribute(panel, attribute, id, index);
         });
     },
     /**
@@ -100,7 +100,7 @@ const accordionEventHandlers = {
      * @param {String} linkSelector - The class selector of the accordion button link
      * @returns {void}
      */
-    initAccordionEventHandler: (wrapper, linkSelector) => {
+    initAccordion: (wrapper, linkSelector) => {
         const accordionWrapper =
             typeof wrapper === 'string' ? getElement.single(wrapper) : wrapper;
 
@@ -110,18 +110,35 @@ const accordionEventHandlers = {
         const accordionLinks = accordionWrapper.querySelectorAll(linkSelector);
 
         if (!accordionLinks.length || !allAccordions.length) return;
-        accordionEventHandlers.setAccordionAttributes(allAccordions, 'aria-labelledby', 'accordion-panel');
-        accordionEventHandlers.setAccordionAttributes(accordionLinks, 'aria-controls', 'panel');
-        accordionEventHandlers.setAccordionAttributes(accordionLinks, 'id', 'accordion-header');
+        accordionController.applyAriaAttributes(allAccordions, 'aria-labelledby', 'accordion-panel');
+        accordionController.applyAriaAttributes(accordionLinks, 'aria-controls', 'panel');
+        accordionController.applyAriaAttributes(accordionLinks, 'id', 'accordion-header');
         accordionLinks[0].classList.add('active');
-        accordionEventHandlers.setAriaExpanded(accordionLinks[0], true);
+        accordionController.setAriaExpanded(accordionLinks[0], true);
 
         allAccordions[0].classList.add('active');
-        allAccordions[0].style.maxHeight = allAccordions[0].scrollHeight + "px";
-        accordionEventHandlers.setAriaExpanded(allAccordions[0], true);
+        requestAnimationFrame(() => {
+            allAccordions[0].style.maxHeight = allAccordions[0].scrollHeight + "px";
+        });
+        accordionController.setAriaExpanded(allAccordions[0], true);
 
-        accordionLinks.forEach(accordion => accordionEventHandlers.accordionClassToggle(accordion, accordionLinks, allAccordions));
+        accordionLinks.forEach(accordion => accordionController.toggleAccordionClasses(accordion, accordionLinks, allAccordions));
+
+        let resizeTimeout;
+        window.addEventListener("resize", () => {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(() => {
+                allAccordions.forEach(accordion => {
+                    if (accordion.classList.contains("active")) {
+                        const newHeight = accordion.scrollHeight + "px";
+                        if (accordion.style.maxHeight !== newHeight) {
+                            accordion.style.maxHeight = newHeight;
+                        }
+                    }
+                });
+            }, 50)
+        });
     }
 }
 
-export { accordionEventHandlers }
+export { accordionController }

@@ -191,8 +191,9 @@ footer .footer-link:hover {
   }
 }
 .accordion-item .accordion-content {
+  box-sizing: border-box;
   max-height: 0;
-  overflow: auto;
+  overflow: hidden;
   scrollbar-color: transparent transparent;
   transition: max-height 0.3s ease-out;
 }

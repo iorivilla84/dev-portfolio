@@ -22,7 +22,6 @@ const getBackgroundData = async () => {
             section_title: jsonResponse.section_title,
             education: jsonResponse.education,
             recommendations: jsonResponse.recommendations,
-            cv_info: jsonResponse.cv_info,
             code: 200
         }
     } catch (error) {
@@ -37,7 +36,6 @@ const getBackgroundData = async () => {
             section_title: [],
             education: [],
             recommendations: [],
-            cv_url: [],
             code: 500
         }
     }

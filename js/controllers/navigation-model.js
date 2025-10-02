@@ -19,7 +19,6 @@ const getNavigationDataModel = async () => {
         return {
             status: 'ok',
             main_navigation: jsonResponse.main_navigation,
-            socials: jsonResponse.socials,
             code: 200
         }
     } catch (error) {
@@ -32,7 +31,6 @@ const getNavigationDataModel = async () => {
         return {
             status: 'error',
             main_navigation: [],
-            socials: [],
             code: 500
         }
     }

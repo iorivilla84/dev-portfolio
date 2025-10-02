@@ -1,7 +1,7 @@
 import { getBackgroundData } from "../controllers/background-model.js"
 import { getElement } from "../helpers/dom-helper.js";
 import { formatterHelper } from "../helpers/formatter.js";
-import { displayAboutMeList } from "./display-about-me-list.js";
+import { renderComponent } from "./renderers.js";
 
 const displayBackground = {
     /**
@@ -60,7 +60,7 @@ const displayBackground = {
      * @param {Object} model - The background data object containing education and recommendations data
      * @returns {void}
      */
-    displayBackground: (wrapper, model) => {
+    displayBackground: async (wrapper, model) => {
         const { status, section_title, education, recommendations, cv_info } = model;
 
         if (status !== 'ok') return;
@@ -74,7 +74,7 @@ const displayBackground = {
 
         const educationHTML = formatterHelper.arrayFormatter(education, displayBackground.educationListTemplate);
         educationContainer.insertAdjacentHTML('beforeend', educationHTML);
-        educationContainer.insertAdjacentHTML('afterend', displayAboutMeList.cvLinkTemplate(cv_info));
+        educationContainer.insertAdjacentHTML('afterend', await renderComponent.resumeButton(educationContainer));
 
         const recommendationHTML = formatterHelper.arrayFormatter(recommendations, displayBackground.recommendationListTemplate);
         recommendationContainer?.insertAdjacentHTML('beforeend', recommendationHTML);

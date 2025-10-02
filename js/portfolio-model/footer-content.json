@@ -2,19 +2,7 @@
     "footer" : {
         "subtitle": "Frontend Developer",
         "text": "A Web Developer focused on creating and maintaining high performing websites and applications using modern JavaScript frameworks, driving the success of every product.",
-        "social_title": "Connect with me",
-        "social_links": [
-            {
-                "name": "Linkedin",
-                "link": "https://www.linkedin.com/in/diego-fernando-villamil-velasquez/",
-                "icon": "<i class='fa-brands fa-linkedin' aria-hidden='true'></i>"
-            },
-            {
-                "name": "Github",
-                "link": "https://github.com/iorivilla84",
-                "icon": "<i class='fa-brands fa-github' aria-hidden='true'></i>"
-            }
-        ]
+        "social_title": "Connect with me"
     },
     "copyright": {
         "text": "<span class='copyright'>© Copyright</span>",

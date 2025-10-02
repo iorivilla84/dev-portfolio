@@ -22,20 +22,6 @@ const displayFooterContent = {
         displayFooterContent.renderCopyRightsYear(yearContainer);
     },
     /**
-     * Creates the HTML string to display the social icons items
-     * @param {Object} social - The social info data object
-     * @returns {string} An HTML string of the social navigation items
-     */
-    getFooterSocials: (social) => {
-        return `
-            <li class="socials footer-item">
-                <a href="${social.link || '#'}" aria-label="${social.name || 'Icon Name'}" target="_blank" rel="noopener noreferrer" class="footer-link">
-                    ${social.icon || 'Icon Missing'}
-                </a>
-            </li>
-        `;
-    },
-    /**
      * Creates the html string to display the copyright content
      * @param {Object} copyright - The copyright data object
      * @returns {String} An HTML string of the copyright content
@@ -76,11 +62,12 @@ const displayFooterContent = {
         footerTextDescription.textContent = footer?.text || 'Footer Text';
         footerSocialTitle.textContent = footer?.social_title || 'Footer Social Title';
 
-        const socialIconsHtml = formatterHelper.arrayFormatter(footer?.social_links, social => displayFooterContent.getFooterSocials(social))
-        socialIconsContainer.insertAdjacentHTML('beforeend', socialIconsHtml);
+        socialIconsContainer.insertAdjacentHTML('beforeend', await renderComponent.socialIcons(socialIconsContainer));
+
         footerCopyRight.insertAdjacentHTML('afterbegin',
             `${copyright.text || 'No copyright text available'} ${copyright.year || 'No year available'}`
         );
+
         footerCopyRight.insertAdjacentHTML('beforeend', displayFooterContent.getCopyRights(copyright) || 'No copyright text available');
 
     },

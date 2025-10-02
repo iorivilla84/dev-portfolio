@@ -7,10 +7,10 @@ const displaySiteInfo = {
      * @returns {void}
      */
     init: async () => {
-        const model = await getSiteData();
-        if (!model) return;
+        const { status, site } = await getSiteData();
+        if (status !== 'ok' || !site) return;
 
-        displaySiteInfo.updateSiteTitle(model);
+        displaySiteInfo.updateSiteTitle(site);
     },
     /**
      * Updates the page title with the home title from the site data model otherwise fallback ti sample text
@@ -18,10 +18,9 @@ const displaySiteInfo = {
      * @returns {void}
      */
     updateSiteTitle: (model) => {
-        const { status, site } = model;
-        if (status !== 'ok') return;
+        const { site_title = {} } = model;
 
-        document.title = site.home_title || 'Your Name | Portfolio';
+        document.title = site_title.home_title || 'Dev Portfolio';
     }
 }
 
