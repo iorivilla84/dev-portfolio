@@ -44,22 +44,23 @@ The portfolio is built with semantic HTML5, Bootstrap 5 for responsive layout, S
 ├── js/
 │   ├── components/
 │   │   ├── display-about-me-list.js
-│   │   ├── display-background.js
 │   │   ├── display-contact-info.js
+│   │   ├── display-education.js
 │   │   ├── display-experience.js
 │   │   ├── display-hero-banner.js
 │   │   ├── display-main-nav.js
 │   │   ├── display-portfolio.js
+│   │   ├── display-recommendations.js
 │   │   ├── display-skills.js
 │   │   ├── footer.js
 │   │   ├── renderers.js
 │   │   └── site.js
 │   ├── controllers/
 │   │   ├── about-me-model.js
-│   │   ├── accordion-event-handler.js
-│   │   ├── background-model.js
+│   │   ├── accordion-controller.js
 │   │   ├── contact-model.js
 │   │   ├── dev-skills-list-model.js
+│   │   ├── education-model.js
 │   │   ├── experience-list-model.js
 │   │   ├── filtering-projects-event.js
 │   │   ├── footer-model.js
@@ -67,19 +68,21 @@ The portfolio is built with semantic HTML5, Bootstrap 5 for responsive layout, S
 │   │   ├── nav-event-handlers.js
 │   │   ├── navigation-model.js
 │   │   ├── portfolio-list-model.js
+│   │   ├── recommendations-model.js
 │   │   └── site.js
 │   ├── helpers/
 │   │   ├── dom-helper.js
 │   │   └── formatter.js
 │   ├── portfolio-model/
 │   │   ├── about-me.json
-│   │   ├── background-list.json
 │   │   ├── contact.json
+│   │   ├── education-list.json
 │   │   ├── experience-list.json
 │   │   ├── footer-content.json
 │   │   ├── hero-banner.json
 │   │   ├── navigation-list.json
 │   │   ├── portfolio-list.json
+│   │   ├── recommendations-list.json
 │   │   ├── site.json
 │   │   └── skills.json
 │   └── main.js

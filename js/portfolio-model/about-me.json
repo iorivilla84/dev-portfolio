@@ -1,15 +1,6 @@
 {
     "about_me": {
         "main_title": "About Me",
-        "section_title": "Get to know me!",
-        "description": [
-            "4+ years of experience as a Front-End Developer, working with HTML5, CSS/SASS, JavaScript, Bootstrap, ISML, and Salesforce Commerce Cloud (SFCC), including SFRA and Page Designer.",
-            "Proficient at designing and implementing reusable UI components, delivering responsive and accessible websites across eCommerce and non-eCommerce platforms.",
-            "Able to manage features from start to finish, including documentation and supporting team growth.",
-            "Experienced in working with cross-functional agile teams, bringing a proactive and solution-focused approach.",
-            "15+ years of experience as a Graphic & Digital Designer, with a strong foundation in Adobe Creative Suite, XD, and Figma, and 2D animation/video creation.",
-            "Experienced in bridging the gap between design and development by delivering consistent, user-focused visuals that integrate seamlessly into digital products.",
-            "Passionate about continuous learning, adopting new tools, and refining design systems to support high-quality, user-focused solutions."
-        ]
+        "description" : "I'm a Front-End Developer with over 4 years of experience working within the Salesforce Commerce Cloud (SFCC) platform, building high-traffic, accessible, and responsive websites using HTML5, ISML, CSS/SASS, JavaScript, Bootstrap, and SFRA with Page Designer. <br> <br> With over 15 years of experience as a Graphic and Web Designer, I have a strong creative mindset and attention to detail, with the ability to manage projects from concept to launch and collaborate effectively with cross-functional teams to deliver innovative, scalable solutions."
     }
 }

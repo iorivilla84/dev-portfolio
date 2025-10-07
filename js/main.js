@@ -6,7 +6,8 @@ import { displayFooterContent } from './components/footer.js';
 import { displayPortfolioGrid } from './components/display-portfolio.js';
 import { displayDevExperience } from './components/display-experience.js';
 import { displayAboutMeList } from './components/display-about-me-list.js';
-import { displayBackground } from './components/display-background.js';
+import { displayBackground } from './components/display-education.js';
+import { displayRecommendationsInfo } from './components/display-recommendations.js';
 import { displayContactInfo } from './components/display-contact-info.js';
 
 /**
@@ -35,6 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
     displayDevExperience.init();
     displayAboutMeList.init();
     displayBackground.init();
+    displayRecommendationsInfo.init()
     displayContactInfo.init();
     setTimeout(scrollToHash, 500);
 });

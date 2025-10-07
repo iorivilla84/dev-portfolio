@@ -20,6 +20,10 @@ main section {
     scroll-margin-top: 100px;
 }
 
+blockquote {
+    margin-bottom: 0;
+}
+
 .title-with-line {
     &::after {
         border-bottom: 3px solid $dark-cyan;
@@ -113,7 +117,7 @@ main section {
 }
 
 .my-skills-wrapper {
-    background: $dark-cyan-hover;
+    background: $dark-cyan;
 
     .skill-accordion {
         border-bottom: 1px solid $border-light-color;
@@ -407,11 +411,6 @@ main section {
 
 // Recommendation styles
 .recommendations-wrapper {
-    display: flex;
-    flex-direction: column;
-    padding-left: 0;
-    padding-right: 0;
-
     .recommendation-content {
         &::before {
             content: "\f10e";
@@ -421,7 +420,6 @@ main section {
     }
 
     .recommendation-item {
-        align-content: center;
         background-color: $dark-cyan;
         padding-left: 15px;
         padding-right: 15px;

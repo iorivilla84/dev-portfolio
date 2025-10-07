@@ -1,5 +1,5 @@
 {
-  "section_title": "PROFESSIONAL EXPERIENCE",
+  "section_title": "",
   "experience": [
     {
         "company_name": "True Alliance PTY",
@@ -7,15 +7,15 @@
         "location": "Sydney, Australia",
         "company_link": "https://www.truealliance.com.au/",
         "company_logo": "./assets/images/company-logos/true-alliance-logo-white.png",
-        "period_time": "Jun 2021 – Jul 2025",
+        "period_time": "Jun 2021 – Jul 2025 · 4yrs 1mo",
         "responsibilities": [
-          "I developed and enhanced storefronts for brands such as: <em><u>Banana Republic, Ben Sherman, Brooks Brothers, Coach, Coach Outlet, Ellesse, GAP, Kate Spade, Lacoste, Lee Jeans, Nautica, Speedo, Teva, The North Face, Rides and Wrangler.</u></em>",
-          "Assisted in the redesign and overhaul of PDP, PLP, and checkout flows to improve usability, components, and consistency across multiple brands.",
+          "Managed high traffic websites and brands such as: <em><u>Banana Republic, Ben Sherman, Brooks Brothers, Coach, Coach Outlet, Ellesse, GAP, Kate Spade, Lacoste, Lee Jeans, Nautica, Speedo, Teva, The North Face, Rides and Wrangler.</u></em>",
+          "Revamped the Checkout flow styles to improve usability, enhance component consistency, and align PDP and PLP designs across multiple brands.",
           "Built, enhanced, and maintained custom templates, including homepages and blog modules to support scalable and reusable front-end solutions.",
           "Developed and enhanced reusable Page Designer components to support scalable and flexible content layouts.",
-          "Ensured maintainability of the SASS/SCSS architecture, adhering to brand standards and cartridge inheritance structures.",
-          "Managed Salesforce Business Manager operations, including custom attribute creation, slot/content management, and deployment packages.",
-          "Supported cross-functional teams with prototypes, design consistency, and ongoing UI maintenance across web and mobile."
+          "Improved maintainability of the SASS/SCSS architecture, adhering to brand standards and cartridge inheritance structures.",
+          "Managed Salesforce Business Manager operations, including custom attribute creation and slot/content management.",
+          "Collaborated cross-functional teams with prototypes, design consistency, and ongoing UI maintenance across web and mobile."
         ],
         "stack": ["SFCC (SFRA)", "Page Designer", "SCSS", "ISML", "VS Code", "JavaScript", "jQuery", "Demandware Script", "npm", "swb", "Git", "Webpack", "Jira", "Figma"]
     },
@@ -25,32 +25,32 @@
         "location": "Sydney, Australia",
         "company_link": "https://diegovelasquez.myportfolio.com",
         "company_logo": "./assets/images/company-logos/diego-logo-white-v.svg",
-        "period_time": "Sep 2017 – Jun 2021",
+        "period_time": "Sep 2017 – Jun 2021 · 3yrs 9mos",
         "responsibilities": [
           "Built and launched both eCommerce and non-eCommerce websites using WordPress, custom HTML, CSS, and JavaScript.",
           "Created and implemented SEO strategies across website pages and products.",
           "Designed brand identities, logos, and marketing visuals for wellness and hair care companies.",
           "Created promotional video content and digital animations for clients in the restaurant and hospitality industry.",
-          "Delivered end-to-end solutions, from wireframing and prototyping to final deployment, ensuring responsive and user-friendly experiences.",
+          "Designed wireframing and prototyping solutions, to ensure user-friendly experience and responsive design.",
           "Collaborated closely with clients to align creative direction with business goals and brand guidelines."
         ],
         "stack": ["WordPress", "Elementor", "WPBakery", "WooCommerce", "Stripe (payment gateway integration)", "PayPal (payment gateway integration)", "VS Code", "HTML", "CSS", "JavaScript", "Adobe XD", "Illustrator", "Photoshop", "After Effects", "Adobe Animate", "InDesign", "Adobe Firefly", "cPanel", "Installatron", "Email setup"]
     },
     {
       "company_name": "Rr Creativos",
-      "position": "Senior Graphic Designer, Front-End Developer and Digital Video Creator",
+      "position": "Lead Senior Graphic Designer, Front-End Developer and Digital Video Creator",
       "location": "Cali, Colombia",
       "company_link": "https://www.instagram.com/rrcreativos/",
       "company_logo": "./assets/images/company-logos/rr-creativos-white.jpg",
-      "period_time": "Jun 2008 – Aug 2016",
+      "period_time": "Jun 2008 – Aug 2016 · 8yrs 2mos",
       "responsibilities": [
         "Designed and developed advertising digital assets, from web banners to full campaign materials, including print-ready final art.",
         "Built responsive websites and web applications using HTML5, CSS, JavaScript, and WordPress CMS.",
         "Created animations and 3D content, including TV spots, promotional videos, and animated web presentations.",
         "Developed media strategies for product or brand positioning across digital channels.",
-        "Produced and verified graphic communication concepts, including corporate imagery and pre-press preparation for lithographic or digital printing.",
+        "Designed graphic communication concepts, including corporate imagery and pre-press preparation for lithographic or digital printing.",
         "Performed photo assembly, digital retouching, and image optimization for web and print use.",
-        "Designed and implemented interactive digital designs, including banners, animated presentations, and other multimedia content using Animate and After Effects."
+        "Developed interactive digital designs, including banners, animated presentations, and other multimedia content using Animate and After Effects."
       ],
       "stack": ["Illustrator", "Photoshop", "After Effects", "Adobe Animate", "InDesign", "Sony Vegas Studio", "3D Max", "Dreamweaver", "WordPress", "WPBakery", "HTML", "CSS"]
     },
@@ -60,11 +60,11 @@
       "location": "Cali, Colombia",
       "company_link": "https://auros.com.co/tiendas-cali/",
       "company_logo": "./assets/images/company-logos/auros-copias-ducoprint.png",
-      "period_time": "Jan 2007 – Jun 2008",
+      "period_time": "Jan 2007 – Jun 2008 · 1yr 5mos",
       "responsibilities": [
         "Designed a variety of advertising materials, tailored to client needs and campaign goals.",
         "Analyzed design concepts and provided recommendations to optimize visual impact.",
-        "Assisted clients and regular customers in producing finished products aligned with their design and printing requirements."
+        "Supported clients and regular customers in producing finished products aligned with their design and printing requirements."
       ],
       "stack": ["Illustrator", "Photoshop", "InDesign", "Xerox"]
     }

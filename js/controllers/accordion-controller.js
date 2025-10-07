@@ -44,6 +44,15 @@ const accordionController = {
             accordionController.setAriaExpanded(content, true)
         });
     },
+    addAccordionTransition: (allAccordions, height) => {
+        allAccordions.style.maxHeight = height;
+        allAccordions.addEventListener("transitionend", function handler(e) {
+            if (e.propertyName === "max-height") {
+                allAccordions.style.maxHeight = height;
+                allAccordions.removeEventListener("transitionend", handler);
+            }
+        });
+    },
     /**
      * Toggle the classes for each accordion
      * @param {HTMLElement} accordion - The element attached to the event listener
@@ -73,13 +82,7 @@ const accordionController = {
                 currentAccordionContent.classList.add('active');
 
                 const height = accordionController.getPanelFullHeight(currentAccordionContent) + "px";
-                currentAccordionContent.style.maxHeight = height;
-                currentAccordionContent.addEventListener("transitionend", function handler(e) {
-                    if (e.propertyName === "max-height") {
-                        currentAccordionContent.style.maxHeight = "none";
-                        currentAccordionContent.removeEventListener("transitionend", handler);
-                    }
-                });
+                accordionController.addAccordionTransition(currentAccordionContent, height);
             } else {
                 currentAccordionContent.style.maxHeight =
                     accordionController.getPanelFullHeight(currentAccordionContent) + "px";
@@ -142,13 +145,7 @@ const accordionController = {
 
         requestAnimationFrame(() => {
             const height = accordionController.getPanelFullHeight(allAccordions[0]) + "px";
-            allAccordions[0].style.maxHeight = height;
-            allAccordions[0].addEventListener("transitionend", function handler(e) {
-                if (e.propertyName === "max-height") {
-                    allAccordions[0].style.maxHeight = "none";
-                    allAccordions[0].removeEventListener("transitionend", handler);
-                }
-            });
+            accordionController.addAccordionTransition(allAccordions[0], height);
         });
 
         accordionController.setAriaExpanded(allAccordions[0], true);
@@ -161,7 +158,7 @@ const accordionController = {
             resizeTimeout = setTimeout(() => {
                 allAccordions.forEach(accordion => {
                     if (accordion.classList.contains("active")) {
-                        if (accordion.style.maxHeight !== "none") {
+                        if (accordion.style.maxHeight !== "0") {
                             accordion.style.maxHeight =
                                 accordionController.getPanelFullHeight(accordion) + "px";
                         }

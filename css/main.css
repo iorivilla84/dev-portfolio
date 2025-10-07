@@ -248,6 +248,10 @@ main section {
   scroll-margin-top: 100px;
 }
 
+blockquote {
+  margin-bottom: 0;
+}
+
 .title-with-line::after {
   border-bottom: 3px solid #008b8b;
   content: "";
@@ -333,7 +337,7 @@ main section {
 }
 
 .my-skills-wrapper {
-  background: #026e6e;
+  background: #008b8b;
 }
 .my-skills-wrapper .skill-accordion {
   border-bottom: 1px solid rgba(255, 255, 255, 0.55);
@@ -577,19 +581,12 @@ main section {
   flex-direction: column;
 }
 
-.recommendations-wrapper {
-  display: flex;
-  flex-direction: column;
-  padding-left: 0;
-  padding-right: 0;
-}
 .recommendations-wrapper .recommendation-content::before {
   content: "\f10e";
   color: rgba(255, 255, 255, 0.55);
   font-size: 50px;
 }
 .recommendations-wrapper .recommendation-item {
-  align-content: center;
   background-color: #008b8b;
   padding-left: 15px;
   padding-right: 15px;

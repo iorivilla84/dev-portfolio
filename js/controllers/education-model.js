@@ -1,18 +1,18 @@
 
 /**
- * Fetches the background data (education + recommendations)
+ * Fetches the education data education
  * @async
  * @returns {Promise} An Object containing the request status, data objects and code
  */
-const getBackgroundData = async () => {
-    const backgroundDataEndPath = "./js/portfolio-model/background-list.json";
+const getEducationData = async () => {
+    const educationDataEndPath = "./js/portfolio-model/education-list.json";
 
     try {
-        const response = await fetch(backgroundDataEndPath);
+        const response = await fetch(educationDataEndPath);
 
         if (!response.ok) {
             throw new Error(
-              `Failed to fetch ${backgroundDataEndPath}: ${response.status} ${response.statusText}`
+              `Failed to fetch ${educationDataEndPath}: ${response.status} ${response.statusText}`
             );
         }
 
@@ -21,25 +21,23 @@ const getBackgroundData = async () => {
             status: "ok",
             section_title: jsonResponse.section_title,
             education: jsonResponse.education,
-            recommendations: jsonResponse.recommendations,
             code: 200
         }
     } catch (error) {
         if (error.name === "SyntaxError") {
-            console.error(`JSON parse error in ${backgroundDataEndPath}:`, error.message);
+            console.error(`JSON parse error in ${educationDataEndPath}:`, error.message);
         } else {
-            console.error(`Error fetching ${backgroundDataEndPath}:`, error.message);
+            console.error(`Error fetching ${educationDataEndPath}:`, error.message);
         }
 
         return {
             status: "ok",
             section_title: [],
             education: [],
-            recommendations: [],
             code: 500
         }
     }
 }
 
 
-export { getBackgroundData }
+export { getEducationData }

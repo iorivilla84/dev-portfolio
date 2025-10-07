@@ -17,7 +17,6 @@ const getExperienceList = async () => {
         const jsonResponse = await response.json();
         return {
             status: 'ok',
-            section_title: jsonResponse.section_title,
             experience: jsonResponse.experience,
             code: 200
         }
@@ -30,7 +29,6 @@ const getExperienceList = async () => {
 
         return {
             status: 'error',
-            section_title: [],
             experience: [],
             code: 500
         }

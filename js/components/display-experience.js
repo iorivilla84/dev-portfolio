@@ -145,12 +145,10 @@ const displayDevExperience = {
      * @returns {void}
      */
     displayWorkExperience: (wrapper, model) => {
-        const { status, section_title, experience } = model;
+        const { status, experience } = model;
         const experienceWrapper = wrapper.querySelector('.experience-content-wrapper');
-        const experienceSectionTitle = wrapper.querySelector('.experience-title');
-        if (!experienceWrapper || !experienceSectionTitle || status !== 'ok') return;
+        if (!experienceWrapper || status !== 'ok') return;
 
-        experienceSectionTitle.textContent = section_title || "Section Title";
         const html = formatterHelper.arrayFormatter(experience, displayDevExperience.workExperienceTemplate);
         experienceWrapper.insertAdjacentHTML('beforeend', html);
 
