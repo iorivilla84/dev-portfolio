@@ -1,10 +1,11 @@
 import { getRecommendationData } from "../controllers/recommendations-model.js"
 import { getElement } from "../helpers/dom-helper.js";
 import { formatterHelper } from "../helpers/formatter.js";
+import { messageHelper } from "../helpers/messages.js";
 
 const displayRecommendationsInfo = {
     /**
-     * Initialises the displayRecommendations object to display Recommendations in the front end
+     * Initialises and displays the Recommendations in the front end
      * @async
      * @returns {void}
      */
@@ -24,11 +25,19 @@ const displayRecommendationsInfo = {
         return `
             <div class="col-12 col-md-4 recommendation-item py-4">
                 <blockquote class="recommendation-content">
-                    <p class="recommendation-item__text">${recommendation?.recommendation || 'No Recommendation Available'}</p>
-                    <h4 class="recommendation-item__name">- ${recommendation?.name || 'No Name Available'}</h4>
+                    <p class="recommendation-item__text">
+                        ${recommendation?.recommendation || messageHelper.alert('No Recommendation Available', 'span')}
+                    </p>
+                    <h4 class="recommendation-item__name">
+                        - ${recommendation?.name || messageHelper.alert('No Name Available', 'span')}
+                    </h4>
                     <cite class="recommendation-item__position">
-                        ${recommendation?.position || 'No Position Available'}
-                        <a class="recommendation-item__company-link" href="${recommendation?.company_link || '#'}" target="_blank">${recommendation?.company || 'No Company Name Available'}</a>
+                        ${recommendation?.position || messageHelper.alert('No Position Available')}
+                        <a class="recommendation-item__company-link"
+                            href="${recommendation?.company_link || '#'}"
+                            target="_blank">
+                            ${recommendation?.company || messageHelper.alert('No Company Name Available', 'span')}
+                        </a>
                     </cite>
                 </blockquote>
             </div>
@@ -40,12 +49,13 @@ const displayRecommendationsInfo = {
      * @param {Object} model - The background data object containing recommendations data
      * @returns {void}
      */
-    displayRecommendations: async (wrapper, model) => {
+    displayRecommendations: (wrapper, model) => {
         const { status, recommendations } = model;
         const recommendationContainer = wrapper.querySelector('.recommendations-content');
         if (status !== 'ok' || !recommendationContainer) return;
 
-        const recommendationHTML = formatterHelper.arrayFormatter(recommendations, displayRecommendationsInfo.recommendationListTemplate);
+        const recommendationHTML =
+            formatterHelper.arrayFormatter(recommendations, displayRecommendationsInfo.recommendationListTemplate);
         recommendationContainer.insertAdjacentHTML('beforeend', recommendationHTML);
     }
 }

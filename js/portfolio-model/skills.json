@@ -57,7 +57,8 @@
         "Git",
         "SourceTree",
         "Jira",
-        "Confluence"
+        "Confluence",
+        "Slack"
       ]
     },
     {

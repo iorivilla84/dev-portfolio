@@ -18,14 +18,14 @@ const accordionController = {
     setAriaExpanded: (el, expanded) => {
         el.setAttribute('aria-expanded', expanded ? 'true' : 'false');
     },
+    /**
+     * Returns the full height of a panel including a small margin as buffer (+ 5).
+     * @param {HTMLElement} panel - The accordion container element
+     * @returns {Number} The full height of the panel
+     */
     getPanelFullHeight: (panel) => {
         const scrollHeight = panel.scrollHeight || 0;
-        let extra = 0;
-        const firstChild = panel.firstElementChild;
-        const lastChild = panel.lastElementChild;
-        if (firstChild) extra += parseFloat(getComputedStyle(firstChild).marginTop) || 0;
-        if (lastChild) extra += parseFloat(getComputedStyle(lastChild).marginBottom) || 0;
-        return Math.ceil(scrollHeight + extra);
+        return Math.ceil(scrollHeight + 5);
     },
     /**
      * Reset classes and content height for each accordion
@@ -44,6 +44,12 @@ const accordionController = {
             accordionController.setAriaExpanded(content, true)
         });
     },
+    /**
+     * Add an event listener to each accordion to trigger transition
+     * @param {NodeListOf<HTMLElement>} allAccordions - The accordion content
+     * @param {Number} height - the max-height of the accordion content
+     * @returns {void}
+     */
     addAccordionTransition: (allAccordions, height) => {
         allAccordions.style.maxHeight = height;
         allAccordions.addEventListener("transitionend", function handler(e) {
@@ -164,7 +170,7 @@ const accordionController = {
                         }
                     }
                 });
-            }, 50)
+            }, 50);
         });
     }
 }

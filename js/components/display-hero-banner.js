@@ -1,6 +1,8 @@
 import { getHeroBannerDataModel } from "../controllers/hero-banner-model.js";
 import { getElement } from "../helpers/dom-helper.js";
 import { formatterHelper } from "../helpers/formatter.js";
+import { urlValidation } from "../helpers/url.js";
+import { getSiteData } from "../controllers/site.js";
 
 const displayHeroBanner = {
     /**
@@ -12,19 +14,23 @@ const displayHeroBanner = {
         const model = await getHeroBannerDataModel();
         if (!model) return;
 
-        displayHeroBanner.renderBannerContent(model);
+        await displayHeroBanner.renderBannerContent(model);
     },
     /**
      * Creates an HTML template for the hero banner images
-     * @param {Array} model - An array of objects containing the image model
+     * @async
+     * @param {object} model - An array of objects containing the image siteModel
+     * @param {string} fallbackImg - The fallback image path or URL used when an image fails to load
      * @returns {string} An HTML template containing the hero banner images
      */
-     getImgElements: (model) => {
+     getImgElements: async (model, fallbackImage) => {
+        const validateUrl = await urlValidation.init(model?.avatar, fallbackImage);
+
         return `
             <img
                 class="hero-banner-img"
-                src="${model?.avatar || 'https://static.vecteezy.com/system/resources/previews/004/141/669/non_2x/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg'}"
-                alt="${model.avatar ? model?.name : 'Hero Banner Image'}"
+                src="${validateUrl}"
+                alt="${model?.avatar ? model?.name : 'Hero Banner Image'}"
                 loading="lazy">
         `;
     },
@@ -43,16 +49,22 @@ const displayHeroBanner = {
     /**
      * Renders the hero banner content
      * Fetches the hero banner model and renders it in the hero banner section
+     * @async
+     * @param {object} model - An object containing the hero banner model
      * @returns {Promise<void>} A promise that resolves when the hero banner content is rendered
      */
-    renderBannerContent: (model) => {
+    renderBannerContent: async (model) => {
         const { status, hero_banner } = model;
         const heroBannerImgWrapper = getElement.single('.hero-image-container');
         const heroBannerTextWrapper = getElement.single('.hero-text-content');
+        const siteData = await getSiteData();
+
+        if (siteData.status !== 'ok' || !siteData.site) return;
+        const fallbackImage = siteData?.site?.fallback_image;
 
         if (status !== 'ok' || !heroBannerImgWrapper || !heroBannerTextWrapper) return;
 
-        heroBannerImgWrapper.insertAdjacentHTML('beforeend', displayHeroBanner.getImgElements(hero_banner))
+        heroBannerImgWrapper.insertAdjacentHTML('beforeend', await displayHeroBanner.getImgElements(hero_banner, fallbackImage))
         heroBannerTextWrapper.insertAdjacentHTML('beforeend', displayHeroBanner.getBannerTextContent(hero_banner));
     }
 }

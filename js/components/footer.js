@@ -2,6 +2,7 @@ import { getElement } from "../helpers/dom-helper.js";
 import { formatterHelper } from "../helpers/formatter.js"
 import { getFooterDataModel } from "../controllers/footer-model.js";
 import { renderComponent } from "./renderers.js";
+import { messageHelper } from "../helpers/messages.js";;
 
 const displayFooterContent = {
     /**
@@ -14,7 +15,7 @@ const displayFooterContent = {
         const footerWrapper = getElement.single('.footer-container');
         if (!footerWrapper || !model) return;
 
-        displayFooterContent.renderFooterContent(footerWrapper, model);
+        await displayFooterContent.renderFooterContent(footerWrapper, model);
 
         const yearContainer = getElement.single('.footer-year');
         if (!yearContainer) return;
@@ -29,13 +30,13 @@ const displayFooterContent = {
     getCopyRights: (copyright) => {
         return `
             <a href="${copyright?.made_by_link || '#'}" target="_blank" rel="noopener noreferrer">
-                ${copyright?.made_by || 'Your Name'}
+                ${copyright?.made_by || messageHelper.alert('No Name Provided', 'span')}
             </a>
         `
     },
     /**
      * Renders the footer content in the footer container
-     * @param {HTMLElement} footerWrapper - the footer container wrapper
+     * @param {HTMLElement} footerWrapper - The footer container wrapper
      * @param {Object} model - copyright - The footer data object
      * @returns {void}
      */
@@ -59,17 +60,19 @@ const displayFooterContent = {
 
         footerLogoContainer.insertAdjacentHTML('beforeend', await renderComponent.brandLogo(footerLogoContainer));
         footerSubtitle.textContent = footer?.subtitle || 'Footer Subtitle';
-        footerTextDescription.textContent = footer?.text || 'Footer Text';
-        footerSocialTitle.textContent = footer?.social_title || 'Footer Social Title';
+        footerTextDescription.insertAdjacentHTML('afterbegin', footer?.text || messageHelper.alert('No Footer Text Available', 'span'))
+        footerSocialTitle.insertAdjacentHTML('afterbegin', footer?.social_title || 'Footer Social Title');
 
         socialIconsContainer.insertAdjacentHTML('beforeend', await renderComponent.socialIcons(socialIconsContainer));
 
         footerCopyRight.insertAdjacentHTML('afterbegin',
-            `${copyright.text || 'No copyright text available'} ${copyright.year || 'No year available'}`
+            `
+                ${copyright.text || messageHelper.alert('Missing copyright text and HTML tag in JSON text property', 'span')}
+                ${copyright.year || messageHelper.alert('Missing year HTML tag in JSON year property', 'span')}
+            `
         );
 
-        footerCopyRight.insertAdjacentHTML('beforeend', displayFooterContent.getCopyRights(copyright) || 'No copyright text available');
-
+        footerCopyRight.insertAdjacentHTML('beforeend', displayFooterContent.getCopyRights(copyright));
     },
     /**
      * Fetch Current Year to append in copyrights section

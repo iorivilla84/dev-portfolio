@@ -11,11 +11,14 @@
         "responsibilities": [
           "Managed high traffic websites and brands such as: <em><u>Banana Republic, Ben Sherman, Brooks Brothers, Coach, Coach Outlet, Ellesse, GAP, Kate Spade, Lacoste, Lee Jeans, Nautica, Speedo, Teva, The North Face, Rides and Wrangler.</u></em>",
           "Revamped the Checkout flow styles to improve usability, enhance component consistency, and align PDP and PLP designs across multiple brands.",
-          "Built, enhanced, and maintained custom templates, including homepages and blog modules to support scalable and reusable front-end solutions.",
+          "Built, enhanced and maintained custom templates, including homepages and blog modules, to support scalable and reusable front-end solutions.",
+          "Developed multiple scalable Page Designer components, driving consistent design implementation across 10+ brands.",
           "Developed and enhanced reusable Page Designer components to support scalable and flexible content layouts.",
-          "Improved maintainability of the SASS/SCSS architecture, adhering to brand standards and cartridge inheritance structures.",
-          "Managed Salesforce Business Manager operations, including custom attribute creation and slot/content management.",
-          "Collaborated cross-functional teams with prototypes, design consistency, and ongoing UI maintenance across web and mobile."
+          "Improved and cleaned up the SCSS across all sites to maintain consistency and scalability, while enhancing performance and load speed.",
+          "Enhanced Homepage Modules interactivity and UX, enabling easier maintenance and precise element positioning.",
+          "Ensured maintainability of the SASS architecture, adhering to brand standards and cartridge inheritance structures.",
+          "Managed Business Manager (BM) operations, including custom attribute creation, slot/content management, and deployment packages.",
+          "Supported cross-functional teams with prototypes, design consistency, and ongoing UI maintenance across web and mobile."
         ],
         "stack": ["SFCC (SFRA)", "Page Designer", "SCSS", "ISML", "VS Code", "JavaScript", "jQuery", "Demandware Script", "npm", "swb", "Git", "Webpack", "Jira", "Figma"]
     },
@@ -27,12 +30,16 @@
         "company_logo": "./assets/images/company-logos/diego-logo-white-v.svg",
         "period_time": "Sep 2017 – Jun 2021 · 3yrs 9mos",
         "responsibilities": [
+          "Delivered end-to-end solutions, from wireframing and prototyping to final deployment, ensuring responsive and user-friendly experiences.",
           "Built and launched both eCommerce and non-eCommerce websites using WordPress, custom HTML, CSS, and JavaScript.",
           "Created and implemented SEO strategies across website pages and products.",
           "Designed brand identities, logos, and marketing visuals for wellness and hair care companies.",
           "Created promotional video content and digital animations for clients in the restaurant and hospitality industry.",
-          "Designed wireframing and prototyping solutions, to ensure user-friendly experience and responsive design.",
-          "Collaborated closely with clients to align creative direction with business goals and brand guidelines."
+          "Collaborated closely with clients to align creative direction with business goals and brand guidelines, attracting excellent customer ratings and repeat business.",
+          "Launched multiple responsive websites across various industries, improving online presence, brand recognition, usability, and cohesive visual assets.",
+          "Produced engaging video content and digital animations, boosting client engagement and visibility.",
+          "Optimised website content, slugs, meta titles, descriptions, and keywords to improve search visibility and drive relevant traffic.",
+          "Maintained strong client collaboration, delivering solutions aligned with brand guidelines and goals that generated repeat business and excellent client recommendations."
         ],
         "stack": ["WordPress", "Elementor", "WPBakery", "WooCommerce", "Stripe (payment gateway integration)", "PayPal (payment gateway integration)", "VS Code", "HTML", "CSS", "JavaScript", "Adobe XD", "Illustrator", "Photoshop", "After Effects", "Adobe Animate", "InDesign", "Adobe Firefly", "cPanel", "Installatron", "Email setup"]
     },
@@ -44,13 +51,16 @@
       "company_logo": "./assets/images/company-logos/rr-creativos-white.jpg",
       "period_time": "Jun 2008 – Aug 2016 · 8yrs 2mos",
       "responsibilities": [
-        "Designed and developed advertising digital assets, from web banners to full campaign materials, including print-ready final art.",
-        "Built responsive websites and web applications using HTML5, CSS, JavaScript, and WordPress CMS.",
+        "Built responsive websites and web applications using HTML5, CSS, JavaScript, and WordPress CMS to enhance user experience, accessibility, and cross-device performance.",
+        "Designed and developed high-impact advertising assets and campaigns, from web banners to full campaign materials, including print-ready final art, enhancing brand visibility and engagement across digital and print channels.",
         "Created animations and 3D content, including TV spots, promotional videos, and animated web presentations.",
-        "Developed media strategies for product or brand positioning across digital channels.",
-        "Designed graphic communication concepts, including corporate imagery and pre-press preparation for lithographic or digital printing.",
-        "Performed photo assembly, digital retouching, and image optimization for web and print use.",
-        "Developed interactive digital designs, including banners, animated presentations, and other multimedia content using Animate and After Effects."
+        "Led media strategies for product and brand positioning across digital channels.",
+        "Produced and verified graphic communication concepts, including corporate imagery and pre-press preparation for lithographic or digital printing.",
+        "Performed photo assembly, digital retouching, and image optimization for both web and print use.",
+        "Designed and implemented interactive digital designs, including banners, animated presentations, and other multimedia content using Animate and After Effects.",
+        "Produced engaging animations and 3D content, contributing to successful promotional campaigns for TV, web, and social media.",
+        "Ensured high-quality visual communication, including print-ready artwork, corporate imagery, and accurate pre-press preparation.",
+        "Optimized images and graphics for web and print, improving load times and visual fidelity across platforms."
       ],
       "stack": ["Illustrator", "Photoshop", "After Effects", "Adobe Animate", "InDesign", "Sony Vegas Studio", "3D Max", "Dreamweaver", "WordPress", "WPBakery", "HTML", "CSS"]
     },

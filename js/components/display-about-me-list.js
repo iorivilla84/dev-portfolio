@@ -1,7 +1,7 @@
 import { getElement } from "../helpers/dom-helper.js";
 import { getAboutMeList } from "../controllers/about-me-model.js";
-import { formatterHelper } from "../helpers/formatter.js";
 import { renderComponent } from "./renderers.js";
+import { messageHelper } from "../helpers/messages.js";
 
 const displayAboutMeList = {
     /**
@@ -14,13 +14,13 @@ const displayAboutMeList = {
         const aboutMeContainer = getElement.single('.about-me-wrapper');
         if (!model || !aboutMeContainer) return;
 
-        displayAboutMeList.displayAboutMeInfo(aboutMeContainer, model)
+        await displayAboutMeList.displayAboutMeInfo(aboutMeContainer, model)
     },
     /**
      * Renders the about me section list
+     * @async
      * @param {String} selector - The CSS selector of the target element
      * @param {Object} model - The about me object
-     * @async
      * @returns {Promise<void>}
      */
     displayAboutMeInfo: async (wrapper, model) => {
@@ -30,12 +30,11 @@ const displayAboutMeList = {
 
         if (status !== 'ok' || !aboutMeSectionTitle || !aboutMeDescriptionContainer) return;
 
-        aboutMeSectionTitle.textContent = about_me?.main_title || 'Main Title';
+        aboutMeSectionTitle.textContent = about_me?.main_title || 'Section Title';
 
-        const aboutMeText = about_me?.description || 'No Description Available';
+        const aboutMeText = about_me?.description || messageHelper.alert('No Description Available');
         aboutMeDescriptionContainer.insertAdjacentHTML('afterbegin', aboutMeText);
         aboutMeDescriptionContainer.insertAdjacentHTML('afterend', await renderComponent.resumeButton(aboutMeDescriptionContainer));
-
     }
 }
 

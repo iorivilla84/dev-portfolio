@@ -4,7 +4,7 @@
         max-height: 0;
         overflow: hidden;
         scrollbar-color: transparent transparent;
-        transition: max-height 0.3s ease-out;
+        transition: max-height .5s ease-out;
     }
 
     .accordion-link-button {

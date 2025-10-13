@@ -2,6 +2,7 @@ import { getEducationData } from "../controllers/education-model.js"
 import { getElement } from "../helpers/dom-helper.js";
 import { formatterHelper } from "../helpers/formatter.js";
 import { renderComponent } from "./renderers.js";
+import { messageHelper } from "../helpers/messages.js";
 
 const displayBackground = {
     /**
@@ -14,7 +15,7 @@ const displayBackground = {
         const model = await getEducationData();
         if (!educationWrapper || !model) return;
 
-        displayBackground.displayEducationInfo(educationWrapper, model);
+        await displayBackground.displayEducationInfo(educationWrapper, model);
     },
     /**
      * Creates the HTML template for education items
@@ -27,9 +28,9 @@ const displayBackground = {
                 <div class="education-list-item">
                     <div class="timeline-dot"></div>
                     <div class="education-content">
-                        <span class="education-list-item__period">${education?.period || 'No Period Available'}</span>
-                        <h4 class="education-list-item__title">${education?.title || 'No Title Available'}</h4>
-                        <p class="education-list-item__institute">${education?.institute || 'No Institute Available'}</p>
+                        <span class="education-list-item__period">${education?.period || messageHelper.alert('No Period Available', 'span')}</span>
+                        <h4 class="education-list-item__title">${education?.title || messageHelper.alert('No Title Available', 'span')}</h4>
+                        <p class="education-list-item__institute">${education?.institute || messageHelper.alert('No Institute Available', 'span')}</p>
                     </div>
                 </div>
             </div>
@@ -37,6 +38,7 @@ const displayBackground = {
     },
     /**
      * Displays the education information in the background section
+     * @async
      * @param {HTMLElement} wrapper - The container of the target element.
      * @param {Object} model - The background data object containing education data
      * @returns {void}

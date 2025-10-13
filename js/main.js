@@ -20,8 +20,8 @@ const scrollToHash = () => {
             requestAnimationFrame(() => {
                 requestAnimationFrame(() => {
                     sectionTarget.scrollIntoView({ behavior: "auto", block: "start" });
-                });
-            });
+                }, 500);
+            }, 500);
         }
     }
 };
@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
     displayBackground.init();
     displayRecommendationsInfo.init()
     displayContactInfo.init();
-    setTimeout(scrollToHash, 500);
+    setTimeout(scrollToHash, 700);
 });
 
 window.addEventListener('load', scrollToHash);

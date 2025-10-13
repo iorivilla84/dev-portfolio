@@ -195,7 +195,7 @@ footer .footer-link:hover {
   max-height: 0;
   overflow: hidden;
   scrollbar-color: transparent transparent;
-  transition: max-height 0.3s ease-out;
+  transition: max-height 0.5s ease-out;
 }
 .accordion-item .accordion-link-button {
   background-color: transparent;
@@ -224,6 +224,10 @@ footer .footer-link:hover {
 }
 .accordion-item .accordion-link-button.active::after {
   transform: rotate(0deg);
+}
+
+.img-error-msg {
+  z-index: 9999;
 }
 
 ::before, ::after {
@@ -431,7 +435,11 @@ blockquote {
   background-size: auto 101%;
   margin-bottom: 0.5em;
   position: relative;
+  transition: background-size 0.3s ease-in-out;
   width: 100%;
+}
+.card-image-wrapper:hover {
+  background-size: auto 103%;
 }
 .card-image-wrapper::after {
   content: "";
@@ -445,10 +453,6 @@ blockquote {
 
 .card-project-image {
   aspect-ratio: 4/3;
-  transition: transform 0.3s ease-in-out;
-}
-.card-project-image:hover {
-  transform: scale(1.03);
 }
 
 /* Experience section */
@@ -485,6 +489,7 @@ blockquote {
   width: 180px;
 }
 .experience-info-accordion__location {
+  align-items: center;
   margin-bottom: 10px;
 }
 .experience-info-accordion__location .location-item {
@@ -544,6 +549,9 @@ blockquote {
   top: 0;
   width: 2px;
 }
+.education-list .alert {
+  display: block;
+}
 .education-list .education-list-item {
   margin-bottom: 1rem;
   padding-left: 2rem;
@@ -602,11 +610,15 @@ blockquote {
   letter-spacing: normal;
   margin: 20px 0 0;
 }
+.recommendations-wrapper .recommendation-item__name .alert {
+  display: inline-block;
+}
 .recommendations-wrapper .recommendation-item__text {
   margin-bottom: 0;
 }
 .recommendations-wrapper .recommendation-item__position, .recommendations-wrapper .recommendation-item__company-link {
   color: rgba(255, 255, 255, 0.55);
+  display: inline-block;
 }
 
 /* Media queries */

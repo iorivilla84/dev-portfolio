@@ -2,6 +2,9 @@ import { getElement } from "../helpers/dom-helper.js";
 import { getPortfolioListModel } from "../controllers/portfolio-list-model.js";
 import { filteredProjectsEventHandler } from "../controllers/filtering-projects-event-handler.js";
 import { formatterHelper } from "../helpers/formatter.js";
+import { messageHelper } from "../helpers/messages.js";
+import { urlValidation } from "../helpers/url.js";
+import { getSiteData } from "../controllers/site.js";
 
 const displayPortfolioGrid = {
     /**
@@ -14,44 +17,51 @@ const displayPortfolioGrid = {
         const model = await getPortfolioListModel();
         if (!projectsWrapper || !model) return;
 
-        displayPortfolioGrid.displayPortfolio(projectsWrapper, model);
+        await displayPortfolioGrid.displayPortfolio(projectsWrapper, model);
         displayPortfolioGrid.renderFilterButtons(projectsWrapper, model);
         displayPortfolioGrid.renderFilterProjects('.btn-filter');
     },
     /**
      * Creates the card html template to append into the gridContainer
+     * @async
      * @param {Object} project - The object with all the portfolio projects details
+     * @param {string} fallbackImage - The fallback image path or URL used when an image fails to load
      * @returns {void}
      */
-    portfolioCardTemplate: (project) => {
+    portfolioCardTemplate: async (project, fallbackImage) => {
         if (!project) return;
+        const validateImg = await urlValidation.init(project?.imgPath, fallbackImage);
 
         const projectLanguagesList = formatterHelper.arrayFormatter(project?.stack, language => {
-            return `<span class="code-style skill-item d-inline-block">${language.trim() || 'Item Not Available'}</span>`;
+            return language
+                ? `<span class="code-style skill-item d-inline-block">${language.trim()}</span>`
+                : messageHelper.alert('Item Not Available', 'span');
         });
 
         return `
             <div class="col card-wrapper">
-                <div class="card border-0 bg-transparent text-white h-100" data-project-type="${project.type}" data-project-id="${project.id_number}">
+                <div class="card border-0 bg-transparent text-white h-100" data-project-type="${project?.type}" data-project-id="${project?.id_number}">
                     <div class="card-image-wrapper card-img-top"
                         style="background-image:
-                            url('${project.imgPath || 'https://static.vecteezy.com/system/resources/previews/004/141/669/non_2x/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg'}');">
+                            url('${validateImg}');">
                         <img
-                            src="${project.imgPath || 'https://static.vecteezy.com/system/resources/previews/004/141/669/non_2x/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg'}"
-                            class="card-project-image sr-only" alt="${project.name || 'Project Name'}"
+                            src="${validateImg}"
+                            class="card-project-image sr-only" alt="${project?.name || 'Project Name'}"
                             loading="lazy">
                     </div>
                     <div class="card-body px-0 mb-4">
-                        <h5 class="card-title fw-bold fs-3">${project.name || 'Project Title'}</h5>
-                        <div class="card-text project-skills-wrapper mb-1">${projectLanguagesList.length ? projectLanguagesList : '<span>No Skills Available</span>'}</div>
+                        <h5 class="card-title fw-bold fs-3">${project?.name || messageHelper.alert('No Project Title Provided', 'span')}</h5>
+                        <div class="card-text project-skills-wrapper mb-1">
+                            ${projectLanguagesList.length ? projectLanguagesList : messageHelper.alert('No Skills Available')}
+                        </div>
 
-                        ${project.code_link || project.application_link || project.site_link || project.prototype_link
+                        ${project?.code_link || project?.application_link || project?.site_link || project?.prototype_link
                             ? `
                                 <div class="buttons-wrapper pt-3">
-                                    ${project.code_link ? `<a href="${project.code_link}" class="btn btn-primary" target="_blank">View Code</a>` : ''}
-                                    ${project.application_link ? `<a href="${project.application_link}" class="btn btn-primary" target="_blank">View Project</a>` : ''}
-                                    ${project.site_link ? `<a href="${project.site_link}" class="btn btn-primary" target="_blank">View Website</a>` : ''}
-                                    ${project.prototype_link ? `<a href="${project.prototype_link}" class="btn btn-primary" target="_blank">View Prototype</a>` : ''}
+                                    ${project?.code_link ? `<a href="${project?.code_link}" class="btn btn-primary" target="_blank">View Code</a>` : ''}
+                                    ${project?.application_link ? `<a href="${project?.application_link}" class="btn btn-primary" target="_blank">View Project</a>` : ''}
+                                    ${project?.site_link ? `<a href="${project?.site_link}" class="btn btn-primary" target="_blank">View Website</a>` : ''}
+                                    ${project?.prototype_link ? `<a href="${project?.prototype_link}" class="btn btn-primary" target="_blank">View Prototype</a>` : ''}
                                 </div>
                             `
                             : ''
@@ -78,16 +88,24 @@ const displayPortfolioGrid = {
     },
     /**
      * Render and append the project cards list into the targeted container element
+     * @async
      * @param {HTMLElement} wrapper - The container of the target element.
      * @param {Object} model - The project object model
      * @returns {void}
      */
-    displayPortfolio: (wrapper, model) => {
+    displayPortfolio: async (wrapper, model) => {
         const { status, portfolio } = model;
         const portfolioGridContainer = wrapper.querySelector('.projects-list-container');
         if (status !== 'ok' || !portfolioGridContainer) return;
 
-        const portfolioHTML = formatterHelper.arrayFormatter(portfolio, displayPortfolioGrid.portfolioCardTemplate);
+        const siteData = await getSiteData();
+        if (siteData.status !== 'ok' || !siteData.site) return;
+        const fallbackImage = siteData?.site?.fallback_image;
+
+        const portfolioHTML = (await Promise.all(
+            portfolio.map(project => displayPortfolioGrid.portfolioCardTemplate(project, fallbackImage))
+        )).join('');
+
         portfolioGridContainer.insertAdjacentHTML('beforeend', portfolioHTML);
 
         displayPortfolioGrid.displaySectionDescription(wrapper, model);
@@ -106,7 +124,7 @@ const displayPortfolioGrid = {
         const filtersListTemplate = formatterHelper.arrayFormatter(project_filters, filter => {
             return `
                 <li class="filter-item">
-                    <button class="btn-filter" type="button" aria-controls="${filter || 'Filter Button'}">${filter || "Filter Button"}</button>
+                    <button class="btn-filter" type="button" aria-controls="${filter || 'Filter Button'}">${filter || "Filter Missing"}</button>
                 </li>
             `;
         });
@@ -114,7 +132,7 @@ const displayPortfolioGrid = {
         filterWrapper.insertAdjacentHTML('beforebegin', '<span class="filter-subtitle d-block d-md-flex">Filter By:</span>');
         filterWrapper.insertAdjacentHTML('beforeend',
             `
-                ${project_filters.length ? filtersListTemplate : '<span>No Filters Available</span>'}
+                ${project_filters.length ? filtersListTemplate : messageHelper.alert('No Filters Available')}
             `
         );
     },

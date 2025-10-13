@@ -1,5 +1,7 @@
 import { getSiteData } from "../controllers/site.js";
 import { formatterHelper } from "../helpers/formatter.js";
+import { urlValidation } from "../helpers/url.js";
+import { messageHelper } from "../helpers/messages.js";
 
 /**
  * Renderers the reusable html components
@@ -8,23 +10,25 @@ import { formatterHelper } from "../helpers/formatter.js";
 const renderComponent = {
     /**
      * Fetches the site data model and returns it if exists, otherwise returns an empty object
+     * @async
      * @returns {Promise<Object>} A Promise resolving with the site data model
      */
     siteModel: async () => {
         const { status, site } = await getSiteData();
-        if (status !== 'ok') return {};
+        if (status !== 'ok' || !site) return {};
 
         return site || {};
     },
     /**
      * Creates and Renders the brand logo and classes with the given container as the target element
+     * @async
      * @param {HTMLElement} container - The target container
      * @returns {Promise<string>} - The rendered brand logo HTML string
      */
     brandLogo: async (container) => {
         if (!container) return;
 
-        const { navigation } = await renderComponent.siteModel();
+        const { navigation, fallback_image } = await renderComponent.siteModel();
         let logoClassHandler;
         if (container.closest('.footer-content')) {
             logoClassHandler = { img: 'footer-logo', a: 'footer-link' };
@@ -34,16 +38,19 @@ const renderComponent = {
             logoClassHandler = { img: 'site-logo', a: 'site-logo-link' };
         }
 
+        const validateImg = await urlValidation.init(navigation?.logo, fallback_image);
+
         return `
             <a href="#home" class="${logoClassHandler.a}">
-                <img class="${logoClassHandler.img}" src="${navigation?.logo || navigation?.logo_fallback_url}">
+                <img class="${logoClassHandler.img}" src="${validateImg}">
             </a>
         `;
     },
     /**
      * Creates and Renders the social icons and classes with the given container as the target element
+     * @async
      * @param {HTMLElement} container - The target container
-     * @returns {string} HTML string to render the social icons items
+     * @returns {Promise<string>} HTML string to render the social icons items
      */
      socialIcons: async (container) => {
         if (!container) return;
@@ -62,17 +69,24 @@ const renderComponent = {
         const socialItems = formatterHelper.arrayFormatter(iconsItemsArray, social => {
             return `
                 <li class="${iconsClassHandler.li}">
-                    <a class="${iconsClassHandler.a}" href="${social?.link || '#'}" target="_blank" rel="noopener noreferrer" aria-label="${social?.name || 'Icon Name'}">
-                        ${social?.icon || 'Icon Missing'}
+                    <a class="${iconsClassHandler.a}"
+                        href="${social?.link || '#'}"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="${social?.name || 'Icon Name'}">
+                        ${social?.icon || messageHelper.alert('Icon Missing', 'span', 'warning')}
                     </a>
                 </li>
             `;
         });
 
-        return socialItems.length ? socialItems : '<li class="socials-item nav-item">No Icons Available</li>';
+        return socialItems?.length
+            ? socialItems
+            : `<li class="socials-item nav-item">${messageHelper.alert('No Icons Available', 'span', 'warning')}</li>`;
     },
     /**
      * Creates an HTML string for displaying button link to download a CV otherwise fall back to the sample text.
+     * @async
      * @param {HTMLElement} container - The target container
      * @returns {Promise<string>} - The HTML string to render the button and link to download the CV
      */
@@ -88,18 +102,20 @@ const renderComponent = {
     },
     /**
      * Creates an HTML string for displaying the button to send an email otherwise fall back to the sample text.
+     * @async
      * @param {HTMLElement} container - The target container
-     * @returns {string} - An HTML string to render the button and link to send an email.
+     * @returns {Promise<string>} - An HTML string to render the button and link to send an email.
      */
      contactMeButton: async (container) => {
         if (!container) return;
 
         const { contact_me_button } = await renderComponent.siteModel();
         return `
-            <a href="mailto:${contact_me_button?.email_address || 'sample@email'}" class="download-btn btn btn-primary" role="button" aria-label="Send me an email">
+            <a href="mailto:${contact_me_button?.email_address || 'sample@email.com'}"
+                class="download-btn btn btn-primary" role="button" aria-label="Send me an email">
                 ${contact_me_button?.email_address && contact_me_button?.email_button_text
                     ? contact_me_button?.email_button_text
-                    : 'No Email Available'}
+                    : 'Contact Button Text'}
             </a>
         `;
     },

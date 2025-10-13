@@ -4,11 +4,10 @@
             "home_title": "Diego Velasquez | Frontend Developer Portfolio"
         },
         "navigation": {
-            "logo": "./assets/images/logo-white.svg",
-            "logo_fallback_url": "https://static.vecteezy.com/system/resources/previews/004/141/669/non_2x/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg"
+            "logo": "./assets/images/logo-white.svg"
         },
         "resume_button" : {
-            "cv_url": "https://acrobat.adobe.com/id/urn:aaid:sc:US:709244fa-2ff9-46f0-985a-021557849c70",
+            "cv_url": "https://acrobat.adobe.com/id/urn:aaid:sc:US:8161ba09-2223-4eff-9c18-be337982dc8d",
             "cv_button_text": "View Resume"
         },
         "contact_me_button": {
@@ -26,6 +25,7 @@
                 "link": "https://github.com/iorivilla84",
                 "icon": "<i class='fa-brands fa-github'></i>"
             }
-        ]
+        ],
+        "fallback_image": "./assets/images/fallback-image.jpg"
     }
 }

@@ -7,7 +7,7 @@ const formatterHelper = {
         const currentYear = new Date().getFullYear();
         if (!currentYear) return;
 
-        return currentYear;
+        return currentYear.toString();
     },
     /**
      * Formats an array of objects into a new array using a given function

@@ -3,6 +3,7 @@ import { navEventHandlers } from "../controllers/nav-event-handlers.js";
 import { getNavigationDataModel } from "../controllers/navigation-model.js";
 import { formatterHelper } from "../helpers/formatter.js";
 import { renderComponent } from "./renderers.js";
+import { messageHelper } from "../helpers/messages.js";
 
 const siteMainNav = {
     /**
@@ -40,7 +41,7 @@ const siteMainNav = {
         const slug = itemId.toLowerCase().replace(/\s+/g, '-');
         return `
             <li class="nav-item">
-                <a class="nav-link" aria-current="page" href="#${slug || 'slug'}">${slug || 'No Nav Item Available'}</a>
+                <a class="nav-link" aria-current="page" href="${'#' + slug || '#'}">${slug || messageHelper.alert('No Item Available', 'span', 'warning')}</a>
             </li>
         `;
     },
@@ -52,21 +53,22 @@ const siteMainNav = {
      */
     getMainNavItems: (navContainer, mainNavigation) => {
         const navItemsArray = Array.isArray(mainNavigation) ? mainNavigation : [mainNavigation];
-        const navArrayList = navItemsArray.length ? navItemsArray : 'No Nav Items Available';
+        const navArrayList = navItemsArray?.length ? navItemsArray : '';
         siteMainNav.appendItems(navContainer, navArrayList, siteMainNav.mainNavTemplate);
     },
     /**
      * Render the main navigation
+     * @async
      * @param {Object} model - The main navigation model
      * @returns {void}
      */
     renderMainNavigation: async (model) => {
-        const { main_navigation } = model;
+        const { status, main_navigation } = model;
 
         const mainNavContainer = getElement.multiple('.navbar-nav.main-nav-list');
         const socialsNavContainer = getElement.multiple('.socials-nav-list .nav-socials-wrapper');
         const logoContainers = getElement.multiple('.main-nav');
-        if (!mainNavContainer.length || !socialsNavContainer.length || !logoContainers.length) return;
+        if (status !== 'ok' || !mainNavContainer.length || !socialsNavContainer.length || !logoContainers.length) return;
 
         for (const container of logoContainers) {
             container.insertAdjacentHTML('afterbegin', await renderComponent.brandLogo(container));

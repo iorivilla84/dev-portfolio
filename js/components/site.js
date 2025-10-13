@@ -18,7 +18,7 @@ const displaySiteInfo = {
      * @returns {void}
      */
     updateSiteTitle: (model) => {
-        const { site_title = {} } = model;
+        const { site_title } = model;
 
         document.title = site_title.home_title || 'Dev Portfolio';
     }

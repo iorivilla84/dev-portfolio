@@ -51,10 +51,10 @@
             "type": "Web Development",
             "imgPath": "./assets/images/portfolio/web-development/dv-dev-portfolio.jpg",
             "name": "One-Page Dev Portfolio",
-            "stack": ["HTML5", "SCSS", "Bootstrap 5", "Font Awesome", "JavaScript (ES6)", "JSON", "Git", "GitHub", "Netlify"],
+            "stack": ["HTML5", "SCSS", "Bootstrap 5", "Font Awesome", "JavaScript (ES6)", "JSON", "Git", "GitHub", "Netlify (Custom Domain + DNS)"],
             "code_link": "https://github.com/iorivilla84/dev-portfolio",
             "application_link": "https://diegovelasquez-dev-portfolio.netlify.app/",
-            "site_link": "",
+            "site_link": "https://diegovvelasquez.com/",
             "prototype_link": ""
         },
         {
