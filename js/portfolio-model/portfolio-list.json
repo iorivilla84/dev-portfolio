@@ -27,11 +27,11 @@
         {
             "id_number": 3,
             "type": "Web Development",
-            "imgPath": "./assets/images/portfolio/web-development/article-preview-component.jpg",
-            "name": "Article Preview Component",
-            "stack": ["HTML5", "CSS nesting", "Bootstrap 5", "JavaScript (ES6)", "Git", "GitHub", "Netlify"],
-            "code_link": "https://github.com/iorivilla84/article-preview-component",
-            "application_link": "https://articles-preview-component.netlify.app/",
+            "imgPath": "./assets/images/portfolio/web-development/retro-sign-letters.jpg",
+            "name": "Retro Sign Letters",
+            "stack": ["HTML5", "SCSS", "Bootstrap 5", "JavaScript (ES6)", "JSON", "Git", "GitHub", "Netlify"],
+            "code_link": "https://github.com/iorivilla84/retro-sign-letters",
+            "application_link": "https://retro-sign-letters.netlify.app/",
             "site_link": "",
             "prototype_link": ""
         },
